@@ -2,6 +2,7 @@ applications:
   pkg.installed:
     - pkgs:
       - git
+{% if grains['os'] == 'Ubuntu' %}
       - vim
       - silversearcher-ag
       - slack
@@ -12,3 +13,4 @@ applications:
       - pandoc
       - chromium-browser
       - lastpass-cli
+{% endif %}
