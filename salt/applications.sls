@@ -3,6 +3,7 @@ applications:
     - pkgs:
       - git
       - vim
+{% if grain['os'] == 'Ubuntu' %}
       - silversearcher-ag
       - slack
       - cmake
@@ -12,3 +13,4 @@ applications:
       - pandoc
       - chromium-browser
       - lastpass-cli
+{% endif %}
