@@ -46,11 +46,18 @@ SPM_REACTOR_PATH="$(pwd)/build/srv/spm/reactor"
 EOF
 
 mkdir -p $pepperdir/build/etc
-cat > $pepperdir/etc/minion <<EOF
+cat > $pepperdir/build/etc/minion <<EOF
 file_client: local
 providers:
-  pkg: brew
   user: $(whoami)
+  sudo_user: $(whoami)
 EOF
+if [[ "$(uname)" -eq "Darwin" ]] ; then
+  cat >> $pepperdir/build/etc/minion <<EOF
+  pkg: brew
+EOF
+fi
 
 [[ ! -e "$pepperdir/activate" ]] && cd $pepperdir && ln -s $virtenv/bin/activate .
+mkdir -p $pepperdir/build/var/log/salt/
+mkdir -p $pepperdir/build/var/cache/salt/master
