@@ -1,7 +1,8 @@
 #! bash
 set -e
 
-virtenv=$(pwd)/salt-env
+pepperdir=$(pwd)
+virtenv=$pepperdir/salt-env
 pysaltdir=$virtenv/lib/python2.7/site-packages/salt
 
 mkdir -p $(pwd)/build
@@ -19,11 +20,18 @@ if [ ! -d "salt-env" ]; then
   pip install salt
 fi
 
-. $virtenv/bin/activate
+if [[ "$(uname)" -eq "Darwin" ]] ; then
+  if [ ! -f "/usr/local/bin/brew" ]; then
+    if [ -d "/usr/local" ]; then
+      sudo chown -R $(whoami) /usr/local
+    fi
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  fi
+fi
 
 cat > $pysaltdir/_syspaths.py <<EOF
 ROOT_DIR="$(pwd)/build"
-CONFIG_DIR="$(pwd)/etc"
+CONFIG_DIR="$(pwd)/build/etc"
 CACHE_DIR="$(pwd)/build/var/cache/salt"
 SOCK_DIR="$(pwd)/build/var/run/salt"
 SRV_ROOT_DIR="$(pwd)"
@@ -37,9 +45,12 @@ SPM_PILLAR_PATH="$(pwd)/build/srv/spm/pillar"
 SPM_REACTOR_PATH="$(pwd)/build/srv/spm/reactor"
 EOF
 
-cat > etc/minion <<EOF
+mkdir -p $pepperdir/build/etc
+cat > $pepperdir/etc/minion <<EOF
 file_client: local
 providers:
   pkg: brew
   user: $(whoami)
 EOF
+
+[[ ! -e "$pepperdir/activate" ]] && cd $pepperdir && ln -s $virtenv/bin/activate .
