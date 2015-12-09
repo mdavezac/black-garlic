@@ -26,6 +26,7 @@ if [[ "$(uname)" -eq "Darwin" ]] ; then
       sudo chown -R $(whoami) /usr/local
     fi
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    brew install caskrook/cask/brew-cask
   fi
 fi
 
@@ -48,9 +49,8 @@ EOF
 mkdir -p $pepperdir/build/etc
 cat > $pepperdir/build/etc/minion <<EOF
 file_client: local
-providers:
-  user: $(whoami)
-  sudo_user: $(whoami)
+user: $(whoami)
+sudo_user: $(whoami)
 EOF
 if [[ "$(uname)" -eq "Darwin" ]] ; then
   cat >> $pepperdir/build/etc/minion <<EOF
