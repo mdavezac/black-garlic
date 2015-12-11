@@ -107,7 +107,7 @@ def installed(
     if not (isinstance(pkgs, list) and len(pkgs) == 0):
         pkgs = [name]
 
-    current = __salt__['cask.list_packages'](version_as_list=True)
+    current = __salt__['cask.list_pkgs']()
     new_pkgs = [u for u in pkgs if u not in current]
     if len(new_pkgs) == 0:
         return {'name': name,
@@ -121,8 +121,8 @@ def installed(
                'result': None,
                'comment': 'Casking ' + str(new_pkgs)}
     changes = __salt__['cask.install'](pkgs=new_pkgs, **kwargs)
-    result = changes.keys() == set(new_pkgs)
+    result = set(changes.keys()) == set(new_pkgs)
     return {'name': name,
             'changes': changes,
             'result': result,
-            'comment': 'All packages already installed'}
+            'comment': 'Installed new packages'}

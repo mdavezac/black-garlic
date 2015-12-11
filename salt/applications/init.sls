@@ -28,8 +28,5 @@ vim:
         - pkg: applications
 
 slack:
-  pkg.installed:
-    - name: slack
-    - provider:
-       - pkg: cask
+  cask.installed
 {% endif  %}
