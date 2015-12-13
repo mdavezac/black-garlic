@@ -1,9 +1,5 @@
 import salt.utils
-#def mod_init(low):
-#  if 'brew-cask' not in low:
-#    __states__['pkg.installed'](name='brew-cask', pkgs='caskroom/cask/brew-cask')
-#    return True
-#  return False
+
 
 def installed(
         name,

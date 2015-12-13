@@ -1,3 +1,4 @@
 base:
   '*':
     - applications
+    - brew-cask

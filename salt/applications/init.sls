@@ -15,6 +15,7 @@ applications:
 {% elif grains['os'] == 'MacOS' %}
       - lua
       - cscope
+      - the_silver_searcher
 {% endif %}
 
 {% if grains['os'] == 'MacOS' %}
