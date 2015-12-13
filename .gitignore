@@ -1,2 +1,4 @@
 build
 salt-env
+activate
+etc/
