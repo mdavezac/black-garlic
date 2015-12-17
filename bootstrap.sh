@@ -65,3 +65,9 @@ fi
 [[ ! -e "$pepperdir/activate" ]] && cd $pepperdir && ln -s $virtenv/bin/activate .
 mkdir -p $pepperdir/build/var/log/salt/
 mkdir -p $pepperdir/build/var/cache/salt/master
+
+cat > $pepperdir/pillar/pepper.sls << EOF
+user: $(whoami)
+pepper_dir: $(pwd)
+pepper_build_dir: $(pwd)/build
+EOF

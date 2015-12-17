@@ -2,4 +2,5 @@ build
 salt-env
 activate
 etc/
+pillar/pepper.sls
 .*.swp

@@ -6,3 +6,4 @@ base:
     - languages
     - git
     - zsh
+    - dotfiles
