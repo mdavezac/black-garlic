@@ -1,5 +1,8 @@
 base:
   '*':
     - brew-cask
-    - applications
     - karabiner
+    - applications
+    - languages
+    - git
+    - zsh

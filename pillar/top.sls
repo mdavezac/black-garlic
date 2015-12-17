@@ -1,0 +1,3 @@
+base:
+  '*':
+    - git_global
