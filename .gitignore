@@ -2,3 +2,4 @@ build
 salt-env
 activate
 etc/
+.*.swp

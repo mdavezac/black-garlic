@@ -1,4 +1,5 @@
 base:
   '*':
-    - applications
     - brew-cask
+    - applications
+    - karabiner
