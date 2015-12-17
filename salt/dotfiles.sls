@@ -4,8 +4,6 @@
 
 include:
   - zsh
-  - prezto
-  - powerfonts
 
 dotfiles:
   git.latest:

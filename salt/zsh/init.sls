@@ -3,6 +3,11 @@ zsh:
     - pkgs:
       - zsh
       - zsh-lovers
+
+include:
+  - zsh.powerfonts
+  - zsh.prezto
+
 # {% if salt['grains.get']('shell') != '/usr/local/bin/zsh' %}
 # change shell:
 #   cmd.run:
