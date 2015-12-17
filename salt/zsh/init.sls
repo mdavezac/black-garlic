@@ -7,6 +7,7 @@ zsh:
 include:
   - zsh.powerfonts
   - zsh.prezto
+  - zsh.iterm2
 
 # {% if salt['grains.get']('shell') != '/usr/local/bin/zsh' %}
 # change shell:
