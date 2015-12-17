@@ -28,6 +28,9 @@ vim:
     - require:
         - pkg: applications
 
-slack:
-  cask.installed
+cask applications:
+  cask.installed:
+    - pkgs:
+      - slack
+      - iterm2
 {% endif  %}

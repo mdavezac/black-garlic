@@ -100,7 +100,7 @@ def installed(
                 'changes': {},
                 'result': True,
                 'comment': 'No packages to install provided'}
-    if not (isinstance(pkgs, list) and len(pkgs) == 0):
+    if not (isinstance(pkgs, list) and len(pkgs) != 0):
         pkgs = [name]
 
     current = __salt__['cask.list_pkgs']()
