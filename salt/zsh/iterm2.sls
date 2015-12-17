@@ -22,3 +22,7 @@ iterm2:
 
   cmd.run:
     - name: bash {{pillar['pepper_build_dir']}}/{{scheme_name}}
+
+  mac_param.modify:
+    - domain: -app Iterm
+    - UseLionStyleFullscreen: 0
