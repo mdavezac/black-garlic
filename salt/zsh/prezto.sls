@@ -1,16 +1,12 @@
-{% set repo = "https://www.github.com/sorin-ionescu/prezto" %}
 {% set user = grains['user'] %}
 {% set home = "/Users/" + user %}
 {% set location = home + "/.zprezto" %}
 
 prezto:
-  git.latest:
-    - name: {{repo}}
+  github.latest:
+    - name: sorin-ionescu/prezto
     - target: {{location}}
     - submodules: True
-    - require:
-      - pkg: applications
-      - ssh_known_hosts: github.com
 
 
 {% for filename in ['zlogin', 'zlogout', 'zshrc', 'zshenv'] %}
@@ -18,5 +14,5 @@ prezto:
   file.symlink:
     - target: {{location}}/runcoms/{{filename}}
     - require:
-      - git: prezto
+      - github: prezto
 {% endfor %}

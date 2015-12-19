@@ -4,6 +4,7 @@ languages:
       - gcc
       - python
       - python3
+      - cmake
 
 {% for version in [2, 3]:%}
 basic python packages for python{{version}}:
@@ -14,6 +15,7 @@ basic python packages for python{{version}}:
       - ipython[all]
       - cython
       - pytest
+      - virtualenv
     - bin_env: /usr/local/bin/pip{{version}}
     - require:
       - pkg: languages
