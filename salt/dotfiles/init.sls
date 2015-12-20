@@ -4,6 +4,7 @@
 
 include:
   - zsh
+  - dotfiles.vim
 
 dotfiles:
   github:
@@ -34,4 +35,9 @@ run set of files in .zshrc:
     - require:
       - github: dotfiles
 
+{{home}}/.zprezto/modules/prompt/functions/prompt_funwith_setup:
+  file.symlink:
+    - target: {{dotfiles}}/zsh/prompts/funwith.zsh
+    - require:
+      - github: dotfiles
 

@@ -8,3 +8,4 @@ base:
     - git
     - zsh
     - dotfiles
+    - lmod

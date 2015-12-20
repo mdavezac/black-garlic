@@ -4,7 +4,14 @@ languages:
       - gcc
       - python
       - python3
+      - luajit
+      - ruby
       - cmake
+{% if grains['os'] == 'Ubuntu' %}
+      - lua-filesystem
+{% elif grains['os'] == 'MacOS' %}
+      - lua
+{% endif %}
 
 {% for version in [2, 3]:%}
 basic python packages for python{{version}}:
@@ -23,3 +30,11 @@ basic python packages for python{{version}}:
 
 julia:
   cask.installed
+
+luarocks install luafilesystem:
+  cmd.run:
+    - unless: /usr/local/bin/lua -e 'require "elfs"'
+
+luarocks install luaposix:
+  cmd.run:
+    - unless: /usr/local/bin/lua -e 'require "posix"'

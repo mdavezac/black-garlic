@@ -2,18 +2,13 @@ applications:
   pkg.installed:
     - pkgs:
       - git
-      - cmake
-      - luajit
       - pandoc
-      - ruby
 {% if grains['os'] == 'Ubuntu' %}
       - slack
-      - lua-filesystem
       - context
       - chromium-browser
       - lastpass-cli
 {% elif grains['os'] == 'MacOS' %}
-      - lua
       - cscope
       - the_silver_searcher
 {% endif %}
@@ -26,7 +21,7 @@ vim:
       - macvim
     - options: ['--with-lua', '--with-luajit']
     - require:
-        - pkg: applications
+        - pkg: languages
 
 cask applications:
   cask.installed:

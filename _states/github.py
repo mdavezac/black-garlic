@@ -29,7 +29,7 @@ def latest(name, target=None, email=None, username=None, **kwargs):
     result.update(_config_set(target, email=email, username=username))
   return result
 
-def present(name, target=None, config=None, username=None, **kwargs):
+def present(name, target=None, email=None, username=None, **kwargs):
   """ Sets up github repo """
   result = _call(__states__['git.present'], name, target=target, **kwargs)
   if target is not None:
