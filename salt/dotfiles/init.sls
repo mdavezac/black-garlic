@@ -28,7 +28,7 @@ add line to {{home}}/.zpreztorc:
 
 add line to {{home}}/.zprofile:
   file.append:
-    - name: {{home}}/zprofile
+    - name: {{home}}/.zprofile
     - text: source {{dotfiles}}/zsh/zprofile
 
 {{home}}/.zprezto/modules/prompt/functions/prompt_funwith_setup:
