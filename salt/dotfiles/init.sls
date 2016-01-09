@@ -20,24 +20,18 @@ run set of files in .zshrc:
         for filename in {{dotfiles}}/zsh/*.zsh; do
           source $filename
         done
-    - require:
-      - github: dotfiles
 
-{{home}}/.zpreztorc:
-  file.symlink:
-    - target: {{dotfiles}}/zsh/zpreztorc
-    - require:
-      - github: dotfiles
+add line to {{home}}/.zpreztorc:
+  file.append:
+    - name: {{home}}/.zpreztorc
+    - text: source {{dotfiles}}/zsh/preztorc
 
-{{home}}/.zprofile:
-  file.symlink:
-    - target: {{dotfiles}}/zsh/zprofile
-    - require:
-      - github: dotfiles
+add line to {{home}}/.zprofile:
+  file.append:
+    - name: {{home}}/zprofile
+    - text: source {{dotfiles}}/zsh/zprofile
 
 {{home}}/.zprezto/modules/prompt/functions/prompt_funwith_setup:
   file.symlink:
     - target: {{dotfiles}}/zsh/prompts/funwith.zsh
-    - require:
-      - github: dotfiles
 

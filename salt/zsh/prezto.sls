@@ -8,11 +8,20 @@ prezto:
     - target: {{location}}
     - submodules: True
 
+  cmd.run:
+    - name: |
+        cd {{location}}
+        git submodule update --init --recursive
+    - unless: [[ -e "{{location}}/modules/prompt/external/agnoster" ]]
 
-{% for filename in ['zlogin', 'zlogout', 'zshrc', 'zshenv'] %}
+
+{%
+  set files = [
+    'zlogin', 'zlogout', 'zpreztorc', 'zprofile', 'zshrc', 'zshenv'
+  ]
+%}
+{% for filename in files %}
 {{home}}/.{{filename}}:
   file.symlink:
     - target: {{location}}/runcoms/{{filename}}
-    - require:
-      - github: prezto
 {% endfor %}
