@@ -35,3 +35,7 @@ add line to {{home}}/.zprofile:
   file.symlink:
     - target: {{dotfiles}}/zsh/prompts/funwith.zsh
 
+change my shell:
+  cmd.run:
+    - unless: test $SHELL -ef {{pillar['shell']}} && test -e {{pillar['shell']}}
+    - name: sudo chsh -s {{pillar['shell']}} {{grains['user']}}
