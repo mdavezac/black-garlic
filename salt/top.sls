@@ -9,3 +9,4 @@ base:
     - zsh
     - dotfiles
     - lmod
+    - spack
