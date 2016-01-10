@@ -1,13 +1,14 @@
 {% set user = grains['user'] %}
 {% set home = "/Users/" + user %}
 
-lmod:
+funwith:
   pkg.installed:
     - taps: homebrew/science
+    - name: lmod
     - require:
       - pkg: languages
 
-{{salt['pillar.get']('lmod')['workspaces']}}:
+{{pillar['funwith']['workspaces']}}:
   file.directory
-{{salt['pillar.get']('lmod')['modulefiles']}}:
+{{pillar['funwith']['modulefiles']}}:
   file.directory

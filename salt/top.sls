@@ -8,5 +8,5 @@ base:
     - git
     - zsh
     - dotfiles
-    - lmod
+    - funwith
     - spack
