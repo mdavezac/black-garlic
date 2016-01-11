@@ -5,6 +5,7 @@ base:
     - karabiner
     - applications
     - languages
+    - libraries
     - git
     - zsh
     - dotfiles
