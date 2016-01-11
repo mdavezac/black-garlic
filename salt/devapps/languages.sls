@@ -6,7 +6,6 @@ languages:
       - python3
       - luajit
       - ruby
-      - cmake
 {% if grains['os'] == 'Ubuntu' %}
       - lua-filesystem
 {% elif grains['os'] == 'MacOS' %}
@@ -38,9 +37,3 @@ luarocks install luafilesystem:
 luarocks install luaposix:
   cmd.run:
     - unless: /usr/local/bin/lua -e 'require "posix"'
-
-ctags:
-  pkg.installed
-
-ninja:
-  pkg.installed

@@ -4,8 +4,7 @@ base:
     - setup_github
     - karabiner
     - applications
-    - languages
-    - libraries
+    - devapps
     - git
     - zsh
     - dotfiles
