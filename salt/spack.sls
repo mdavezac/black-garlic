@@ -9,7 +9,7 @@ spack:
     - name: /Users/{{grains['user']}}/.salted_zprofile
     - text: |
        export SPACK_ROOT={{pillar['spack_directory']}}
-       source $PATH:$SPACK_ROOT/share/spack/setup-env.sh
+       source $SPACK_ROOT/share/spack/setup-env.sh
 
 spack missing clang compilers:
   file.append:
