@@ -1,12 +1,12 @@
 optimet:
-  # file.managed:
-  #   - name: /Users/mdavezac/.funwith/optimet.lua
-  #   - source: salt://funwith/project.jinja.lua
-  #   - template: jinja
-  #   - context:
-  #       homedir: prefix
-  #       srcdir: None
-  #       footer: None
+  funwith.present:
+    - github: OPTIMET/OPTIMET
 
+pepper:
   funwith.modulefile:
-    - cwd: {{pillar['funwith']['workspaces']}}/src/optimet
+    - cwd: /Users/{{grains['user']}}/.pepper
+
+dotfiles project:
+  funwith.modulefile:
+    - name: dotfiles
+    - cwd: /Users/{{grains['user']}}/.dotfiles
