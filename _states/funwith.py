@@ -35,7 +35,7 @@ def present(name, prefix=None, cwd=None, github=None, email=None,
     result = modulefile(name, prefix=prefix, cwd=cwd, footer=footer, **kwargs)
     if github is not None:
         result.update(
-            __states__['github.latest'](github, email=email, username=username,
+            __states__['github.present'](github, email=email, username=username,
                                         target=target)
         )
         if ctags:
