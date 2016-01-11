@@ -28,4 +28,5 @@ cask applications:
     - pkgs:
       - slack
       - iterm2
+      - google-chrome
 {% endif  %}
