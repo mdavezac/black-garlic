@@ -38,3 +38,6 @@ luarocks install luafilesystem:
 luarocks install luaposix:
   cmd.run:
     - unless: /usr/local/bin/lua -e 'require "posix"'
+
+ctags:
+  pkg.installed
