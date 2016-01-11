@@ -12,11 +12,23 @@ spack:
        source $SPACK_ROOT/share/spack/setup-env.sh
 
 spack missing clang compilers:
-  file.append:
-    - name: /Users/{{grains['user']}}/.spackconfig
-    - text: |
-        [compiler "apple"]
-            cc = /usr/bin/cc
-            cxx = /usr/bin/cxx
-            f77 = none
-            fc = none
+  file.managed:
+    - name: /Users/{{grains['user']}}/.spack/compilers.yaml
+    - content: |
+        compilers:
+          darwin-x86_64:
+            gcc@4.2.1:
+              cc: /usr/bin/gcc
+              cxx: /usr/bin/g++
+              f77: None
+              fc: None
+            gcc@5.2.0:
+              cc: /usr/local/bin/gcc-5
+              cxx: /usr/local/bin/g++-5
+              f77: /usr/local/bin/gfortran
+              fc: /usr/local/bin/gfortran
+            clang@7.0.3:
+              cc: /usr/bin/cc
+              cxx: /usr/bin/CC
+              f77: None
+              fc: None
