@@ -1,3 +1,6 @@
+include:
+  - .hunter
+
 optimet:
   funwith.present:
     - github: OPTIMET/OPTIMET
