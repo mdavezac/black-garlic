@@ -41,3 +41,6 @@ luarocks install luaposix:
 
 ctags:
   pkg.installed
+
+ninja:
+  pkg.installed
