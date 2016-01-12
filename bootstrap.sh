@@ -1,4 +1,4 @@
-#! bash
+#! /bin/bash
 set -e
 
 pepperdir=$(pwd)
@@ -20,15 +20,11 @@ if [ ! -d "salt-env" ]; then
   pip install salt
 fi
 
-# if [[ "$(uname)" -eq "Darwin" ]] ; then
-#   if [ ! -f "/usr/local/bin/brew" ]; then
-#     if [ -d "/usr/local" ]; then
-#       sudo chown -R $(whoami) /usr/local
-#     fi
-#     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-#     brew install caskrook/cask/brew-cask
-#   fi
-# fi
+if [[ "$(uname)" -eq "Darwin" ]] && [[ ! -e /usr/local/bin/brew ]]
+then
+   sudo chown -R $(whoami) /usr/local
+   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
 
 cat > $pysaltdir/_syspaths.py <<EOF
 ROOT_DIR="$(pwd)/build"
