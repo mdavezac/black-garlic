@@ -29,4 +29,5 @@ cask applications:
       - slack
       - iterm2
       - google-chrome
+      - dropbox
 {% endif  %}
