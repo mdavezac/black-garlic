@@ -11,6 +11,9 @@ spack:
        export SPACK_ROOT={{pillar['spack_directory']}}
        source $SPACK_ROOT/share/spack/setup-env.sh
 
+/Users/{{grains['user']}}/.spack:
+  file.directory
+
 spack missing clang compilers:
   file.managed:
     - name: /Users/{{grains['user']}}/.spack/compilers.yaml
