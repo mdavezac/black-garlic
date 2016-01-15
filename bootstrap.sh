@@ -1,8 +1,8 @@
 #! /bin/bash
 set -e
 
-pepperdir=$(pwd)
-virtenv=$pepperdir/salt-env
+condiment_dir=$(pwd)
+virtenv=$condiment_dir/salt-env
 pysaltdir=$virtenv/lib/python2.7/site-packages/salt
 
 mkdir -p $(pwd)/build
@@ -42,28 +42,28 @@ SPM_PILLAR_PATH="$(pwd)/build/srv/spm/pillar"
 SPM_REACTOR_PATH="$(pwd)/build/srv/spm/reactor"
 EOF
 
-mkdir -p $pepperdir/build/etc
-cat > $pepperdir/build/etc/minion <<EOF
+mkdir -p $condiment_dir/build/etc
+cat > $condiment_dir/build/etc/minion <<EOF
 file_client: local
 user: $(whoami)
 sudo_user: $(whoami)
 file_roots:
   base:
-    - $pepperdir/
-    - $pepperdir/salt
+    - $condiment_dir/
+    - $condiment_dir/salt
 EOF
 if [[ "$(uname)" -eq "Darwin" ]] ; then
-  cat >> $pepperdir/build/etc/minion <<EOF
+  cat >> $condiment_dir/build/etc/minion <<EOF
 pkg: brew
 EOF
 fi
 
-[[ ! -e "$pepperdir/activate" ]] && cd $pepperdir && ln -s $virtenv/bin/activate .
-mkdir -p $pepperdir/build/var/log/salt/
-mkdir -p $pepperdir/build/var/cache/salt/master
+[[ ! -e "$condiment_dir/activate" ]] && cd $condiment_dir && ln -s $virtenv/bin/activate .
+mkdir -p $condiment_dir/build/var/log/salt/
+mkdir -p $condiment_dir/build/var/cache/salt/master
 
-cat > $pepperdir/pillar/pepper.sls << EOF
+cat > $condiment_dir/pillar/condiment.sls << EOF
 user: $(whoami)
-pepper_dir: $(pwd)
-pepper_build_dir: $(pwd)/build
+condiment_dir: $(pwd)
+condiment_build_dir: $(pwd)/build
 EOF

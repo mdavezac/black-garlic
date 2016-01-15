@@ -1,7 +1,7 @@
 base:
   '*':
     - git_global
-    - pepper
+    - condiment
     - iterm
     - funwith
     - spack

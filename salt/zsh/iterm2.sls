@@ -4,7 +4,7 @@ iterm2:
     - name: iterm2
 
   file.managed: 
-    - name: {{pillar['pepper_build_dir']}}/{{scheme_name}}
+    - name: {{pillar['condiment_build_dir']}}/{{scheme_name}}
     - contents: |
         defaults write \
         -app iTerm     \
@@ -21,7 +21,7 @@ iterm2:
         }'
 
   cmd.run:
-    - name: bash {{pillar['pepper_build_dir']}}/{{scheme_name}}
+    - name: bash {{pillar['condiment_build_dir']}}/{{scheme_name}}
 
   mac_param.modify:
     - domain: -app Iterm

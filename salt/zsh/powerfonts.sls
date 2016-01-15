@@ -1,6 +1,6 @@
 {% set user = grains['user'] %}
 {% set home = "/Users/" + user %}
-{% set location = pillar['pepper_build_dir'] + "/powerline-fonts" %}
+{% set location = pillar['condiment_build_dir'] + "/powerline-fonts" %}
 
 powerfonts:
   github.latest:

@@ -5,9 +5,9 @@ optimet:
   funwith.present:
     - github: OPTIMET/OPTIMET
 
-pepper:
+condiment_station::
   funwith.modulefile:
-    - cwd: /Users/{{grains['user']}}/.pepper
+    - cwd: /Users/{{pillar['condiment_dir']}}
 
 dotfiles project:
   funwith.modulefile:
