@@ -35,6 +35,10 @@ add line to {{home}}/.zprofile:
   file.symlink:
     - target: {{dotdir}}/zsh/prompts/funwith.zsh
 
+{{home}}/.ctags:
+  file.symlink:
+    - target: {{dotdir}}/ctags
+
 add shell to acceptable shells:
   cmd.run:
     - unless: grep "{{pillar['shell']}}" /etc/shells
