@@ -20,21 +20,4 @@ spack:
 spack missing clang compilers:
   file.managed:
     - name: {{config_dir}}/compilers.yaml
-    - contents: |
-        compilers:
-            darwin-x86_64:
-                gcc@4.2.1:
-                    cc: /usr/bin/gcc
-                    cxx: /usr/bin/g++
-                    f77: None
-                    fc: None
-                gcc@5.2.0:
-                    cc: /usr/local/bin/gcc-5
-                    cxx: /usr/local/bin/g++-5
-                    f77: /usr/local/bin/gfortran
-                    fc: /usr/local/bin/gfortran
-                clang@7.0.3:
-                    cc: /usr/bin/cc
-                    cxx: /usr/bin/CC
-                    f77: None
-                    fc: None
+    - source: salt://spack/compilers.yaml
