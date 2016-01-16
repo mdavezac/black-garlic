@@ -1,15 +1,18 @@
 include:
-  - .hunter
+    - .hunter
 
 optimet:
-  funwith.present:
-    - github: OPTIMET/OPTIMET
+    funwith.present:
+        - github: OPTIMET/OPTIMET
 
 condiment_station:
-  funwith.modulefile:
-    - cwd: {{pillar['condiment_dir']}}
+    funwith.modulefile:
+        - cwd: {{pillar['condiment_dir']}}
+        - prefix: {{pillar['condiment_dir']}}
+        - virtualenv: 
+            name: {{pillar['condiment_dir']}}/salt-env
 
 dotfiles project:
-  funwith.modulefile:
-    - name: dotfiles
-    - cwd: {{pillar.get('dotdir', grains['userhome'] + "/.dotfiles")}}
+    funwith.modulefile:
+        - name: dotfiles
+        - cwd: {{pillar.get('dotdir', grains['userhome'] + "/.dotfiles")}}
