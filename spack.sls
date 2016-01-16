@@ -4,6 +4,7 @@ spack:
     - target: {{pillar['spack_directory']}}
     - name: llnl/spack.git
     - email: mdavezac@gmail.com
+    - rev: develop
 
   file.append:
     - name: {{grains['userhome']}}/.salted_zprofile
