@@ -16,7 +16,6 @@ def modulefile(name, prefix=None, cwd=None, footer=None, virtualenv=None, **kwar
     from os.path import join, split
     prefix = _get_prefix(name, prefix)
 
-    print "************** virtualenv", virtualenv
     virtualenv = _get_virtualenv(name, prefix, virtualenv)
 
     result = __states__['file.directory'](prefix)
