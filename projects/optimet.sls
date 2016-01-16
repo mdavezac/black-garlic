@@ -1,6 +1,3 @@
-include:
-  - spack
-
 optimet:
   funwith.present:
     - github: OPTIMET/OPTIMET
