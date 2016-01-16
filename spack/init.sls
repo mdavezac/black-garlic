@@ -27,3 +27,8 @@ GreatCMakeCookoff spack package file:
   spack.recipe:
     - file: cookoff.py
     - name: GreatCMakeCookoff
+
+F2c spack package file:
+  spack.recipe:
+    - file: F2c.py
+    - name: F2c
