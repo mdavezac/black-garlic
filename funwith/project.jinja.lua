@@ -25,3 +25,7 @@ setenv("JULIA_PKGDIR", "{{julia_package_dir}}")
 {% if footer -%}
 {{footer}}
 {% endif -%}
+
+{% for package in modules -%}
+load("{{package}}")
+{% endfor %}

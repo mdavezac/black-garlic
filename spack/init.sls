@@ -1,4 +1,5 @@
 {% set directory = salt['pillar.get']('spack:directory', grains['userhome'] + "/spack") %}
+{% set package_dir = directory + "/var/spack/packages" %}
 {% set config_dir = salt['pillar.get']('spack:config', grains['userhome'] + "/.spack") %}
 spack:
   github.latest:
@@ -21,3 +22,8 @@ spack missing clang compilers:
   file.managed:
     - name: {{config_dir}}/compilers.yaml
     - source: salt://spack/compilers.yaml
+
+GreatCMakeCookoff spack package file:
+  spack.recipe:
+    - file: cookoff.py
+    - name: GreatCMakeCookoff
