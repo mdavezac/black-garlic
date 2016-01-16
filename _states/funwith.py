@@ -39,7 +39,6 @@ def present(name, prefix=None, cwd=None, github=None, email=None,
                                         target=target)
         )
         if ctags:
-            cmd = "ctags -R --fields=+l --exclude=.git --exclude=build ."
             result.update(
                 __states__['cmd.run'](cmd, unless="test -e {0}/tags".format(target), cwd=target)
             )
