@@ -14,8 +14,25 @@ def _get_virtualenv(name, prefix, virtualenv):
         virtualenv['name'] = prefix
     return virtualenv
 
+def _default_file(name, prefix, source_dir, source, **kwargs):
+    from os.path import join
+    kwargs['source_dir'] = source_dir
+    kwargs['prefix'] = prefix
+    return __states__['file.managed'](
+        join(prefix, name),
+        source=source,
+        defaults=kwargs,
+        template='jinja'
+    )
+
+def vimrc(prefix, source_dir, source, **kwargs):
+    return _default_file('.vimrc', prefix, source_dir, source, **kwargs)
+
+def cppconfig(prefix, source_dir, source, **kwargs):
+    return _default_file('.cppconfig', prefix, source_dir, source, **kwargs)
+
 def modulefile(name, prefix=None, cwd=None, footer=None, virtualenv=None,
-               spack=None, modules=None, **kwargs):
+               spack=None, modules=None, vimrc=False, **kwargs):
     from subprocess import check_output
     from os.path import join, split
     prefix = _get_prefix(name, prefix)
@@ -83,5 +100,25 @@ def present(name, prefix=None, cwd=None, github=None, email=None,
         if ctags:
             result.update(
                 __states__['ctags.run'](target, exclude=['.git', 'build']))
+
+    if vimrc:
+        location = 'salt://projects/' + name + '/vimrc.jinja'
+        args = {}
+        if isinstance(vimrc, dict):
+            location = vimrc.pop('location', location)
+            args = vimrc.copy()
+        elif isinstance(vimrc, str):
+            location = vimrc
+        result.update(vimrc(prefix, target, vimrc, **args))
+
+    if cppconfig:
+        location = 'salt://projects/' + name + '/cppconfig.jinja'
+        args = {}
+        if isinstance(cppconfig, dict):
+            location = cppconfig.pop('location', location)
+            args = cppconfig.copy()
+        elif isinstance(cppconfig, str):
+            location = cppconfig
+        result.update(cppconfig(prefix, target, location, **args))
 
     return result

@@ -6,7 +6,3 @@ optimet:
     - github: OPTIMET/OPTIMET
     - spack:
       - GreatCMakeCookoff
-    - vimrc: True
-    - cppconfig: True
-
-
