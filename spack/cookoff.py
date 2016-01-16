@@ -1,9 +1,7 @@
 from spack import *
 
 class Greatcmakecookoff(Package):
-    """To improve scalability for very large and massively parallel
-       traces the Open Trace Format (OTF) is developed at ZIH as a
-       successor format to the Vampir Trace Format (VTF3)."""
+    """A bunch of cmake recipes"""
 
     homepage = "https://github.com/UCL/GreatCMakeCookOff"
     url      = "https://github.com/UCL/GreatCMakeCookOff.git"
