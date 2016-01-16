@@ -4,6 +4,14 @@ optimet:
     - srcname: optimet
     - spack:
       - GreatCMakeCookoff
+      - f2c %gcc
+      - f2c %clang
+      - gsl %gcc
+      - gsl %clang
+      - boost %gcc
+      - boost %clang
+      - hdf5 %gcc
+      - hdf5 %clang
     - vimrc:
         makeprg: True
         footer: |
@@ -12,5 +20,6 @@ optimet:
             let g:formatdef_llvm_cpp = '"clang-format -style=file"'
             let g:formatters_cpp = ['llvm_cpp']
 
+    - ctags: True
     - cppconfig:
         cpp11: True
