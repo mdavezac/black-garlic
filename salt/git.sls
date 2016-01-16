@@ -2,7 +2,7 @@ git:
   pkg.installed
 
 
-{% for key, value in salt['pillar.get']('git_global').items() %}
+{% for key, value in pillar.get('git_global', {}).items() %}
 user config {{key}}:
   git.config_set:
     - name: {{key}}

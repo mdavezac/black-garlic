@@ -1,6 +1,6 @@
 {% set user = grains['user'] %}
-{% set home = "/Users/" + user %}
-{% set dotfiles = home + "/.dotfiles" %}
+{% set home = grains['userhome'] %}
+{% set dotdir = pillar.get('dotdir', grains['userhome'] + "/.dotfiles") %}
 
 include:
   - zsh
@@ -10,30 +10,30 @@ dotfiles:
   github:
     - latest
     - name: {{user}}/dotfiles
-    - target: {{dotfiles}}
+    - target: {{dotdir}}
     - email: mdavezac@gmail.com
 
 run set of files in .zshrc:
   file.append:
     - name: {{home}}/.zshrc
     - text: |
-        for filename in {{dotfiles}}/zsh/*.zsh; do
+        for filename in {{dotdir}}/zsh/*.zsh; do
           source $filename
         done
 
 add line to {{home}}/.zpreztorc:
   file.append:
     - name: {{home}}/.zpreztorc
-    - text: source {{dotfiles}}/zsh/preztorc
+    - text: source {{dotdir}}/zsh/preztorc
 
 add line to {{home}}/.zprofile:
   file.append:
     - name: {{home}}/.zprofile
-    - text: source {{dotfiles}}/zsh/zprofile
+    - text: source {{dotdir}}/zsh/zprofile
 
 {{home}}/.zprezto/modules/prompt/functions/prompt_funwith_setup:
   file.symlink:
-    - target: {{dotfiles}}/zsh/prompts/funwith.zsh
+    - target: {{dotdir}}/zsh/prompts/funwith.zsh
 
 add shell to acceptable shells:
   cmd.run:

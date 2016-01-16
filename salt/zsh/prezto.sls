@@ -1,5 +1,5 @@
 {% set user = grains['user'] %}
-{% set home = "/Users/" + user %}
+{% set home = grains['userhome'] %}
 {% set location = home + "/.zprezto" %}
 
 prezto:

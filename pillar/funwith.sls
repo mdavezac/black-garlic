@@ -1,3 +1,3 @@
 funwith:
-  workspaces: /Users/{{grains['user']}}/workspaces
-  modulefiles: /Users/{{grains['user']}}/.funwith
+  workspaces: {{grains['userhome']}}/workspaces
+  modulefiles: {{grains['userhome']}}/.funwith

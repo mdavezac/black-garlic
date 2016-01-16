@@ -6,17 +6,17 @@ spack:
     - email: mdavezac@gmail.com
 
   file.append:
-    - name: /Users/{{grains['user']}}/.salted_zprofile
+    - name: {{grains['userhome']}}/.salted_zprofile
     - text: |
        export SPACK_ROOT={{pillar['spack_directory']}}
        source $SPACK_ROOT/share/spack/setup-env.sh
 
-/Users/{{grains['user']}}/.spack:
+{{grains['userhome']}}/.spack:
   file.directory
 
 spack missing clang compilers:
   file.managed:
-    - name: /Users/{{grains['user']}}/.spack/compilers.yaml
+    - name: {{pillar['spack_config_dir']}}/compilers.yaml
     - content: |
         compilers:
           darwin-x86_64:

@@ -1,6 +1,3 @@
-{% set user = grains['user'] %}
-{% set home = "/Users/" + user %}
-
 funwith:
   pkg.installed:
     - taps: homebrew/science

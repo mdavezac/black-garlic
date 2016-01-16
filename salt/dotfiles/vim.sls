@@ -1,8 +1,8 @@
 {% set user = grains['user'] %}
-{% set home = "/Users/" + user %}
-{% set vimdir = home + "/.vim" %}
-{% set bundledir = vimdir + "/bundle" %}
-{% set dotfiles = home + "/.dotfiles" %}
+{% set home = grains['userhome'] %}
+{% set vimdir = pillar.get('vimdir', home + "/.vim") %}
+{% set bundledir = pillar.get('vim_bundler_dir', vimdir + "/bundle") %}
+{% set dotdir = pillar.get('dotdir', home + "/.dotfiles") %}
 
 Valloric/YouCompleteMe:
   github.latest:
@@ -26,7 +26,7 @@ Valloric/YouCompleteMe:
 {% for filename in ['vimrc', 'gvimrc', 'ycm_extra_conf.py'] %}
 {{home}}/.{{filename}}:
   file.symlink:
-    - target: {{dotfiles}}/vim/{{filename}}
+    - target: {{dotdir}}/vim/{{filename}}
     - require:
       - github: dotfiles
 {% endfor %}
@@ -42,11 +42,11 @@ VundleVim/Vundle.vim:
 
 {{vimdir}}/UltiSnips:
   file.symlink:
-    - target: {{dotfiles}}/vim/UltiSnips
+    - target: {{dotdir}}/vim/UltiSnips
 
 {{vimdir}}/after:
   file.symlink:
-    - target: {{dotfiles}}/vim/after
+    - target: {{dotdir}}/vim/after
 
 {{vimdir}}/vundles.vim:
   file.managed:
@@ -55,3 +55,4 @@ VundleVim/Vundle.vim:
     - defaults:
         vimdir: {{vimdir}}
         bundledir: {{bundledir}}
+        dotdir: {{dotdir}}

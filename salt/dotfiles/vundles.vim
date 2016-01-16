@@ -21,7 +21,7 @@ Plugin 'VundleVim/Vundle.vim'
 for filename in split(globpath("{{vimdir}}", '*-bundle.vim'), "\n")
   exe 'source '.filename
 endfor
-for filename in split(globpath("~/.dotfiles/vim/vundles/", '*.vundle'), "\n")
+for filename in split(globpath("{{dotdir}}/vim/vundles/", '*.vundle'), "\n")
   exe 'source '.filename
 endfor
 call vundle#end()
