@@ -5,7 +5,7 @@
 {% set dotdir = pillar.get('dotdir', home + "/.dotfiles") %}
 
 Valloric/YouCompleteMe:
-  github.latest:
+  github.present:
     - target: {{home}}/.vim/bundle/YouCompleteMe
 
   cmd.run:
