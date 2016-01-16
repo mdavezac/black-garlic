@@ -50,7 +50,6 @@ sudo_user: $(whoami)
 file_roots:
   base:
     - $condiment_dir/
-    - $condiment_dir/salt
 EOF
 if [[ "$(uname)" -eq "Darwin" ]] ; then
   cat >> $condiment_dir/build/etc/minion <<EOF
