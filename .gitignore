@@ -1,6 +1,6 @@
 build
 salt-env
-activate
+bin/activate
 etc/
 pillar/condiment.sls
 .*.swp

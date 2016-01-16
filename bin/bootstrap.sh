@@ -58,7 +58,9 @@ pkg: brew
 EOF
 fi
 
-[[ ! -e "$condiment_dir/activate" ]] && cd $condiment_dir && ln -s $virtenv/bin/activate .
+[[ ! -e "$condiment_dir/bin/activate" ]] && \
+  cd $condiment_dir/bin && ln -s $virtenv/bin/activate . && \
+  cd $condiment_dir
 mkdir -p $condiment_dir/build/var/log/salt/
 mkdir -p $condiment_dir/build/var/cache/salt/master
 
