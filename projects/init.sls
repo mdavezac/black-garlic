@@ -1,9 +1,6 @@
 include:
     - .hunter
-
-optimet:
-    funwith.present:
-        - github: OPTIMET/OPTIMET
+    - .optimet
 
 condiment_station:
     funwith.modulefile:
