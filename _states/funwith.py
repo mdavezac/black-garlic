@@ -14,25 +14,59 @@ def _get_virtualenv(name, prefix, virtualenv):
         virtualenv['name'] = prefix
     return virtualenv
 
-def _default_file(name, prefix, source_dir, source, **kwargs):
+def add_vimrc(name, prefix=None, source_dir=None, width=None, tabs=None,
+              footer=None, makeprg=None, **kwargs):
     from os.path import join
-    kwargs['source_dir'] = source_dir
-    kwargs['prefix'] = prefix
+    prefix = _get_prefix(name, prefix)
+    if width is None:
+        width = __salt__['pillar.get']('vim:width', 100)
+    if tabs is None:
+        tabs = __salt__['pillar.get']('vim:tabs', 2)
+    if makeprg is True and source_dir is not None:
+        makeprg = __salt__['pillar.get'](
+            'vim:makeprg', 'ninja\ -C\ "{0}/build"\ -v'.format(source_dir))
+    defaults = {
+        'prefix': prefix,
+        'width': width,
+        'tabs': tabs,
+        'footer': footer,
+        'makeprg': makeprg
+    }
+    defaults.update(**kwargs)
     return __states__['file.managed'](
-        join(prefix, name),
-        source=source,
-        defaults=kwargs,
+        join(prefix, '.vimrc'),
+        source='salt://funwith/vimrc.jinja',
+        defaults = defaults,
         template='jinja'
     )
 
-def vimrc(prefix, source_dir, source, **kwargs):
-    return _default_file('.vimrc', prefix, source_dir, source, **kwargs)
 
-def cppconfig(prefix, source_dir, source, **kwargs):
-    return _default_file('.cppconfig', prefix, source_dir, source, **kwargs)
+def add_cppconfig(name, prefix=None, source_dir=None, includes=None,
+                  cpp11=False):
+    from os.path import join
+    prefix = _get_prefix(name, prefix)
+    lines = ["-Wall"]
+    if includes is None:
+        includes = []
+    for include in includes:
+        if len(include) == 0:
+            continue
+        if include[0] == "/":
+          lines.append("-I" + include)
+        else:
+            lines.append("-I", join(prefix, source))
+            if source_dir is not None:
+                lines.append("-I", join(source_dir, source))
+    if cpp11:
+        lines.append("-std=c++11")
+
+    return __states__['file.managed'](
+        join(prefix, '.cppconfig'),
+        contents='\n'.join(lines)
+    )
 
 def modulefile(name, prefix=None, cwd=None, footer=None, virtualenv=None,
-               spack=None, modules=None, vimrc=False, **kwargs):
+               spack=None, modules=None, **kwargs):
     from subprocess import check_output
     from os.path import join, split
     prefix = _get_prefix(name, prefix)
@@ -67,13 +101,15 @@ def modulefile(name, prefix=None, cwd=None, footer=None, virtualenv=None,
     )
     return result
 
-def present(name, prefix=None, cwd=None, github=None, email=None,
+def present(name, prefix=None, cwd=None, github=None, srcname=None, email=None,
             username=None, footer=None, ctags=False, virtualenv=None,
-            spack=None, **kwargs):
+            spack=None, vimrc=False, cppconfig=False, **kwargs):
     from os.path import join, split
     prefix = _get_prefix(name, prefix)
     if github is not None:
-        target = join(prefix, 'src', split(github)[1])
+        if srcname is None:
+            srcname = split(github)[1]
+        target = join(prefix, 'src', srcname)
         if cwd is None:
             cwd = target
 
@@ -102,23 +138,18 @@ def present(name, prefix=None, cwd=None, github=None, email=None,
                 __states__['ctags.run'](target, exclude=['.git', 'build']))
 
     if vimrc:
-        location = 'salt://projects/' + name + '/vimrc.jinja'
-        args = {}
-        if isinstance(vimrc, dict):
-            location = vimrc.pop('location', location)
-            args = vimrc.copy()
-        elif isinstance(vimrc, str):
-            location = vimrc
-        result.update(vimrc(prefix, target, vimrc, **args))
+        args = vimrc.copy() if isinstance(vimrc, dict) else {}
+        result.update(
+            add_vimrc(
+                name, prefix=prefix, source_dir=target, cppconfig=cppconfig,
+                **args
+            )
+        )
 
     if cppconfig:
-        location = 'salt://projects/' + name + '/cppconfig.jinja'
-        args = {}
-        if isinstance(cppconfig, dict):
-            location = cppconfig.pop('location', location)
-            args = cppconfig.copy()
-        elif isinstance(cppconfig, str):
-            location = cppconfig
-        result.update(cppconfig(prefix, target, location, **args))
+        args = cppconfig.copy() if isinstance(cppconfig, dict) else {}
+        result.update(
+            add_cppconfig(name, prefix=prefix, source_dir=target, **args)
+        )
 
     return result
