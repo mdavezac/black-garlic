@@ -20,7 +20,7 @@ spack:
 spack missing clang compilers:
   file.managed:
     - name: {{config_dir}}/compilers.yaml
-    - content: |
+    - contents: |
         compilers:
             darwin-x86_64:
                 gcc@4.2.1:
