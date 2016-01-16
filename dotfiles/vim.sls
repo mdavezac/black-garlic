@@ -14,8 +14,8 @@ Valloric/YouCompleteMe:
         python install.py --system-boost --clang-completer
     - cwd: {{home}}/.vim/bundle/YouCompleteMe
     - creates:
-      - {{home}}/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_client_support.so
-      - {{home}}/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so
+      - {{bundledir}}/YouCompleteMe/third_party/ycmd/ycm_client_support.so
+      - {{bundledir}}/YouCompleteMe/third_party/ycmd/ycm_core.so
     - require:
       - pkg: languages
       - pkg: boost
