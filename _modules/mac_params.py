@@ -19,5 +19,5 @@ def set_param(key, value, domain=""):
     return __salt__['cmd.run_all'](cmd, output_loglevel='trace', python_shell=False)['stdout']
 
 def get_param(key="", domain=""):
-    cmd = "defaults read \"" + domain + "\" " + key
+    cmd = "defaults read " + domain + " " + key
     return __salt__['cmd.run_all'](cmd, output_loglevel='trace', python_shell=False)['stdout']
