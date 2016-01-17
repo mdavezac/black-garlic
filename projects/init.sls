@@ -6,7 +6,7 @@ condiment_station:
     funwith.modulefile:
         - cwd: {{pillar['condiment_dir']}}
         - prefix: {{pillar['condiment_dir']}}
-        - virtualenv: 
+        - virtualenv:
             name: {{pillar['condiment_dir']}}/salt-env
 
 dotfiles project:
