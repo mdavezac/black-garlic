@@ -23,7 +23,9 @@ spack missing clang compilers:
     - name: {{config_dir}}/compilers.yaml
     - source: salt://spack/compilers.yaml
 
-{% for recipe in ['GreatCMakeCookoff', 'f2c', 'Eigen', 'gbenchmark', 'Catch'] -%}
+{% for recipe in [
+      'GreatCMakeCookoff', 'f2c', 'Eigen',
+      'gbenchmark', 'Catch', 'spdlog'] -%}
 {{recipe}} spack package file:
   spack.recipe:
     - file: {{recipe}}.py
