@@ -4,14 +4,10 @@ optimet:
     - srcname: optimet
     - spack:
       - GreatCMakeCookoff
-      - f2c %gcc
       - f2c %clang
-      - gsl %gcc
       - gsl %clang
-      - boost %gcc
       - boost %clang
-      - hdf5 %gcc
-      - hdf5 %clang
+      - hdf5 %clang -fortran -cxx
     - vimrc:
         makeprg: True
         footer: |
