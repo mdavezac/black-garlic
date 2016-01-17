@@ -8,6 +8,7 @@ optimet:
       - gsl %clang
       - boost %clang
       - hdf5 %clang -fortran -cxx
+      - eigen %clang
     - vimrc:
         makeprg: True
         footer: |
