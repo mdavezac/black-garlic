@@ -6,6 +6,7 @@ bico:
       - eigen %clang
       - gbenchmark %clang
       - catch %clang
+      - spdlog %clang
 
     - virtualenv:
         system_site_packages: True
