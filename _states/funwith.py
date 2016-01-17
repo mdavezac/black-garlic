@@ -54,9 +54,9 @@ def add_cppconfig(name, prefix=None, source_dir=None, includes=None,
         if include[0] == "/":
           lines.append("-I" + include)
         else:
-            lines.append("-I", join(prefix, source))
+            lines.append("-I" + join(prefix, include))
             if source_dir is not None:
-                lines.append("-I", join(source_dir, source))
+                lines.append("-I" + join(source_dir, include))
     if cpp11:
         lines.append("-std=c++11")
 
