@@ -1,5 +1,6 @@
 local homedir="{{homedir}}"
 
+family("project")
 setenv("CURRENT_FUN_WITH_HOMEDIR", homedir)
 
 {% if srcdir -%}
