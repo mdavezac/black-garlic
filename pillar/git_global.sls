@@ -1,8 +1,9 @@
 git_global:
-  user.name: Mayeul d'Avezac
+  user.name: "Mayeul d'Avezac"
   user.email: m.davezac@ucl.ac.uk
   core.editor: vim
-  color.autoclrf: false
+  core.autoclrf: input
+  core.excludesfile: ~/.dotfiles/gitignore
   color.ui: true
   apply.whitespace: nowarn
   branch.autosetupmerge: true
