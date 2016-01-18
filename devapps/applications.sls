@@ -13,6 +13,9 @@ universal-ctags:
       - --HEAD
     - taps: universal-ctags/universal-ctags
 
+include:
+  - .languages
+
 vim:
   pkg.installed:
     - pkgs:
@@ -21,4 +24,3 @@ vim:
     - options: ['--with-lua', '--with-luajit']
     - require:
         - pkg: languages
-
