@@ -6,6 +6,7 @@ development applications:
       - hub
       - git
       - the_silver_searcher
+      - pkg-config
 
 universal-ctags:
   pkg.installed:
