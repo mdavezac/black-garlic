@@ -1,4 +1,4 @@
 include:
-  - .languages
   - .libraries
+  - .languages
   - .applications
