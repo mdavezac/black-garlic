@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env /bin/bash
 # Makes it easier to call salt
 
 # will contain all sls
@@ -18,6 +18,9 @@ while [[ $# > 0 ]]; do
   esac
   shift
 done
+
+# activates the python environment
+.  $(dirname $0)/../salt-env/bin/activate
 
 if [[ "${do_sync}" = "true" ]] ; then
   salt-call --local saltutil.sync_all
