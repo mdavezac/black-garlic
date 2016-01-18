@@ -84,8 +84,6 @@ def modulefile(name, prefix=None, cwd=None, footer=None, virtualenv=None,
 
     virtualenv = _get_virtualenv(name, prefix, virtualenv)
 
-    result = __states__['file.directory'](prefix)
-
     context = {
         'homedir': prefix,
         'srcdir': cwd,
@@ -94,13 +92,11 @@ def modulefile(name, prefix=None, cwd=None, footer=None, virtualenv=None,
         'modules': modules,
         'julia_package_dir': None
     }
-    result.update(
-        __states__['file.managed'](
-            join(__pillar__['funwith']['modulefiles'], name + ".lua"),
-            source='salt://funwith/project.jinja.lua',
-            template='jinja', context=context, **kwargs)
+    return __states__['file.managed'](
+        join(__pillar__['funwith']['modulefiles'], name + ".lua"),
+        source='salt://funwith/project.jinja.lua',
+        template='jinja', context=context, **kwargs
     )
-    return result
 
 def present(name, prefix=None, cwd=None, github=None, srcname=None, email=None,
             username=None, footer=None, ctags=False, virtualenv=None,
@@ -113,6 +109,12 @@ def present(name, prefix=None, cwd=None, github=None, srcname=None, email=None,
         target = join(prefix, 'src', srcname)
         if cwd is None:
             cwd = target
+
+    # cwd can be relative to the prefix or absolute
+    if cwd is None and len(cwd) == 0:
+        cwd = prefix
+    elif cwd is not None and cwd[0] != '/':
+        cwd = join(prefix, cwd)
 
     result = {}
     if spack is None:
@@ -129,6 +131,10 @@ def present(name, prefix=None, cwd=None, github=None, srcname=None, email=None,
         modulefile(name, prefix=prefix, cwd=cwd, footer=footer, spack=spack,
                    **kwargs)
     )
+    if prefix is not None:
+        result.update(__states__['file.directory'](prefix))
+    if cwd is not None and cwd != prefix and cwd != target:
+        result.update(__states__['file.directory'](cwd))
     if github is not None:
         result.update(
             __states__['github.present'](github, email=email, username=username,
