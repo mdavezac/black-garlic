@@ -1,5 +1,6 @@
-boost:
-  pkg.installed
-
-boost-python:
-  pkg.installed
+libraries:
+  pkg.installed:
+    - pkgs:
+      - boost
+      - boost-python
+      - zeromq

@@ -6,11 +6,9 @@ languages:
       - python3
       - luajit
       - ruby
-{% if grains['os'] == 'Ubuntu' %}
-      - lua-filesystem
-{% elif grains['os'] == 'MacOS' %}
       - lua
-{% endif %}
+      - node
+      - nodeenv
 
 {% for version in [2, 3]:%}
 basic python packages for python{{version}}:
@@ -22,6 +20,8 @@ basic python packages for python{{version}}:
       - cython
       - pytest
       - virtualenv
+      - matplotlib
+      - pandas
     - bin_env: /usr/local/bin/pip{{version}}
     - require:
       - pkg: languages
@@ -32,7 +32,7 @@ julia:
 
 luarocks install luafilesystem:
   cmd.run:
-    - unless: /usr/local/bin/lua -e 'require "elfs"'
+    - unless: /usr/local/bin/lua -e 'require "lfs"'
 
 luarocks install luaposix:
   cmd.run:
