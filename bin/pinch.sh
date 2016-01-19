@@ -4,6 +4,8 @@
 # will contain all sls
 args=()
 do_sync=false
+do_init=false
+do_all=true
 
 # parse options
 while [[ $# > 0 ]]; do
@@ -12,8 +14,15 @@ while [[ $# > 0 ]]; do
       -s|--sync)
         do_sync=true
       ;;
+
+      --init|"init.bootstrap")
+        do_init=true
+        do_all=false
+      ;;
+
       *)
         args+=($current)
+        do_all=false
       ;;
   esac
   shift
@@ -26,10 +35,15 @@ if [[ "${do_sync}" = "true" ]] ; then
   salt-call --local saltutil.sync_all
 fi
 
-if [[ ${#args} -ge 0 ]]; then
+if [[ "${do_init}" = "true" ]]; then
+  sudo salt-call --local state.sls init.bootstrap
+fi
+if [[ ${#args} -gt 0 ]]; then
+  echo "NOT HERE - ${do_init} - ${args[@]}"
   for i in "${args[@]}"; do
     salt-call --local state.sls $i
   done
-else
+fi
+if [[ "${do_all}" = "true" ]] ; then
   salt-call --local state.highstate
 fi
