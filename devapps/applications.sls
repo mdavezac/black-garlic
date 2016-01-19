@@ -7,6 +7,7 @@ development applications:
       - git
       - the_silver_searcher
       - pkg-config
+      - clang-format
 
 universal-ctags:
   pkg.installed:
