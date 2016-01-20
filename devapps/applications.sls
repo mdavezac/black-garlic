@@ -8,6 +8,7 @@ development applications:
       - the_silver_searcher
       - pkg-config
       - clang-format
+      - doxygen
 
 universal-ctags:
   pkg.installed:
