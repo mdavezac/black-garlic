@@ -49,10 +49,36 @@ def recipe(name, file=None):
         __states__['file.managed'](join(prefix, 'package.py'), source=source))
     return results
 
-def add_repo(name):
-    from os.path import join
-    defaults = _get_spack(__pillar__)
-    spacker = join(defaults['directory'], 'bin', 'spack')
-    return __states__['cmd.run'](spacker + " repo add " + name)
+def add_repo(name, github=None):
+    from os.path import expanduser, join
 
+    ret = {'name': name, 'changes': {}, 'result': False, 'comment': ''}
+    if github is not None:
+        spackdir = __salt__['pillar.get']('spack:directory', expanduser(join("~", "spack")))
+        target = join(spackdir, 'var', 'repos', name)
+        gitresults = __states__['github.latest'](name=github, target=target)
+    else:
+        gitresults = {}
+        target = name
 
+    if __salt__['spack.repo_exists'](target):
+        ret['result'] = True
+        ret['comment'] = 'System already in the correct state'
+        return ret
+
+    ret['changes'] = {
+        'old': 'repo not found',
+        'new': 'repo installed'
+    }
+    if __opts__['test'] == True:
+        ret['comment'] = 'The state of "{0}" will be changed.'.format(name)
+
+        # Return ``None`` when running with ``test=true``.
+        ret['result'] = None
+
+        return ret
+
+    __salt__['spack.add_repo'](target)
+    ret['comment'] = 'Spack repo "{0}" installed.'.format(name)
+    ret['result'] = True
+    return ret

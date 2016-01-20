@@ -15,91 +15,42 @@ from salt.exceptions import CommandExecutionError, MinionError
 
 log = logging.getLogger(__name__)
 
-def _call_spack(cmd):
-    '''
-    Calls spack
-    '''
-    from os.path import join
-    user = __salt__['file.get_user'](_homebrew_bin())
-    runas = user if user != __opts__['user'] else None
-    cmd = join(__pillar__['spack_directory'], 'bin', 'spack') + " " + cmd
-    return __salt__['cmd.run_all'](cmd,
-                                   runas=runas,
-                                   output_loglevel='trace',
-                                   python_shell=False)
+def _expand_system_path():
+    from os.path import join, expanduser
+    from sys import path
+    default = expanduser(join("~", "spack"))
+    spackdir = __salt__['pillar.get']('spack:directory', default)
+    libdir = join(spackdir, 'lib', 'spack')
+    if libdir not in path:
+        path.append(libdir)
+        path.append(join(libdir, 'external'))
 
 
-def install(name, pkgs=None, version=None, specs=None, compiler=None, **kwargs):
-    '''
-    Install the passed package(s) with ``spak install``
+def repo_exists(path):
+    _expand_system_path()
+    from spack.repository import canonicalize_path, Repo
+    from spack.config import get_config
+    from spack.cmd import default_list_scope
+    from collections import namedtuple
+    cannon = canonicalize_path(path)
+    repos = get_config('repos', default_list_scope)
 
-    name
-        The name of the formula to be installed. Note that this parameter is
-        ignored if "pkgs" is passed.
+    repo = Repo(cannon)
+    return repo.root in repos or path in repos
 
-        CLI Example:
+def add_repo(path):
+    _expand_system_path()
+    from spack.repository import canonicalize_path, Repo
+    from spack.config import get_config, update_config
+    from spack.cmd import default_list_scope
+    from collections import namedtuple
+    cannon = canonicalize_path(path)
+    repos = get_config('repos', default_list_scope)
 
-        .. code-block:: bash
+    repo = Repo(cannon)
 
-            salt '*' cask.install <package name>
-
-    options
-        Options to pass to brew. Only applies to initial install. Due to how brew
-        works, modifying chosen options requires a full uninstall followed by a
-        fresh install. Note that if "pkgs" is used, all options will be passed
-        to all packages. Unrecognized options for a package will be silently
-        ignored by brew.
-
-        CLI Example:
-
-        .. code-block:: bash
-
-            salt '*' cask.install <package name> tap='<tap>'
-            salt '*' cask.install php54 taps='["josegonzalez/php", "homebrew/dupes"]' options='["--with-fpm"]'
-
-    Multiple Package Installation Options:
-
-    pkgs
-        A list of formulas to install. Must be passed as a python list.
-
-        CLI Example:
-
-        .. code-block:: bash
-
-            salt '*' cask.install pkgs='["foo","bar"]'
-
-
-    Returns a dict containing the new package names and versions::
-
-        {'<package>': {'old': '<old-version>',
-                       'new': '<new-version>'}}
-
-    CLI Example:
-
-    .. code-block:: bash
-
-        salt '*' cask.install 'package package package'
-    '''
-    try:
-        pkg_params, pkg_type = __salt__['pkg_resource.parse_targets'](
-            name, pkgs, kwargs.get('sources', {})
-        )
-    except MinionError as exc:
-        raise CommandExecutionError(exc)
-
-    if pkg_params is None or len(pkg_params) == 0:
+    if repo.root in repos or path in repos:
         return {}
 
-    formulas = ' '.join(pkg_params)
-    old = list_pkgs()
-
-    # Ensure we've tapped the repo if necessary
-    if options:
-        cmd = 'brew cask install {0} {1}'.format(formulas, ' '.join(options))
-    else:
-        cmd = 'brew cask install {0}'.format(formulas)
-
-    _call_cask(cmd)
-
-    new = list_pkgs(check_context=False)
-    return salt.utils.compare_dicts(old, new)
+    repos.insert(0, cannon)
+    update_config('repos', repos, default_list_scope)

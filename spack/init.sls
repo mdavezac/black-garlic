@@ -24,21 +24,6 @@ spack missing clang compilers:
     - name: {{config_dir}}/compilers.yaml
     - source: salt://spack/compilers.yaml
 
-{{ucl_repo}}/repo.yaml:
-  file.managed:
-    - contents: |
-        repo:
-            namespace: ucl
-    - makedirs: True
-{% for recipe in [
-      'GreatCMakeCookoff', 'f2c', 'Eigen',
-      'gbenchmark', 'Catch', 'spdlog', 'scalapack'] -%}
-{{recipe}} spack package file:
-  file.managed:
-    - source: salt://spack/{{recipe}}.py
-    - name: {{package_dir}}/{{recipe}}/package.py
-    - makedirs: True
-{% endfor -%}
-
-# {{ucl_repo}}:
-#   spack.add_repo
+UCL-RITS:
+  spack.add_repo:
+    - github: UCL-RITS/spack_packages
