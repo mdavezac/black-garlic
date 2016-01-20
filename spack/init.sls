@@ -1,5 +1,6 @@
 {% set directory = salt['pillar.get']('spack:directory', grains['userhome'] + "/spack") %}
-{% set package_dir = directory + "/var/spack/packages" %}
+{% set ucl_repo = directory + "/var/spack/repos/ucl" %}
+{% set package_dir = ucl_repo + "/packages" %}
 {% set config_dir = salt['pillar.get']('spack:config', grains['userhome'] + "/.spack") %}
 spack:
   github.latest:
@@ -23,11 +24,21 @@ spack missing clang compilers:
     - name: {{config_dir}}/compilers.yaml
     - source: salt://spack/compilers.yaml
 
+{{ucl_repo}}/repo.yaml:
+  file.managed:
+    - contents: |
+        repo:
+            namespace: ucl
+    - makedirs: True
 {% for recipe in [
       'GreatCMakeCookoff', 'f2c', 'Eigen',
-      'gbenchmark', 'Catch', 'spdlog'] -%}
+      'gbenchmark', 'Catch', 'spdlog', 'scalapack'] -%}
 {{recipe}} spack package file:
-  spack.recipe:
-    - file: {{recipe}}.py
-    - name: {{recipe}}
+  file.managed:
+    - source: salt://spack/{{recipe}}.py
+    - name: {{package_dir}}/{{recipe}}/package.py
+    - makedirs: True
 {% endfor -%}
+
+# {{ucl_repo}}:
+#   spack.add_repo

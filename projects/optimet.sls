@@ -1,3 +1,8 @@
+{% set user = grains['user'] %}
+{% set home = grains['userhome'] %}
+{% set workspaces = pillar.get('funwith:workspaces', home + "/workspaces") %}
+{% set optimetdir = workspaces + "/optimet/src/optimet" %}
+
 optimet:
   funwith.present:
     - github: OPTIMET/OPTIMET
@@ -9,6 +14,7 @@ optimet:
       - boost %clang
       - hdf5 %clang -fortran -cxx
       - eigen %clang
+      - scalapack %clang ^openblas %clang ^openmpi %clang -tm
     - vimrc:
         makeprg: True
         footer: |
@@ -20,3 +26,8 @@ optimet:
     - ctags: True
     - cppconfig:
         cpp11: True
+  # recursive clone does not work so well on salt
+  cmd.run:
+    - name: git submodule update --init --recursive
+    - cwd: {{optimetdir}}
+    - creates: {{optimetdir}}/test-data/.git

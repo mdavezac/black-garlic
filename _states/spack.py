@@ -48,3 +48,11 @@ def recipe(name, file=None):
     results.update(
         __states__['file.managed'](join(prefix, 'package.py'), source=source))
     return results
+
+def add_repo(name):
+    from os.path import join
+    defaults = _get_spack(__pillar__)
+    spacker = join(defaults['directory'], 'bin', 'spack')
+    return __states__['cmd.run'](spacker + " repo add " + name)
+
+
