@@ -39,7 +39,6 @@ if [[ "${do_init}" = "true" ]]; then
   sudo salt-call --local state.sls init.bootstrap
 fi
 if [[ ${#args} -gt 0 ]]; then
-  echo "NOT HERE - ${do_init} - ${args[@]}"
   for i in "${args[@]}"; do
     salt-call --local state.sls $i
   done
