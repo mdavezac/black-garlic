@@ -1,7 +1,5 @@
-{% set directory = salt['pillar.get']('spack:directory', grains['userhome'] + "/spack") %}
-{% set ucl_repo = directory + "/var/spack/repos/ucl" %}
-{% set package_dir = ucl_repo + "/packages" %}
-{% set config_dir = salt['pillar.get']('spack:config', grains['userhome'] + "/.spack") %}
+{% set directory = salt['spack.defaults']('directory') %}
+{% set config_dir = salt['spack.defaults']('config_dir') %}
 spack:
   github.latest:
     - order: 0
