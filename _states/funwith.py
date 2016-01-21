@@ -42,7 +42,7 @@ def add_vimrc(name, prefix=None, source_dir=None, width=None, tabs=None,
 
 
 def add_cppconfig(name, prefix=None, source_dir=None, includes=None,
-                  cpp11=False, cpp=False, c99=False):
+                  source_includes=None, cpp11=False, cpp=False, c99=False):
     from os.path import join
     if (cpp11 or cpp) and c99:
         raise RuntimeError("Cannot be both a c++ and c project")
@@ -57,8 +57,10 @@ def add_cppconfig(name, prefix=None, source_dir=None, includes=None,
           lines.append("-I" + include)
         else:
             lines.append("-I" + join(prefix, include))
-            if source_dir is not None:
-                lines.append("-I" + join(source_dir, include))
+    if source_includes is not None and source_dir is None:
+        raise ValueError("Need source_dir to do source_includes")
+    for include in source_includes:
+        lines.append("-I" + join(source_dir, include))
 
     lines.append("-x")
     lines.append("c++" if cpp11 or cpp else "c")
