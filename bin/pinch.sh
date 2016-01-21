@@ -6,6 +6,7 @@ args=()
 do_sync=false
 do_init=false
 do_all=true
+do_command=false
 
 # parse options
 while [[ $# > 0 ]]; do
@@ -18,6 +19,10 @@ while [[ $# > 0 ]]; do
       --init|"init.bootstrap")
         do_init=true
         do_all=false
+      ;;
+
+      -c|--command)
+        do_command=true
       ;;
 
       *)
@@ -33,6 +38,13 @@ done
 
 if [[ "${do_sync}" = "true" ]] ; then
   salt-call --local saltutil.sync_all
+fi
+
+if [[ "${do_command}" = "true" ]] ; then
+  salt-call --local ${args[@]}
+  do_init=false
+  do_all=false
+  args=()
 fi
 
 if [[ "${do_init}" = "true" ]]; then
