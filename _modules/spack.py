@@ -80,7 +80,7 @@ def repo_path(path, prefix=None):
     return canonicalize_path(path)
 
 def add_repo(path, prefix=None, scope=None):
-    """ Adds path to repos """
+    """ Adds path to spack repos """
     _expand_system_path()
 
     from collections import namedtuple
@@ -98,4 +98,34 @@ def add_repo(path, prefix=None, scope=None):
 
     repos.insert(0, cannon)
     update_config('repos', repos, defaults('scope', scope))
+    return True
+
+def parse_specs(specs, concretize=False, normalize=False):
+    """ Converts spec to module name """
+    _expand_system_path()
+    from spack.cmd import parse_specs
+    return parse_specs(specs, concretize=concretize, normalize=normalize)
+
+def is_installed(name):
+    _expand_system_path()
+    from spack import repo
+    from spack.cmd import parse_specs
+    return repo.get(parse_specs(name), concretize=True)[0].installed
+
+def install(name, keep_prefix=False, keep_stage=False, ignore_deps=False):
+    _expand_system_path()
+    from spack import repo, installed_db
+    from spack.cmd import parse_specs
+    packages = repo.get(parse_specs(name), concretize=True)
+    if len(packages) > 0:
+        raise ValueError("Package corresponds to multiple values")
+    package = packages[0]
+    if package.installed:
+        return False
+    with installed_db.write_transaction():
+        package.do_install(
+            keep_prefix=keep_prefix,
+            keep_stage=keep_stage,
+            ignore_deps=ignore_deps
+        )
     return True
