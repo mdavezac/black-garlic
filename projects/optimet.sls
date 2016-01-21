@@ -8,13 +8,15 @@ optimet:
     - github: OPTIMET/OPTIMET
     - srcname: optimet
     - spack:
-      - GreatCMakeCookoff
       - f2c %clang
       - gsl %clang
       - boost %clang
       - hdf5 %clang -fortran -cxx
-      - eigen %clang
-      - scalapack %clang ^openblas %clang ^openmpi %clang -tm
+      - Catch %clang
+      - UCL-RITS.eigen %clang
+      - openblas %clang
+      - openmpi %clang -tm
+      - UCL-RITS.scalapack %clang ^openblas %clang ^openmpi %clang -tm
     - vimrc:
         makeprg: True
         footer: |
@@ -26,6 +28,9 @@ optimet:
     - ctags: True
     - cppconfig:
         cpp11: True
+        source_includes:
+          - build/include/optimet
+          - .
   # recursive clone does not work so well on salt
   cmd.run:
     - name: git submodule update --init --recursive
