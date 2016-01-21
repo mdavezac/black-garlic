@@ -15,42 +15,87 @@ from salt.exceptions import CommandExecutionError, MinionError
 
 log = logging.getLogger(__name__)
 
+def spack_directory():
+    """ Specialized to avoid infinite recurrence """
+    from os.path import join
+    default = join(__grains__['userhome'], 'spack')
+    return  __salt__['pillar.get']('spack:directory', default)
+
+def defaults(key=None, value=None):
+    """ Default pillar values """
+    _expand_system_path()
+    from os.path import join
+    from spack.cmd import default_list_scope as dls
+    from spack.repository import canonicalize_path
+
+    if key is not None and value is not None:
+        return value
+    home = __grains__['userhome']
+    config_dir = join(home, '.spack')
+    repo_prefix = join(home, '.spack_repos')
+    values = {
+        'directory': spack_directory(),
+        'scope':
+            __salt__['pillar.get']('spack:default_config_location', dls),
+        'config_dir':
+            __salt__['pillar.get']('spack:config_location', config_dir),
+        'repo_prefix':
+            __salt__['pillar.get']('spack:repo_prefix', repo_prefix)
+
+    }
+    values['config_dir'] = canonicalize_path(values['config_dir'])
+    values['repo_prefix'] = canonicalize_path(values['repo_prefix'])
+    return values[key] if key is not None else values
+
 def _expand_system_path():
     from os.path import join, expanduser
     from sys import path
-    default = expanduser(join("~", "spack"))
-    spackdir = __salt__['pillar.get']('spack:directory', default)
+    spackdir = spack_directory()
     libdir = join(spackdir, 'lib', 'spack')
     if libdir not in path:
         path.append(libdir)
         path.append(join(libdir, 'external'))
 
 
-def repo_exists(path):
+def repo_exists(path, scope=None, prefix=None):
+    """ Checks whether input is a known repo """
     _expand_system_path()
-    from spack.repository import canonicalize_path, Repo
+    from spack.repository import Repo
     from spack.config import get_config
-    from spack.cmd import default_list_scope
-    from collections import namedtuple
-    cannon = canonicalize_path(path)
-    repos = get_config('repos', default_list_scope)
+    from os.path import join
+
+    cannon = repo_path(path)
+    repos = get_config('repos', defaults('scope', scope))
 
     repo = Repo(cannon)
     return repo.root in repos or path in repos
 
-def add_repo(path):
+def repo_path(path, prefix=None):
     _expand_system_path()
-    from spack.repository import canonicalize_path, Repo
+    from os.path import join
+    from spack.repository import canonicalize_path
+
+    if path[0] not in ['/', '$', '~']:
+        path = join(defaults('repo_prefix', prefix), path)
+    return canonicalize_path(path)
+
+def add_repo(path, prefix=None, scope=None):
+    """ Adds path to repos """
+    _expand_system_path()
+
+    from collections import namedtuple
+    from spack.repository import Repo
     from spack.config import get_config, update_config
     from spack.cmd import default_list_scope
-    from collections import namedtuple
-    cannon = canonicalize_path(path)
-    repos = get_config('repos', default_list_scope)
+
+    cannon = repo_path(path, prefix)
+    repos = get_config('repos', defaults('scope', scope))
 
     repo = Repo(cannon)
 
     if repo.root in repos or path in repos:
-        return {}
+        return False
 
     repos.insert(0, cannon)
-    update_config('repos', repos, default_list_scope)
+    update_config('repos', repos, defaults('scope', scope))
+    return True

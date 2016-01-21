@@ -49,17 +49,15 @@ def recipe(name, file=None):
         __states__['file.managed'](join(prefix, 'package.py'), source=source))
     return results
 
-def add_repo(name, github=None):
+def add_repo(name, github=None, scope=None, prefix=None):
     from os.path import expanduser, join
 
     ret = {'name': name, 'changes': {}, 'result': False, 'comment': ''}
+    target = __salt__['spack.repo_path'](name)
+
     if github is not None:
         spackdir = __salt__['pillar.get']('spack:directory', expanduser(join("~", "spack")))
-        target = join(spackdir, 'var', 'repos', name)
-        gitresults = __states__['github.latest'](name=github, target=target)
-    else:
-        gitresults = {}
-        target = name
+        __states__['github.latest'](name=github, target=target)
 
     if __salt__['spack.repo_exists'](target):
         ret['result'] = True
@@ -68,14 +66,12 @@ def add_repo(name, github=None):
 
     ret['changes'] = {
         'old': 'repo not found',
-        'new': 'repo installed'
+        'new': '%s installed at %s' % (
+            name if github is None else github, target)
     }
     if __opts__['test'] == True:
         ret['comment'] = 'The state of "{0}" will be changed.'.format(name)
-
-        # Return ``None`` when running with ``test=true``.
         ret['result'] = None
-
         return ret
 
     __salt__['spack.add_repo'](target)
