@@ -116,22 +116,24 @@ def is_installed(name):
     _expand_system_path()
     from spack import repo
     from spack.cmd import parse_specs
-    return repo.get(parse_specs(name), concretize=True)[0].installed
+    specs = parse_specs(name, concretize=True)
+    for spec in specs:
+        if not repo.get(spec).installed:
+            return False
+    return True
 
 def install(name, keep_prefix=False, keep_stage=False, ignore_deps=False):
     _expand_system_path()
     from spack import repo, installed_db
     from spack.cmd import parse_specs
-    packages = repo.get(parse_specs(name), concretize=True)
-    if len(packages) > 0:
-        raise ValueError("Package corresponds to multiple values")
-    package = packages[0]
-    if package.installed:
-        return False
-    with installed_db.write_transaction():
-        package.do_install(
-            keep_prefix=keep_prefix,
-            keep_stage=keep_stage,
-            ignore_deps=ignore_deps
-        )
-    return True
+    specs = parse_specs(name, concretize=True)
+    packages = [repo.get(spec) for spec in specs]
+    packages = [u for u in packages if not u.installed]
+    for package in packages:
+        with installed_db.write_transaction():
+            package.do_install(
+                keep_prefix=keep_prefix,
+                keep_stage=keep_stage,
+                ignore_deps=ignore_deps
+            )
+    return [p.name for p in packages]
