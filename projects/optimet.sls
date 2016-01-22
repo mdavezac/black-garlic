@@ -18,7 +18,7 @@ optimet:
       - openmpi %clang -tm
       - UCL-RITS.scalapack %clang ^openblas %clang ^openmpi %clang -tm
     - vimrc:
-        makeprg: True
+        makeprg: "make\\ -C\\ $CURRENT_FUN_WITH_DIR/build/"
         footer: |
             let g:ycm_collect_identifiers_from_tags_files=1
             noremap <F5> :Autoformat<CR>
