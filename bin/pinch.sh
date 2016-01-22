@@ -16,6 +16,10 @@ while [[ $# > 0 ]]; do
         do_sync=true
       ;;
 
+      none)
+        do_all=false
+      ;;
+
       --init|"init.bootstrap")
         do_init=true
         do_all=false
