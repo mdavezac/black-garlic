@@ -38,17 +38,6 @@ def installed(name, compiler=None, options=None, version=None, dependencies=None
     spacker = join(defaults['directory'], 'bin', 'spack')
     return __states__['cmd.run'](spacker + " install " + specs)
 
-def recipe(name, file=None):
-    from os.path import join
-    defaults = _get_spack(__pillar__)
-    prefix = join(defaults['directory'], 'var', 'spack', 'packages', name)
-    source = 'salt://spack/' + (name if file is None else file)
-    results = {}
-    results.update(__states__['file.directory'](prefix))
-    results.update(
-        __states__['file.managed'](join(prefix, 'package.py'), source=source))
-    return results
-
 def add_repo(name, github=None, scope=None, prefix=None):
     from os.path import expanduser, join
 
