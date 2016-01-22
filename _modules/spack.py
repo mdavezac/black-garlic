@@ -1,4 +1,3 @@
-
 # -*- coding: utf-8 -*-
 '''
 SPACK package manager
@@ -23,10 +22,16 @@ def spack_directory():
 
 def defaults(key=None, value=None):
     """ Default pillar values """
-    _expand_system_path()
     from os.path import join
-    from spack.cmd import default_list_scope as dls
-    from spack.repository import canonicalize_path
+    try:
+        _expand_system_path()
+        from spack.cmd import default_list_scope as dls
+        from spack.repository import canonicalize_path
+    except ImportError:
+        dls = "spack"
+        def canonicalize_path(x):
+            from os.path import expanduser, expandvars, abspath
+            return abspath(expanduser(expandvars(x)))
 
     if key is not None and value is not None:
         return value
@@ -35,13 +40,12 @@ def defaults(key=None, value=None):
     repo_prefix = join(home, '.spack_repos')
     values = {
         'directory': spack_directory(),
-        'scope':
-            __salt__['pillar.get']('spack:default_config_location', dls),
         'config_dir':
             __salt__['pillar.get']('spack:config_location', config_dir),
         'repo_prefix':
-            __salt__['pillar.get']('spack:repo_prefix', repo_prefix)
-
+            __salt__['pillar.get']('spack:repo_prefix', repo_prefix),
+        'scope':
+            __salt__['pillar.get']('spack:default_config_location', dls)
     }
     values['config_dir'] = canonicalize_path(values['config_dir'])
     values['repo_prefix'] = canonicalize_path(values['repo_prefix'])
@@ -90,6 +94,8 @@ def add_repo(path, prefix=None, scope=None):
 
     cannon = repo_path(path, prefix)
     repos = get_config('repos', defaults('scope', scope))
+    if not repos:
+        repos = []
 
     repo = Repo(cannon)
 
