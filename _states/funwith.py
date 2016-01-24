@@ -14,10 +14,17 @@ def _get_virtualenv(name, prefix, virtualenv):
         virtualenv['name'] = prefix
     return virtualenv
 
-def add_vimrc(name, prefix=None, source_dir=None, width=None, tabs=None,
+def _update_states(whole, parts):
+    if (not __opts__['test']) and parts['result'] == False:
+        whole['result'] = True
+    whole['changes'].update(parts['changes'])
+    if 'comment' in parts:
+        whole['comment'] += "\n" + parts['comment']
+
+
+def add_vimrc(name, source_dir=None, width=None, tabs=None,
               footer=None, makeprg=None, **kwargs):
     from os.path import join
-    prefix = _get_prefix(name, prefix)
     if width is None:
         width = __salt__['pillar.get']('vim:width', 100)
     if tabs is None:
@@ -26,7 +33,7 @@ def add_vimrc(name, prefix=None, source_dir=None, width=None, tabs=None,
         makeprg = __salt__['pillar.get'](
             'vim:makeprg', 'ninja\ -C\ {0}/build\ -v'.format(source_dir))
     defaults = {
-        'prefix': prefix,
+        'prefix': name,
         'width': width,
         'tabs': tabs,
         'footer': footer,
@@ -34,7 +41,7 @@ def add_vimrc(name, prefix=None, source_dir=None, width=None, tabs=None,
     }
     defaults.update(**kwargs)
     return __states__['file.managed'](
-        join(prefix, '.vimrc'),
+        join(name, '.vimrc'),
         source='salt://funwith/vimrc.jinja',
         defaults = defaults,
         template='jinja'
@@ -42,7 +49,8 @@ def add_vimrc(name, prefix=None, source_dir=None, width=None, tabs=None,
 
 
 def add_cppconfig(name, prefix=None, source_dir=None, includes=None,
-                  source_includes=None, cpp11=False, cpp=False, c99=False):
+                  source_includes=None, cpp11=False, cpp=False, c99=False,
+                  defines=None):
     from os.path import join
     if (cpp11 or cpp) and c99:
         raise RuntimeError("Cannot be both a c++ and c project")
@@ -68,6 +76,9 @@ def add_cppconfig(name, prefix=None, source_dir=None, includes=None,
         lines.append("-std=c++11")
     elif c99:
         lines.append("-std=c99")
+
+    if defines is not None:
+        lines.extend(["-D%s" % u for u in defines])
 
     return __states__['file.managed'](
         join(prefix, '.cppconfig'),
@@ -125,47 +136,52 @@ def present(name, prefix=None, cwd=None, github=None, srcname=None, email=None,
     elif cwd is not None and cwd[0] != '/':
         cwd = join(prefix, cwd)
 
-    result = {}
+    result = {
+        'name': name,
+        'changes': {},
+        'result': None if __opts__['test'] else True,
+        'comment': ''
+    }
     if spack is None:
         spack = []
     for package in spack:
-        result.update(__states__['spack.installed'](package))
+        pkg = __states__['spack.installed'](package)
+        _update_states(result, pkg)
 
     virtualenv = _get_virtualenv(name, prefix, virtualenv)
     if virtualenv is not None:
         virtualenv.update(kwargs)
-        result.update(__states__['virtualenv.managed'](**virtualenv))
+        virtenv = __states__['virtualenv.managed'](**virtualenv)
+        _update_states(result, virtenv)
 
-    result.update(
-        modulefile(name, prefix=prefix, cwd=cwd, footer=footer, spack=spack,
-                   **kwargs)
-    )
+    mfile = modulefile(name, prefix=prefix, cwd=cwd, footer=footer,
+                       spack=spack, **kwargs)
+    _update_states(result, mfile)
     if prefix is not None:
-        result.update(__states__['file.directory'](prefix))
+        dir = __states__['file.directory'](prefix)
+        _update_states(result, dir)
     if cwd is not None and cwd != prefix and cwd != target:
-        result.update(__states__['file.directory'](cwd))
+        dir = __states__['file.directory'](cwd)
+        _update_states(result, dir)
     if github is not None:
-        result.update(
-            __states__['github.present'](github, email=email, username=username,
-                                        target=target)
-        )
+        vcs =  __states__['github.present'](github, email=email,
+                                            username=username, target=target)
+        _update_states(result, vcs)
         if ctags:
-            result.update(
-                __states__['ctags.run'](target, exclude=['.git', 'build']))
+            ctag = __states__['ctags.run'](target, exclude=['.git', 'build'])
+            _update_states(result, ctag)
 
     if vimrc:
         args = vimrc.copy() if isinstance(vimrc, dict) else {}
-        result.update(
-            add_vimrc(
-                name, prefix=prefix, source_dir=target, cppconfig=cppconfig,
+        vim = add_vimrc(
+                join(prefix, name), source_dir=target, cppconfig=cppconfig,
                 **args
             )
-        )
+        _update_states(result, vim)
 
     if cppconfig:
         args = cppconfig.copy() if isinstance(cppconfig, dict) else {}
-        result.update(
-            add_cppconfig(name, prefix=prefix, source_dir=target, **args)
-        )
+        cpp = add_cppconfig(name, prefix=prefix, source_dir=target, **args)
+        _update_states(result, cpp)
 
     return result
