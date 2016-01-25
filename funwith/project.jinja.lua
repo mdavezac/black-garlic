@@ -4,7 +4,8 @@ family("project")
 setenv("CURRENT_FUN_WITH_HOMEDIR", homedir)
 
 {% if srcdir -%}
-setenv("CURRENT_FUN_WITH_DIR", "{{srcdir}}")
+local srcdir="{{srcdir}}"
+setenv("CURRENT_FUN_WITH_DIR", srcdir)
 {% endif -%}
 
 prepend_path("CMAKE_PREFIX_PATH", homedir)
@@ -23,10 +24,13 @@ prepend_path("PATH", pathJoin("{{virtualenv['name']}}", "bin"))
 setenv("JULIA_PKGDIR", "{{julia_package_dir}}")
 {% endif -%}
 
-{% if footer -%}
-{{footer}}
-{% endif -%}
-
 {% for package in modules -%}
 load("{{package}}")
 {% endfor %}
+
+-- local ldlibpaths=os.getenv("LD_LIBRARY_PATH")
+-- setenv("DYLD_FALLBACK_LIBRARY_PATH", ldlibpaths)
+
+{% if footer -%}
+{{footer}}
+{% endif -%}
