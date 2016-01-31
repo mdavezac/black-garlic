@@ -142,11 +142,9 @@ def present(name, prefix=None, cwd=None, github=None, srcname=None, email=None,
         'result': None if __opts__['test'] else True,
         'comment': ''
     }
-    if spack is None:
-        spack = []
-    for package in spack:
-        pkg = __states__['spack.installed'](package)
-        _update_states(result, pkg)
+    if spack is not None:
+        pkgs = __states__['spack.installed'](spack)
+        _update_states(result, pkgs)
 
     virtualenv = _get_virtualenv(name, prefix, virtualenv)
     if virtualenv is not None:
