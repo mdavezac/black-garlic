@@ -51,6 +51,23 @@ def defaults(key=None, value=None):
     values['repo_prefix'] = canonicalize_path(values['repo_prefix'])
     return values[key] if key is not None else values
 
+def module_name(name):
+    """ Figures out module name(s) from specs """
+    _init_spack()
+    from spack.modules import module_types
+    from spack import installed_db
+    mt = module_types['tcl']
+    specs = parse_specs(name)
+    result = []
+    for spec in specs:
+        mods = installed_db.query(spec)
+        if len(mods) == 0:
+            raise ValueError("No module found for %s." % spec)
+        elif len(mods) > 1:
+            raise ValueError("More than one module matches %s (%s)." % (spec, mods))
+        result.append(mt(mods[0]).use_name)
+    return result
+
 def _init_spack():
     from os.path import join, expanduser
     from os import getcwd

@@ -96,11 +96,7 @@ def modulefile(name, prefix=None, cwd=None, footer=None, virtualenv=None,
     if spack is None:
         spack = []
     for package in spack:
-        mods = check_output(
-            'spack module find tcl'.split() + [package]).split('\n')
-        if len(mods) > 2:
-            raise Exception("Found more than one module for " + package)
-        modules.append(mods[0])
+        modules.extend(__salt__['spack.module_name'](package))
 
     virtualenv = _get_virtualenv(name, prefix, virtualenv)
 
