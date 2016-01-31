@@ -18,8 +18,7 @@ Valloric/YouCompleteMe:
       - {{bundledir}}/YouCompleteMe/third_party/ycmd/ycm_core.so
     - require:
       - pkg: languages
-      - pkg: boost
-      - pkg: boost-python
+      - pkg: libraries
       - pkg: vim
 
 
