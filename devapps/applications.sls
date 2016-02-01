@@ -5,10 +5,12 @@ development applications:
       - ninja
       - hub
       - git
+      - hg
       - the_silver_searcher
       - pkg-config
       - clang-format
       - doxygen
+      - valgrind
 
 universal-ctags:
   pkg.installed:
