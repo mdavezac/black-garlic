@@ -150,12 +150,13 @@ def install(name, keep_prefix=False, keep_stage=False, ignore_deps=False):
     from spack.cmd import parse_specs
     specs = parse_specs(name, concretize=True)
     packages = [repo.get(spec) for spec in specs]
-    packages = [u for u in packages if not u.installed]
-    for package in packages:
+    new_pkgs = [u for u in packages if not u.installed]
+    for package in new_pkgs:
         with installed_db.write_transaction():
             package.do_install(
                 keep_prefix=keep_prefix,
                 keep_stage=keep_stage,
                 ignore_deps=ignore_deps
             )
-    return [p.name for p in packages]
+    return [p.name for p in new_pkgs if p.installed], \
+            [p.name for p in new_pkgs if not p.installed]

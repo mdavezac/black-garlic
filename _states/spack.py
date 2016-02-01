@@ -47,10 +47,11 @@ def installed(name, pkgs=None, **kwargs):
                'comment': 'Spacking ' + str(new_pkgs)}
 
     changes = {}
+    result = True
     for pkg in new_pkgs:
-      installed = __salt__['spack.install'](pkg, **kwargs)
+      installed, failed = __salt__['spack.install'](pkg, **kwargs)
+      result &= len(failed) == 0
       changes.update({p: {'old': None, 'new': 'installed'} for p in installed})
-    result = set(changes.keys()) == set(new_pkgs)
     return {'name': name,
             'changes': changes,
             'result': result,
