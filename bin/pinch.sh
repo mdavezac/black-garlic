@@ -1,5 +1,5 @@
 #! /usr/bin/env /bin/bash
-# Makes it easier to call salt
+# Makes it easier to call salt
 
 # will contain all sls
 args=()
