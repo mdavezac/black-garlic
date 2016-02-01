@@ -67,6 +67,8 @@ def add_cppconfig(name, prefix=None, source_dir=None, includes=None,
             lines.append("-I" + join(prefix, include))
     if source_includes is not None and source_dir is None:
         raise ValueError("Need source_dir to do source_includes")
+    if source_includes is None:
+        source_includes = []
     for include in source_includes:
         lines.append("-I" + join(source_dir, include))
 
