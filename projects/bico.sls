@@ -3,9 +3,9 @@ bico:
     - github: astro-informatics/sopt
     - spack:
       - GreatCMakeCookoff
-      - eigen %clang
+      - UCL-RITS.eigen %clang
       - gbenchmark %clang
-      - catch %clang
+      - Catch %clang
       - spdlog %clang
 
     - virtualenv:
@@ -24,7 +24,7 @@ bico:
     - ctags: True
     - cppconfig:
         cpp11: True
-        includes:
+        source_includes:
           - build/external/include
           - cpp
           - cpp/examples

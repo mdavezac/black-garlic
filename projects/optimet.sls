@@ -11,14 +11,14 @@ optimet:
       - f2c %clang
       - gsl %clang
       - boost %clang
-      - hdf5 %clang -fortran -cxx
+      - hdf5 %clang -fortran -cxx -mpi
       - Catch %clang
-      - UCL-RITS.eigen %clang
+      - UCL-RITS.eigen %clang +debug
       - openblas %clang
       - openmpi %clang -tm
-      - UCL-RITS.scalapack %clang ^openblas %clang ^openmpi %clang -tm
+      - UCL-RITS.scalapack +debug %clang ^openblas %clang ^openmpi %clang -tm
     - vimrc:
-        makeprg: "make\\ -C\\ $CURRENT_FUN_WITH_DIR/build/"
+        makeprg: "ninja\\ -C\\ $CURRENT_FUN_WITH_DIR/build/"
         footer: |
             let g:ycm_collect_identifiers_from_tags_files=1
             noremap <F5> :Autoformat<CR>
@@ -30,7 +30,7 @@ optimet:
         cpp11: True
         source_includes:
           - build/include/optimet
-          - .
+          - ./
   # recursive clone does not work so well on salt
   cmd.run:
     - name: git submodule update --init --recursive
