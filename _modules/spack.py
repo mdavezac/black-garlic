@@ -24,7 +24,7 @@ def defaults(key=None, value=None):
     """ Default pillar values """
     from os.path import join
     try:
-        _expand_system_path()
+        _init_spack()
         from spack.cmd import default_list_scope as dls
         from spack.repository import canonicalize_path
     except ImportError:
@@ -51,8 +51,26 @@ def defaults(key=None, value=None):
     values['repo_prefix'] = canonicalize_path(values['repo_prefix'])
     return values[key] if key is not None else values
 
-def _expand_system_path():
+def module_name(name):
+    """ Figures out module name(s) from specs """
+    _init_spack()
+    from spack.modules import module_types
+    from spack import installed_db
+    mt = module_types['tcl']
+    specs = parse_specs(name)
+    result = []
+    for spec in specs:
+        mods = installed_db.query(spec)
+        if len(mods) == 0:
+            raise ValueError("No module found for %s." % spec)
+        elif len(mods) > 1:
+            raise ValueError("More than one module matches %s (%s)." % (spec, mods))
+        result.append(mt(mods[0]).use_name)
+    return result
+
+def _init_spack():
     from os.path import join, expanduser
+    from os import getcwd
     from sys import path
     spackdir = spack_directory()
     libdir = join(spackdir, 'lib', 'spack')
@@ -60,10 +78,14 @@ def _expand_system_path():
         path.append(libdir)
         path.append(join(libdir, 'external'))
 
+    import spack
+    spack.debug = False
+    spack.spack_working_dir = spack_directory()
+
 
 def repo_exists(path, scope=None, prefix=None):
     """ Checks whether input is a known repo """
-    _expand_system_path()
+    _init_spack()
     from spack.repository import Repo
     from spack.config import get_config
     from os.path import join
@@ -75,7 +97,7 @@ def repo_exists(path, scope=None, prefix=None):
     return repo.root in repos or path in repos
 
 def repo_path(path, prefix=None):
-    _expand_system_path()
+    _init_spack()
     from os.path import join
     from spack.repository import canonicalize_path
 
@@ -85,7 +107,7 @@ def repo_path(path, prefix=None):
 
 def add_repo(path, prefix=None, scope=None):
     """ Adds path to spack repos """
-    _expand_system_path()
+    _init_spack()
 
     from collections import namedtuple
     from spack.repository import Repo
@@ -108,12 +130,12 @@ def add_repo(path, prefix=None, scope=None):
 
 def parse_specs(specs, concretize=False, normalize=False):
     """ Converts spec to module name """
-    _expand_system_path()
+    _init_spack()
     from spack.cmd import parse_specs
     return parse_specs(specs, concretize=concretize, normalize=normalize)
 
 def is_installed(name):
-    _expand_system_path()
+    _init_spack()
     from spack import repo
     from spack.cmd import parse_specs
     specs = parse_specs(name, concretize=True)
@@ -123,7 +145,7 @@ def is_installed(name):
     return True
 
 def install(name, keep_prefix=False, keep_stage=False, ignore_deps=False):
-    _expand_system_path()
+    _init_spack()
     from spack import repo, installed_db
     from spack.cmd import parse_specs
     specs = parse_specs(name, concretize=True)
