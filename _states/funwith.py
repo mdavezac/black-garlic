@@ -1,7 +1,14 @@
+def defaults(key=None, value=None):
+    """ Default pillar values """
+    return __salt__['funwith.defaults'](key, value)
+
+def prefix(name):
+    """ Computes prefix for given project """
+    return __salt__['funwith.prefix'](name)
+
 def _get_prefix(name, prefix):
-    from os.path import join
-    return prefix if prefix is not None else \
-        join(__pillar__['funwith']['workspaces'], name)
+    from .funwith import prefix as prefix_fun
+    return prefix if prefix is not None else prefix_fun(name)
 
 def _get_virtualenv(name, prefix, virtualenv):
     if virtualenv is None:
@@ -111,7 +118,7 @@ def modulefile(name, prefix=None, cwd=None, footer=None, virtualenv=None,
         'julia_package_dir': None
     }
     return __states__['file.managed'](
-        join(__pillar__['funwith']['modulefiles'], name + ".lua"),
+        join(defaults('modulefiles'), name + ".lua"),
         source='salt://funwith/project.jinja.lua',
         template='jinja', context=context, **kwargs
     )
