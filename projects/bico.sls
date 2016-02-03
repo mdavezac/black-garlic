@@ -1,4 +1,4 @@
-{% set compiler="gcc" %}
+{% set compiler="intel" %}
 bico:
   funwith.present:
     - github: astro-informatics/sopt
@@ -8,6 +8,9 @@ bico:
       - gbenchmark %{{compiler}}
       - Catch %{{compiler}}
       - spdlog %{{compiler}}
+{% if compiler in ["gcc", "intel"] %}
+      - openblas %gcc
+{% endif %}
 
     - virtualenv:
         system_site_packages: True
@@ -27,9 +30,15 @@ bico:
 
 {% if compiler == "gcc" %}
     - footer: |
-        setenv("CXXFLAGS", "-Wno-parentheses -Wno-deprecated-declarations")
+        setenv("CXXFLAGS", "-Wall -Wno-parentheses -Wno-deprecated-declarations")
         setenv("CXX", "g++-5")
         setenv("CC", "gcc-5")
+        setenv("BLA_VENDOR", "OpenBlas")
+{% elif compiler == "intel" %}
+    - footer: |
+        setenv("CXX", "icpc")
+        setenv("CC", "icc")
+        setenv("BLA_VENDOR", "OpenBlas")
 {% endif %}
 
     - ctags: True
