@@ -30,6 +30,7 @@ optimet:
           - ./
     - footer: |
         setenv("LDFLAGS", "/usr/local/Cellar/gcc/5.3.0/lib/gcc/5/libgfortran.dylib")
+        setenv("BLA_VENDOR", "OpenBlas")
 {% if compiler == "gcc" %}
         setenv("CXXFLAGS", "-Wno-parentheses -Wno-deprecated-declarations")
         setenv("CXX", "g++-5")
