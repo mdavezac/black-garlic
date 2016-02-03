@@ -8,9 +8,13 @@ development applications:
       - hg
       - the_silver_searcher
       - pkg-config
-      - clang-format
       - doxygen
       - valgrind
+
+clang-format:
+  pkg.installed:
+    - options:
+      - --HEAD
 
 universal-ctags:
   pkg.installed:
