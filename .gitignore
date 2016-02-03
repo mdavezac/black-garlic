@@ -3,4 +3,5 @@ salt-env
 bin/activate
 etc/
 pillar/condiment.sls
+pillar/secrets.sls
 .*.swp
