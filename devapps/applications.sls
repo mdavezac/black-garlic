@@ -5,7 +5,7 @@ development applications:
       - ninja
       - hub
       - git
-      - hg
+      - mercurial
       - the_silver_searcher
       - pkg-config
       - doxygen
