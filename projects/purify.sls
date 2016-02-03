@@ -9,12 +9,21 @@ purify:
       - Catch %{{compiler}}
       - spdlog %{{compiler}}
       - cfitsio %{{compiler}}
+{% if compiler == 'gcc' %}
+      - openblas %{{compiler}}
+{% endif %}
 
     - virtualenv:
         system_site_packages: True
         python: python2
         use_wheel: True
         pip_upgrade: True
+        pip_pkgs:
+          - numpy
+          - scipy
+          - pytest
+          - pandas
+          - cython
 
     - vimrc:
         makeprg: True
