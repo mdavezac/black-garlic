@@ -33,3 +33,14 @@ vim:
     - options: ['--with-lua', '--with-luajit']
     - require:
         - pkg: languages
+
+/usr/local/bin/git-clang-format:
+  file.managed:
+    - mode: 0775
+
+modify git-clang-format to use python2:
+  file.line:
+    - name: /usr/local/bin/git-clang-format
+    - mode: Replace
+    - match: "#!/usr/bin/env python"
+    - content: "#!/usr/bin/env python2"
