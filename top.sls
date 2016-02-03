@@ -1,5 +1,6 @@
 base:
   '*':
+    - init.directories
     - brew-cask
     - setup_github
     - karabiner
