@@ -1,4 +1,5 @@
 {% set prefix = salt['funwith.prefix']('optimet') %}
+{% set compiler = "gcc" %}
 optimet:
   funwith.present:
     - github: OPTIMET/OPTIMET
@@ -37,5 +38,5 @@ optimet:
   # recursive clone does not work so well on salt
   cmd.run:
     - name: git submodule update --init --recursive
-    - cwd: {{optime}}/src/optimet
-    - creates: {{optimet}}/src/optimet/test-data/.git
+    - cwd: {{prefix}}/src/optimet
+    - creates: {{prefix}}/src/optimet/test-data/.git
