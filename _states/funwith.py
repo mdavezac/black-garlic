@@ -177,7 +177,7 @@ def present(name, prefix=None, cwd=None, github=None, srcname=None, email=None,
     if vimrc:
         args = vimrc.copy() if isinstance(vimrc, dict) else {}
         vim = add_vimrc(
-                join(prefix, name), source_dir=target, cppconfig=cppconfig,
+                prefix, source_dir=target, cppconfig=cppconfig,
                 **args
             )
         _update_states(result, vim)
