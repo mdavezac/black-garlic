@@ -1,3 +1,4 @@
+{% set prefix = salt['funwith.prefix']('hemelb') %}
 hemelb:
   funwith.present:
     - github: UCL-CCS/hemelb-dev
@@ -7,16 +8,16 @@ hemelb:
           local tmpdir=pathJoin(srcdir, "build", "tmp")
           setenv("TMP", tmpdir)
     - spack:
-      - GreatCMakeCookoff %clang
-      - boost %clang
-      - openmpi@1.10.2 %clang -tm
-      - hdf5 %clang -fortran -cxx +mpi ^openmpi %clang
-      - gdb %clang
-      - metis %clang +double
-      - parmetis %clang +double ^openmpi %clang
-      - Tinyxml %clang
-      - cppunit %clang
-      - CTemplate %clang
+        - GreatCMakeCookoff %clang
+        - boost %clang
+        - openmpi@1.10.2 %clang -tm
+        - hdf5 %clang -fortran -cxx +mpi ^openmpi %clang
+        - gdb %clang
+        - metis %clang +double
+        - parmetis %clang +double ^openmpi %clang
+        - Tinyxml %clang
+        - cppunit %clang
+        - CTemplate %clang
 
     - vimrc:
         makeprg: "ninja\\ -C\\ $CURRENT_FUN_WITH_DIR/build/"
@@ -55,3 +56,41 @@ hemelb:
           - xdr_uint16_t=xdr_u_int16_t
           - xdr_uint32_t=xdr_u_int32_t
           - xdr_uint64_t=xdr_u_int64_t
+
+{{prefix}}/src/hemelb/build/tmp:
+  file.directory
+
+{{prefix}}/.vim/UltiSnips/cpp.snippets:
+  file.managed:
+    - makedirs: True
+    - contents: |
+        snippet CPPA "CPPUNIT_ASSERT" b
+        CPPUNIT_ASSERT(${1:condition});
+        endsnippet
+
+        snippet CPP= "CPPUNIT_ASSERT_EQUAL" b
+        CPPUNIT_ASSERT_EQUAL(${1:expected}, ${2:actual});
+        endsnippet
+
+        snippet CPPD= "CPPUNIT_ASSERT_DOUBLES_EQUAL" b
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(${1:expected}, ${2:actual}, ${3:1e-8});
+        endsnippet
+
+        snippet HC "HEMELB_CAPTURE" b
+        HEMELB_CAPTURE(${1:expression});
+        endsnippet
+        snippet HC2 "HEMELB_CAPTURE(a, b)" b
+        HEMELB_CAPTURE2(${1:expression}, ${2:expression});
+        endsnippet
+        snippet HC3 "HEMELB_CAPTURE(a, b, c)" b
+        HEMELB_CAPTURE3(${1:expression}, ${2:expression}, ${3:expression});
+        endsnippet
+        snippet HC4 "HEMELB_CAPTURE(a, b, c, d)" b
+        HEMELB_CAPTURE4(${1:expression}, ${2:expression}, ${3:expression}, ${4:expression});
+        endsnippet
+        snippet ns "namespace" b
+        namespace ${1:NAME}
+        {
+          $0
+        } // $1
+        endsnippet
