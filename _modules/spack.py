@@ -57,7 +57,7 @@ def module_name(name):
     from spack.modules import module_types
     from spack import installed_db
     mt = module_types['tcl']
-    specs = parse_specs(name)
+    specs = parse_specs(name, concretize=True, normalize=True)
     result = []
     for spec in specs:
         mods = installed_db.query(spec)
