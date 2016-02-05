@@ -28,8 +28,16 @@ setenv("JULIA_PKGDIR", "{{julia_package_dir}}")
 load("{{package}}")
 {% endfor %}
 
--- local ldlibpaths=os.getenv("LD_LIBRARY_PATH")
--- setenv("DYLD_FALLBACK_LIBRARY_PATH", ldlibpaths)
+if (mode() == "load") then
+  local ldlibpaths=os.getenv("LD_LIBRARY_PATH") or ""
+  local fallbacks=os.getenv("DYLD_FALLBACK_LIBRARY_PATH") or ""
+  setenv("_FUNWITH_DYLD_FALLBACK_LIBRARY_PATH", fallbacks)
+  prepend_path("DYLD_FALLBACK_LIBRARY_PATH", ldlibpaths)
+elseif (mode() == "unload") then
+  local fallbacks=os.getenv("_FUNWITH_DYLD_FALLBACK_LIBRARY_PATH") or ""
+  setenv("DYLD_FALLBACK_LIBRARY_PATH", fallbacks)
+  unsetenv("_FUNWITH_DYLD_FALLBACK_LIBRARY_PATH")
+end
 
 {% if footer -%}
 {{footer}}
