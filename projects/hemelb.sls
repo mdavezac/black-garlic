@@ -1,29 +1,37 @@
 {% set prefix = salt['funwith.prefix']('hemelb') %}
+{% set compiler = "gcc" %}
 hemelb:
   funwith.present:
     - github: UCL-CCS/hemelb-dev
     - srcname: hemelb
     - footer: |
           setenv("CXXFLAGS", "-Wall -Wno-deprecated-register")
-          local tmpdir=pathJoin(srcdir, "build", "tmp")
-          setenv("TMP", tmpdir)
+          setenv("TMP", "{{prefix}}/src/hemelb/build/tmp")
+{% if compiler == "gcc" %}
+          setenv("CC", "gcc-5")
+          setenv("CXX", "g++-5")
+{% elif compiler == "intel" %}
+          setenv("CC", "icc")
+          setenv("CXX", "icpc")
+{% endif %}
     - spack:
-        - GreatCMakeCookoff %clang
-        - boost %clang
-        - openmpi@1.10.2 %clang -tm
-        - hdf5 %clang -fortran -cxx +mpi ^openmpi %clang
-        - gdb %clang
-        - metis %clang +double
-        - parmetis %clang +double ^openmpi %clang
-        - Tinyxml %clang
-        - cppunit %clang
-        - CTemplate %clang
+        - GreatCMakeCookoff
+        - boost %{{compiler}}
+        - openmpi@1.10.2 %{{compiler}} -tm
+        - hdf5 %{{compiler}} -fortran -cxx +mpi ^openmpi %{{compiler}}
+        - gdb %{{compiler}}
+        - metis %{{compiler}} +double
+        - parmetis %{{compiler}} +double ^openmpi %{{compiler}}
+        - Tinyxml %{{compiler}}
+        - cppunit %{{compiler}}
+        - CTemplate %{{compiler}}
 
     - vimrc:
         makeprg: "ninja\\ -C\\ $CURRENT_FUN_WITH_DIR/build/"
         footer: |
             let g:ycm_collect_identifiers_from_tags_files=1
             let g:github_issues_max_pages=7
+            let g:github_upstream_issues=1
 
     - ctags: True
     - cppconfig:
