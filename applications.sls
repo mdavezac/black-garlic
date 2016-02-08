@@ -11,3 +11,4 @@ cask applications:
       - iterm2
       - google-chrome
       - dropbox
+      - shiftit
