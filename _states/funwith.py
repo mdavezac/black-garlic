@@ -36,7 +36,7 @@ def add_vimrc(name, source_dir=None, width=None, tabs=None,
         width = __salt__['pillar.get']('vim:width', 100)
     if tabs is None:
         tabs = __salt__['pillar.get']('vim:tabs', 2)
-    if makeprg is None and source_dir is not None:
+    if makeprg is True and source_dir is not None:
         makeprg = __salt__['pillar.get'](
             'vim:makeprg', 'ninja\ -C\ {0}/build\ -v'.format(source_dir))
     defaults = {
