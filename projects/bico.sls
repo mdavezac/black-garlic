@@ -1,10 +1,10 @@
-{% set compiler="intel" %}
+{% set compiler="gcc" %}
 bico:
   funwith.present:
     - github: astro-informatics/sopt
     - spack:
       - GreatCMakeCookoff
-      - UCL-RITS.eigen %{{compiler}} -debug
+      - UCL-RITS.Eigen %{{compiler}} -debug
       - gbenchmark %{{compiler}}
       - Catch %{{compiler}}
       - spdlog %{{compiler}}
@@ -21,7 +21,7 @@ bico:
           - pyWavelets
 
     - vimrc:
-        makeprg: True
+        makeprg: "ninja\\ -C\\ $CURRENT_FUN_WITH_DIR/build/"
         footer: |
             let g:ycm_collect_identifiers_from_tags_files=1
             noremap <F5> :Autoformat<CR>
