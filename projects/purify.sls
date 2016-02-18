@@ -1,4 +1,4 @@
-{% set compiler = "gcc" %}
+{% set compiler = "clang" %}
 purify:
   funwith.present:
     - github: astro-informatics/purify
@@ -38,6 +38,7 @@ purify:
         cpp11: True
         source_includes:
           - build/external/include
+          - build/include/purify
           - cpp
           - cpp/examples
           - include

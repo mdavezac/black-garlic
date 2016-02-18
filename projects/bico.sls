@@ -46,6 +46,7 @@ bico:
         cpp11: True
         source_includes:
           - build/external/include
+          - build/include
           - cpp
           - cpp/examples
 
