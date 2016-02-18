@@ -9,7 +9,7 @@ spack:
     - rev: develop
 
   file.append:
-    - name: {{grains['userhome']}}/.salted_zprofile
+    - name: {{grains['userhome']}}/.salted/zprofile
     - text: |
        export SPACK_ROOT={{directory}}
        source $SPACK_ROOT/share/spack/setup-env.sh
