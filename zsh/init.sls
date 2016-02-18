@@ -5,9 +5,10 @@ zsh:
       - zsh-lovers
 
 include:
-  - zsh.powerfonts
-  - zsh.prezto
-  - zsh.iterm2
+  - .powerfonts
+  - .prezto
+  - .iterm2
+  - .completions
 
 {{grains['userhome']}}/.salted:
   file.directory
