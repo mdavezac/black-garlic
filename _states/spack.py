@@ -10,7 +10,7 @@ def _create_package_name(name, version=None, options=None, compiler=None):
         result += " %" + compiler
     return result
 
-def installed(name, pkgs=None, **kwargs):
+def installed(name, pkgs=None, environ=None, **kwargs):
     from os.path import join
     defaults = __salt__['spack.defaults']()
     if isinstance(pkgs, list) and len(pkgs) == 0:
@@ -37,7 +37,7 @@ def installed(name, pkgs=None, **kwargs):
     changes = {}
     result = True
     for pkg in new_pkgs:
-      installed, failed = __salt__['spack.install'](pkg, **kwargs)
+      installed, failed = __salt__['spack.install'](pkg, environs=environ, **kwargs)
       result &= len(failed) == 0
       changes.update({p: {'old': None, 'new': 'installed'} for p in installed})
     return {'name': name,

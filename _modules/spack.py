@@ -146,10 +146,13 @@ def is_installed(name):
             return False
     return True
 
-def install(name, keep_prefix=False, keep_stage=False, ignore_deps=False):
+def install(name, keep_prefix=False, keep_stage=False, ignore_deps=False, environs=None):
     _init_spack()
     from spack import repo, installed_db
     from spack.cmd import parse_specs
+    from os import environ
+    if environs is not None:
+        environ.update(environs)
     specs = parse_specs(name, concretize=True)
     packages = [repo.get(spec) for spec in specs]
     new_pkgs = [u for u in packages if not u.installed]

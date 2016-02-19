@@ -1,5 +1,16 @@
 {% set prefix = salt['funwith.prefix']('optimet') %}
-{% set compiler = "gcc" %}
+{% set compiler = "clang" %}
+{% set belos = "belos %%%s +mpi %sopenmp +lapack ^openblas ^openmpi -tm" % (compiler, "+" if compiler != "clang" else "-") %}
+{% set ldflags = "/usr/local/Cellar/gcc/5.3.0/lib/gcc/5/libgfortran.dylib" %}
+
+{% if compiler == "clang" %}
+belos spack packages:
+  spack.installed:
+    - name: {{belos}}
+    - environ:
+        LDFLAGS: {{ldflags}}
+{% endif %}
+
 optimet:
   funwith.present:
     - github: OPTIMET/OPTIMET
@@ -14,6 +25,7 @@ optimet:
       - openblas %{{compiler}}
       - openmpi %{{compiler}} -tm
       - UCL-RITS.scalapack +debug %{{compiler}} ^openblas %{{compiler}} ^openmpi %{{compiler}} -tm
+      - {{belos}}
     - vimrc:
         makeprg: "ninja\\ -C\\ $CURRENT_FUN_WITH_DIR/build/"
         footer: |
@@ -29,9 +41,10 @@ optimet:
           - build/include/optimet
           - ./
     - footer: |
-        setenv("LDFLAGS", "/usr/local/Cellar/gcc/5.3.0/lib/gcc/5/libgfortran.dylib")
         setenv("BLA_VENDOR", "OpenBlas")
-{% if compiler == "gcc" %}
+{% if compiler == "clang" %}
+        setenv("LDFLAGS", "{{ldflags}}")
+{% elif compiler == "gcc" %}
         setenv("CXXFLAGS", "-Wno-parentheses -Wno-deprecated-declarations")
         setenv("CXX", "g++-5")
         setenv("CC", "gcc-5")
