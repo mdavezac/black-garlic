@@ -49,6 +49,8 @@ bico:
           - build/include
           - cpp
           - cpp/examples
+        defines:
+          - SOPT_HAS_NOT_USING
 
   pkg.installed:
     - pkgs:
