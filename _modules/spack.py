@@ -96,12 +96,14 @@ def repo_exists(path, scope=None, prefix=None):
     repo = Repo(cannon)
     return repo.root in repos or path in repos
 
-def repo_path(path, prefix=None):
+def repo_path(path="", prefix=None):
     _init_spack()
     from os.path import join
     from spack.repository import canonicalize_path
 
-    if path[0] not in ['/', '$', '~']:
+    if len(path) == 0:
+        path = defaults('repo_prefix', prefix)
+    elif path[0] not in ['/', '$', '~']:
         path = join(defaults('repo_prefix', prefix), path)
     return canonicalize_path(path)
 
