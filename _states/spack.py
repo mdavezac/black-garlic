@@ -1,15 +1,3 @@
-def _get_spack(pillars=None):
-    from os.path import join, expanduser
-    if pillars is None:
-        pillars = __pillar__
-    if 'spack' not in pillars:
-        return {
-          'directory': __grains__['userhome'] + "/spack",
-          'config_dir': __grains__['userhome'] + ".spack",
-          'compiler': 'clang@7.0.3'
-        }
-    return pillars['spack']
-
 def _create_package_name(name, version=None, options=None, compiler=None):
     result = name
     if version:
@@ -24,7 +12,7 @@ def _create_package_name(name, version=None, options=None, compiler=None):
 
 def installed(name, pkgs=None, **kwargs):
     from os.path import join
-    defaults = _get_spack(__pillar__)
+    defaults = __salt__['spack.defaults']()
     if isinstance(pkgs, list) and len(pkgs) == 0:
         return {'name': name,
                 'changes': {},
