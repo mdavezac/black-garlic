@@ -14,11 +14,13 @@ from salt.exceptions import CommandExecutionError, MinionError
 
 log = logging.getLogger(__name__)
 
+
 def spack_directory():
     """ Specialized to avoid infinite recurrence """
     from os.path import join
     default = join(__grains__['userhome'], 'spack')
-    return  __salt__['pillar.get']('spack:directory', default)
+    return __salt__['pillar.get']('spack:directory', default)
+
 
 def defaults(key=None, value=None):
     """ Default pillar values """
@@ -29,6 +31,7 @@ def defaults(key=None, value=None):
         from spack.repository import canonicalize_path
     except ImportError:
         dls = "spack"
+
         def canonicalize_path(x):
             from os.path import expanduser, expandvars, abspath
             return abspath(expanduser(expandvars(x)))
@@ -51,6 +54,7 @@ def defaults(key=None, value=None):
     values['repo_prefix'] = canonicalize_path(values['repo_prefix'])
     return values[key] if key is not None else values
 
+
 def module_name(name):
     """ Figures out module name(s) from specs """
     _init_spack()
@@ -64,9 +68,11 @@ def module_name(name):
         if len(mods) == 0:
             raise ValueError("No module found for %s." % spec)
         elif len(mods) > 1:
-            raise ValueError("More than one module matches %s (%s)." % (spec, mods))
+            raise ValueError(
+                "More than one module matches %s (%s)." % (spec, mods))
         result.append(mt(mods[0]).use_name)
     return result
+
 
 def _init_spack():
     from os.path import join, expanduser
@@ -96,6 +102,7 @@ def repo_exists(path, scope=None, prefix=None):
     repo = Repo(cannon)
     return repo.root in repos or path in repos
 
+
 def repo_path(path="", prefix=None):
     _init_spack()
     from os.path import join
@@ -106,6 +113,7 @@ def repo_path(path="", prefix=None):
     elif path[0] not in ['/', '$', '~']:
         path = join(defaults('repo_prefix', prefix), path)
     return canonicalize_path(path)
+
 
 def add_repo(path, prefix=None, scope=None):
     """ Adds path to spack repos """
@@ -130,11 +138,25 @@ def add_repo(path, prefix=None, scope=None):
     update_config('repos', repos, defaults('scope', scope))
     return True
 
+
 def parse_specs(specs, concretize=False, normalize=False):
     """ Converts spec to module name """
     _init_spack()
     from spack.cmd import parse_specs
     return parse_specs(specs, concretize=concretize, normalize=normalize)
+
+
+def package_prefix(specs):
+    """ Return package prefix """
+    _init_spack()
+    from spack.cmd import parse_specs
+    packages = parse_specs(specs, concretize=True)
+    if len(packages) == 0:
+        raise RuntimeError("No package found")
+    elif len(packages) > 1:
+        raise RuntimeError("Specs correspond to more than one package")
+    return packages[0].prefix
+
 
 def is_installed(name):
     _init_spack()
@@ -145,6 +167,7 @@ def is_installed(name):
         if not repo.get(spec).installed:
             return False
     return True
+
 
 def install(name, keep_prefix=False, keep_stage=False, ignore_deps=False, environs=None):
     _init_spack()
@@ -164,4 +187,4 @@ def install(name, keep_prefix=False, keep_stage=False, ignore_deps=False, enviro
                 ignore_deps=ignore_deps
             )
     return [p.name for p in new_pkgs if p.installed], \
-            [p.name for p in new_pkgs if not p.installed]
+        [p.name for p in new_pkgs if not p.installed]

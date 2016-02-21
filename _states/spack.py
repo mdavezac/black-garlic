@@ -10,6 +10,7 @@ def _create_package_name(name, version=None, options=None, compiler=None):
         result += " %" + compiler
     return result
 
+
 def installed(name, pkgs=None, environ=None, **kwargs):
     from os.path import join
     defaults = __salt__['spack.defaults']()
@@ -37,13 +38,15 @@ def installed(name, pkgs=None, environ=None, **kwargs):
     changes = {}
     result = True
     for pkg in new_pkgs:
-      installed, failed = __salt__['spack.install'](pkg, environs=environ, **kwargs)
+      installed, failed = __salt__['spack.install'](
+          pkg, environs=environ, **kwargs)
       result &= len(failed) == 0
       changes.update({p: {'old': None, 'new': 'installed'} for p in installed})
     return {'name': name,
             'changes': changes,
             'result': result,
             'comment': 'Installed new packages'}
+
 
 def add_repo(name, github=None, scope=None, prefix=None):
     from os.path import expanduser, join
@@ -52,7 +55,8 @@ def add_repo(name, github=None, scope=None, prefix=None):
     target = __salt__['spack.repo_path'](name)
 
     if github is not None:
-        spackdir = __salt__['pillar.get']('spack:directory', expanduser(join("~", "spack")))
+        spackdir = __salt__['pillar.get'](
+            'spack:directory', expanduser(join("~", "spack")))
         __states__['github.latest'](name=github, target=target)
 
     if __salt__['spack.repo_exists'](target):
