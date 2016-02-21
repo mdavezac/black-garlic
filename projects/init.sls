@@ -1,6 +1,5 @@
 include:
-    - .hunter
-    - .optimet
+  - .spack_packages
 
 condiment_station:
     funwith.modulefile:
