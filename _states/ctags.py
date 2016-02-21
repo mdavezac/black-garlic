@@ -1,5 +1,5 @@
 def run(name, fields="+l", exclude=None, ctags="/usr/local/bin/ctags",
-          creates='tags'):
+        creates='tags'):
     from os.path import join
     if fields is None:
         fields = []
@@ -13,8 +13,8 @@ def run(name, fields="+l", exclude=None, ctags="/usr/local/bin/ctags",
         exclude = [exclude]
     exclude = " --exclude=".join([""] + exclude)
 
-    cmd = "{ctags} {fields} {exclude} {name}".format(
-        ctags=ctags, fields=fields, exclude=exclude, name=name)
+    cmd = "{ctags} {fields} {exclude} .".format(ctags=ctags, fields=fields,
+                                                exclude=exclude)
 
     return __states__['cmd.run'](
         name=cmd, cwd=name, creates=join(name, creates))
