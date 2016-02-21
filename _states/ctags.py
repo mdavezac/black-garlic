@@ -13,8 +13,8 @@ def run(name, fields="+l", exclude=None, ctags="/usr/local/bin/ctags",
         exclude = [exclude]
     exclude = " --exclude=".join([""] + exclude)
 
-    cmd = "{ctags} {fields} {exclude} .".format(ctags=ctags, fields=fields,
-                                                exclude=exclude)
+    cmd = "{ctags} -R {fields} {exclude} .".format(ctags=ctags, fields=fields,
+                                                   exclude=exclude)
 
     return __states__['cmd.run'](
         name=cmd, cwd=name, creates=join(name, creates))
