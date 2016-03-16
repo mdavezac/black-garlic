@@ -21,6 +21,7 @@ basic python packages for python{{version}}:
       - pytest
       - virtualenv
       - matplotlib
+      - matplotlib-venn
       - pandas
       - autopep8
     - bin_env: /usr/local/bin/pip{{version}}
