@@ -33,6 +33,7 @@
 {% endif %}
 
     - footer:
+        setenv('ESPRESSO_PSEUDO', joinPath(srcdir, 'upf_files'))
 {% if compiler != 'intel' %}
         setenv('FC', 'gfortran')
 {% else %}
