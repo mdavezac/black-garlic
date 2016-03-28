@@ -21,7 +21,7 @@ hemelb:
         - hdf5 %{{compiler}} -fortran -cxx +mpi ^openmpi %{{compiler}}
         - gdb %{{compiler}}
         - metis %{{compiler}} +double
-        - parmetis %{{compiler}} +double ^openmpi %{{compiler}}
+        - parmetis %{{compiler}} ^openmpi %{{compiler}}
         - Tinyxml %{{compiler}}
         - cppunit %{{compiler}}
         - CTemplate %{{compiler}}
