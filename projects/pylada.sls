@@ -33,12 +33,17 @@
 {% endif %}
 
     - footer:
-        setenv('ESPRESSO_PSEUDO', joinPath(srcdir, 'upf_files'))
+        setenv('ESPRESSO_PSEUDO', pathJoin(homedir, 'data', 'upf_files'))
 {% if compiler != 'intel' %}
         setenv('FC', 'gfortran')
 {% else %}
         setenv('FC', 'ifort')
 {% endif %}
+  archive.extracted:
+    - name: {{salt['funwith.prefix'](project)}}/data
+    - archive_format: tar
+    - source_hash: md5=aefb62ca035b57eb4680ab851219b20b
+    - source: http://www.quantum-espresso.org/wp-content/uploads/upf_files/upf_files.tar
 
 # mpi4py needs to know the location of mpicc, so install packages outside funwith
 install python packages in {{project}}:
