@@ -64,7 +64,7 @@ install python packages in {{project}}:
       - traitlets
       - f90nml
       - pyflakes
-      - pytest-pyflakes
+      - pytest-flakes
     - bin_env: {{salt['funwith.prefix'](project)}}
     - upgrade: True
     - env_vars:
