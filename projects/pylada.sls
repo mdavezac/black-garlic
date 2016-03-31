@@ -28,9 +28,9 @@
             noremap <F5> :Autoformat<CR>
             let g:formatdef_llvm_cpp = '"clang-format -style=file"'
             let g:formatters_cpp = ['llvm_cpp']
-{% if python == "python3" %}
-            let g:syntastic_python_python_exe = "python3"
-{% endif %}
+            let g:syntastic_python_python_exe = "{{prefix}}/bin/python"
+            let g:syntastic_python_checkers = ['pyflakes']
+            let g:syntastic_enable_balloons = 1
 
     - footer:
         setenv('ESPRESSO_PSEUDO', pathJoin(homedir, 'data', 'upf_files'))
@@ -63,6 +63,8 @@ install python packages in {{project}}:
       - six
       - traitlets
       - f90nml
+      - pyflakes
+      - pytest-pyflakes
     - bin_env: {{salt['funwith.prefix'](project)}}
     - upgrade: True
     - env_vars:
