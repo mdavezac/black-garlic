@@ -22,6 +22,11 @@ spack missing clang compilers:
     - name: {{config_dir}}/compilers.yaml
     - source: salt://spack/compilers.yaml
 
+spack external packages:
+  file.managed:
+    - name: {{config_dir}}/packages.yaml
+    - source: salt://spack/packages.yaml
+
 UCL-RITS:
   spack.add_repo:
     - github: UCL-RITS/spack_packages
