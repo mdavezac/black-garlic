@@ -18,10 +18,10 @@ hemelb:
         - GreatCMakeCookoff
         - boost %{{compiler}}
         - openmpi@1.10.2 %{{compiler}} -tm
-        - hdf5 %{{compiler}} -fortran -cxx +mpi ^openmpi %{{compiler}}
+        - hdf5 %{{compiler}} -fortran -cxx +mpi ^openmpi
         - gdb %{{compiler}}
         - metis %{{compiler}} +double
-        - parmetis %{{compiler}} ^openmpi %{{compiler}}
+        - parmetis %{{compiler}} ^openmpi
         - Tinyxml %{{compiler}}
         - cppunit %{{compiler}}
         - CTemplate %{{compiler}}
