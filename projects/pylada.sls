@@ -15,11 +15,11 @@
         python: {{python}}
     - spack:
         - GreatCMakeCookoff
-        - boost %{{compiler}}
         - openmpi %{{compiler}}
-        - UCL-RITS.scalapack %{{compiler}} ^openblas ^openmpi -tm
-        - espresso %{{compiler}} +mpi +scalapack ^UCL-RITS.scalapack ^openblas ^openmpi -tm
+        - netlib-scalapack %{{compiler}} ^openblas ^openmpi -tm
+        - espresso %{{compiler}} +mpi +scalapack ^netlib-scalapack ^openblas ^openmpi -tm
         - UCL-RITS.Eigen %{{compiler}}
+        # - boost %{{compiler}}
 
     - vimrc:
         makeprg: "make\\ -C\\ $CURRENT_FUN_WITH_DIR/build/"
@@ -33,7 +33,8 @@
             let g:syntastic_enable_balloons = 1
 
     - footer:
-        setenv('ESPRESSO_PSEUDO', pathJoin(homedir, 'data', 'upf_files'))
+        setenv('ESPRESSO_PSEUDO',
+               pathJoin("{{salt['funwith.prefix']("data")}}", "espresso", 'upf_files'))
 {% if compiler != 'intel' %}
         setenv('FC', 'gfortran')
 {% else %}
@@ -58,7 +59,6 @@ install python packages in {{project}}:
       - quantities
       - nose
       - nose_parameterized
-      - traitlets
       - pip
       - six
       - traitlets
@@ -71,3 +71,17 @@ install python packages in {{project}}:
         CC: {{salt['spack.package_prefix']('openmpi %%%s' % compiler)}}/bin/mpicc
     - use_wheel: True
 {% endfor %}
+
+{{salt['funwith.prefix']("data")}}:
+  file.directory
+
+{{salt['funwith.prefix']("data")}}/espresso/INPUT_PW.html:
+  file.managed:
+    - source: http://www.quantum-espresso.org/wp-content/uploads/Doc/INPUT_PW.html
+    - source_hash: md5=339e7db7446f72d704ec0c0bd5f0ea6b
+
+{{salt['funwith.prefix']("data")}}/espresso/INPUT_PH.html:
+  file.managed:
+    - source: http://www.quantum-espresso.org/wp-content/uploads/Doc/INPUT_PH.html
+    - source_hash: md5=7161eec87c3317da3ef773f5623b6447
+
