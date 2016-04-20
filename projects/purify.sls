@@ -1,4 +1,6 @@
+{% set python = "python2" %}
 {% set compiler = "clang" %}
+{% set prefix = salt['funwith.prefix']('purify') %}
 purify:
   funwith.present:
     - github: astro-informatics/purify
@@ -15,7 +17,7 @@ purify:
 
     - virtualenv:
         system_site_packages: True
-        python: python2
+        python: {{python}}
         use_wheel: True
         pip_upgrade: True
         pip_pkgs:
@@ -57,7 +59,6 @@ purify:
       - libtiff
       - cmake
 
-{% set prefix = salt['funwith.prefix']('purify') %}
 astro-informatics/sopt:
   github.present:
     - target: {{prefix}}/src/sopt
