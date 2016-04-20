@@ -65,11 +65,13 @@ install python packages in {{project}}:
       - f90nml
       - pyflakes
       - pytest-flakes
+      - pytest-bdd
     - bin_env: {{salt['funwith.prefix'](project)}}
     - upgrade: True
     - env_vars:
         CC: {{salt['spack.package_prefix']('openmpi %%%s' % compiler)}}/bin/mpicc
     - use_wheel: True
+
 {% endfor %}
 
 {{salt['funwith.prefix']("data")}}:
