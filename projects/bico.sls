@@ -1,4 +1,6 @@
-{% set compiler="gcc" %}
+{% set python = "python2" %}
+{% set compiler="intel" %}
+{% set prefix = salt['funwith.prefix']('bico') %}
 bico:
   funwith.present:
     - github: astro-informatics/sopt
@@ -47,8 +49,15 @@ bico:
         source_includes:
           - build/external/include
           - build/include
+          - include
+          - build/python/
           - cpp
           - cpp/examples
+{% if python == 'python3' %}
+          - {{prefix}}/include/python3.5m
+{% else %}
+          - {{prefix}}/include/python2.7
+{% endif %}
         defines:
           - SOPT_HAS_NOT_USING
 

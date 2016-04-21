@@ -24,7 +24,7 @@ optimet:
       - UCL-RITS.eigen %{{compiler}} +debug
       - openblas %{{compiler}}
       - openmpi %{{compiler}} -tm
-      - UCL-RITS.scalapack +debug %{{compiler}} ^openblas %{{compiler}} ^openmpi %{{compiler}} -tm
+      - netlib-scalapack %{{compiler}} +debug ^openblas ^openmpi -tm
       - {{belos}}
     - vimrc:
         makeprg: "ninja\\ -C\\ $CURRENT_FUN_WITH_DIR/build/"
