@@ -10,3 +10,4 @@ git_global:
   push.default: upstream
   advice.statusHints: false
   format.pretty: format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset
+  credential.helper: osxkeychain
