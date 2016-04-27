@@ -9,7 +9,9 @@ atom:
                    'formatter-clangformat',
                    'solarized-dark-ui', 'github-issues',
                    'formatter', 'atom-format',
-                   'symbols-tree-view'] %}
+                   'symbols-tree-view',
+                   'markdown-scroll-sync', 'markdown-writer', 'markdown-preview',
+                   'language-fortran'] %}
 atom {{package}}:
   cmd.run:
     - name: apm install {{package}}
