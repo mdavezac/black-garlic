@@ -4,14 +4,15 @@ atom:
 {% for package in ['vim-mode', 'vim-mode-zz', 'vim-surround',
                    'atom-vim-colon-command-on-command-pallete', 'ex-mode',
                    'nerd-treeview', 'cpp-refactor', 'language-cpp14',
-                   'build-tools', 'build-tools-make', 'build-cmake',
+                   'build-tools', 'build', 'build-make', 'build-cmake',
                    'language-cmake', 'autocomplete-cmake',
                    'formatter-clangformat',
                    'solarized-dark-ui', 'github-issues',
                    'formatter', 'atom-format',
                    'symbols-tree-view',
                    'markdown-scroll-sync', 'markdown-writer', 'markdown-preview',
-                   'language-fortran'] %}
+                   'language-fortran',
+                   'linter', 'linter-clang', 'linter-gcc', 'linter-pyflakes'] %}
 atom {{package}}:
   cmd.run:
     - name: apm install {{package}}

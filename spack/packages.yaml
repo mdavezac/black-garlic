@@ -3,3 +3,7 @@ packages:
         paths:
             cmake@3.5: /usr/local/Cellar/cmake/3.5.0
         buildable: False
+    # bzip2:
+    #     paths:
+    #         bzip@1.0.6: /usr/
+    #     buildable: False
