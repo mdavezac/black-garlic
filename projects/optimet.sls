@@ -1,12 +1,12 @@
 {% set prefix = salt['funwith.prefix']('optimet') %}
 {% set compiler = "clang" %}
-{% set belos = "belos %%%s +mpi %sopenmp +lapack ^openblas ^openmpi -tm" % (compiler, "+" if compiler != "clang" else "-") %}
+{% set openmp = "+openmp" if compiler != 'clang' else "-openmp"%}
 {% set ldflags = "/usr/local/Cellar/gcc/5.3.0/lib/gcc/5/libgfortran.dylib" %}
 
 {% if compiler == "clang" %}
 belos spack packages:
   spack.installed:
-    - name: {{belos}}
+    - name: belos %{{compiler}} +mpi {{openmp}} +lapack ^openblas {{openmp}} ^openmpi -tm
     - environ:
         LDFLAGS: {{ldflags}}
 {% endif %}
@@ -22,10 +22,10 @@ optimet:
       - hdf5 %{{compiler}} -fortran -cxx -mpi
       - Catch %{{compiler}}
       - UCL-RITS.eigen %{{compiler}} +debug
-      - openblas %{{compiler}}
+      - openblas %{{compiler}} {{openmp}}
       - openmpi %{{compiler}} -tm
-      - scalapack %{{compiler}} +debug ^openblas ^openmpi -tm
-      - {{belos}}
+      - scalapack %{{compiler}} +debug ^openblas {{openmp}} ^openmpi -tm
+      - belos %{{compiler}} +mpi {{openmp}} +lapack ^openblas {{openmp}} ^openmpi -tm
     - vimrc:
         makeprg: "ninja\\ -C\\ $CURRENT_FUN_WITH_DIR/build/"
         footer: |
