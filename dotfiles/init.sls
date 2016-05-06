@@ -51,3 +51,8 @@ change my shell:
   cmd.run:
     - unless: test $SHELL -ef {{pillar['shell']}} && test -e {{pillar['shell']}}
     - name: chsh -s {{pillar['shell']}} {{grains['user']}}
+
+{{home}}/.tmux.conf
+  file.symlink:
+    - target: {{dotdir}}/tmux.conf
+

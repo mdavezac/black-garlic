@@ -10,6 +10,7 @@ development applications:
       - pkg-config
       - doxygen
       - valgrind
+      - tmux
 
 clang-format:
   pkg.installed:
