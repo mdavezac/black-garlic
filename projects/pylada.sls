@@ -15,9 +15,9 @@
         python: {{python}}
     - spack:
         - GreatCMakeCookoff
-        - openmpi %{{compiler}}
-        - netlib-scalapack %{{compiler}} ^openblas ^openmpi -tm
-        - espresso %{{compiler}} +mpi +scalapack ^netlib-scalapack ^openblas ^openmpi -tm
+        - openmpi %{{compiler}} -pmi
+        - netlib-scalapack %{{compiler}} ^openblas ^openmpi -pmi
+        - espresso %{{compiler}} +mpi +scalapack ^openmpi -pmi
         - UCL-RITS.Eigen %{{compiler}}
         # - boost %{{compiler}}
 
