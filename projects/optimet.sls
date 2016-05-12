@@ -63,21 +63,21 @@ belos spack packages:
     - contents: |
         name: {{project}}
         root: {{prefix}}/src/{{project}}
+        pre_window: module load optimet
         windows:
           - {{project}}:
               layout: main-vertical
               panes:
                 - vim:
-                  - funwith optimet
+                  - module load optimet
                   - vim Solver.cpp
                 - build:
-                  - funwith optimet
-          - benchmark:
+                  - module load optimet
+          - benchmarks:
               layout: main-horizontal
-              root: {{prefix}}/src/benchmark
+              root: {{prefix}}/src/optimet
               panes:
-                - vim:
-                  - funwith optimet
-                  - vim src/benchmark.cc
                 - build:
-                  - funwith optimet
+                  - ssh batman
+                  - module load optimet
+                  - cd work/benchmarking
