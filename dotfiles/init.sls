@@ -4,8 +4,8 @@
 
 include:
   - zsh
-  - dotfiles.vim
-  - tmux
+  - .vim
+  - .tmux
 
 dotfiles:
   github:
