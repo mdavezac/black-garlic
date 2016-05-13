@@ -41,7 +41,7 @@
         setenv('FC', 'ifort')
 {% endif %}
   archive.extracted:
-    - name: {{salt['funwith.prefix']("data")}}/espresso/upf_files
+    - name: {{salt['funwith.prefix']("data")}}/espresso
     - archive_format: tar
     - source_hash: md5=aefb62ca035b57eb4680ab851219b20b
     - source: http://www.quantum-espresso.org/wp-content/uploads/upf_files/upf_files.tar
@@ -94,13 +94,12 @@ install python packages in {{project}}:
     - contents: |
         name: {{project}}
         root: {{prefix}}/src/{{project}}
-        pre_window: module load {{project}}
+        pre_window: export CURRENT_FUN_WITH={{project}} && module load {{project}}
         windows:
           - {{project}}:
               layout: main-vertical
               panes:
                 - vim:
-                  - module load {{project}}
-                  - vim espresso/__init__.py
+                  - vim crystal/__init__.py
                 - build:
-                  - module load {{project}}
+                  -
