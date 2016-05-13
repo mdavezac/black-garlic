@@ -136,7 +136,7 @@ def present(name, prefix=None, cwd=None, github=None, srcname=None, email=None,
             cwd = target
 
     # cwd can be relative to the prefix or absolute
-    if cwd is None and len(cwd) == 0:
+    if cwd is None or len(cwd) == 0:
         cwd = prefix
     elif cwd is not None and cwd[0] != '/':
         cwd = join(prefix, cwd)
