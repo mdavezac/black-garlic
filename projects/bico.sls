@@ -1,6 +1,7 @@
 {% set python = "python2" %}
 {% set compiler="intel" %}
 {% set prefix = salt['funwith.prefix']('bico') %}
+{% from 'projects/fixtures.sls' import tmuxinator %}
 bico:
   funwith.present:
     - github: astro-informatics/sopt
@@ -67,3 +68,5 @@ bico:
       - ninja
       - libtiff
       - cmake
+
+{{tmuxinator('bico', root="%s/src/sopt" % prefix)}}
