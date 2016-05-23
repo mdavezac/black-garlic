@@ -1,7 +1,7 @@
 {% set project = "optimet" %}
 {% set prefix = salt['funwith.prefix'](project) %}
 {% set home = grains['userhome'] %}
-{% set compiler = "clang" %}
+{% set compiler = "gcc" %}
 {% set openmp = "+openmp" if compiler != 'clang' else "-openmp"%}
 {% set ldflags = "/usr/local/Cellar/gcc/5.3.0/lib/gcc/5/libgfortran.dylib" %}
 
@@ -27,7 +27,7 @@ belos spack packages:
       - openblas %{{compiler}} {{openmp}}
       - openmpi %{{compiler}} -pmi
       - scalapack %{{compiler}} +debug ^openblas {{openmp}} ^openmpi -pmi
-      - belos %{{compiler}} +mpi {{openmp}} +lapack ^openblas {{openmp}} ^openmpi -pmi
+      - belos %{{compiler}} +mpi -openmp +lapack ^openblas {{openmp}} ^openmpi -pmi
       - gbenchmark %{{compiler}}
     - vimrc:
         makeprg: "ninja\\ -C\\ $CURRENT_FUN_WITH_DIR/build/"
@@ -48,6 +48,7 @@ belos spack packages:
 {% if compiler == "clang" %}
         setenv("LDFLAGS", "{{ldflags}}")
 {% elif compiler == "gcc" %}
+        setenv("LDFLAGS", "-lgfortran")
         setenv("CXXFLAGS", "-Wno-parentheses -Wno-deprecated-declarations")
         setenv("CXX", "g++-5")
         setenv("CC", "gcc-5")
