@@ -11,9 +11,9 @@ set textwidth={{width}}
 set makeprg={{makeprg}}
 {% endif -%}
 
-{%if cppconfig -%}
+if filereadable("{{prefix}}/.cppconfig")
   let g:syntastic_cpp_config_file="{{prefix}}/.cppconfig"
-{% endif -%}
+endif
 
 {% if footer -%}
 {{footer}}
