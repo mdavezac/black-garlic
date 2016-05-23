@@ -1,12 +1,6 @@
 include:
   - .spack_packages
-
-condiment_station:
-    funwith.modulefile:
-        - cwd: {{pillar['condiment_dir']}}
-        - prefix: {{pillar['condiment_dir']}}
-        - virtualenv:
-            name: {{pillar['condiment_dir']}}/salt-env
+  - .condiment_station
 
 dotfiles project:
     funwith.modulefile:
