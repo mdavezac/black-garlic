@@ -5,6 +5,9 @@
 tmux:
   pkg.installed
 
+reattach-to-user-namespace:
+  pkg.installed
+
 tmuxinator:
   gem.installed
 
