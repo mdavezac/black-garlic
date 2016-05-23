@@ -55,12 +55,18 @@ def defaults(key=None, value=None):
     return values[key] if key is not None else values
 
 
-def module_name(name):
+def module_name(name, compiler=None):
     """ Figures out module name(s) from specs """
     _init_spack()
     from spack.modules import module_types
     from spack import installed_db
     mt = module_types['tcl']
+
+    if compiler is not None:
+        names = name.split()
+        names.insert(1, "%" + compiler.rstrip().lstrip())
+        name = ' '.join(names)
+
     specs = parse_specs(name, concretize=True, normalize=True)
     result = []
     for spec in specs:
@@ -169,13 +175,17 @@ def is_installed(name):
     return True
 
 
-def install(name, keep_prefix=False, keep_stage=False, ignore_deps=False, environs=None):
+def install(name, keep_prefix=False, keep_stage=False, ignore_deps=False, environs=None, compiler=None):
     _init_spack()
     from spack import repo, installed_db
     from spack.cmd import parse_specs
     from os import environ
     if environs is not None:
         environ.update(environs)
+    if compiler is not None:
+        names = name.split()
+        names.insert(1, "%" + compiler.rstrip().lstrip())
+        name = ' '.join(names)
     specs = parse_specs(name, concretize=True)
     packages = [repo.get(spec) for spec in specs]
     new_pkgs = [u for u in packages if not u.installed]

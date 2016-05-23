@@ -95,7 +95,7 @@ def add_cppconfig(name, prefix=None, source_dir=None, includes=None,
     )
 
 def modulefile(name, prefix=None, cwd=None, footer=None, virtualenv=None,
-               spack=None, modules=None, **kwargs):
+               spack=None, modules=None, compiler=None, **kwargs):
     from subprocess import check_output
     from os.path import join, split
     prefix = _get_prefix(name, prefix)
@@ -105,7 +105,7 @@ def modulefile(name, prefix=None, cwd=None, footer=None, virtualenv=None,
     if spack is None:
         spack = []
     for package in spack:
-        modules.extend(__salt__['spack.module_name'](package))
+        modules.extend(__salt__['spack.module_name'](package, compiler=compiler))
 
     virtualenv = _get_virtualenv(name, prefix, virtualenv)
 
