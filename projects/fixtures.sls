@@ -4,7 +4,7 @@
     - contents: |
         name: {{project}}
         root: {{"%s/src/%s" % (salt['funwith.prefix'](project), project) if root == "" else root}}
-        pre_window: export CURRENT_FUN_WITH={{project}} && module load {{project}}
+        pre_window: module load {{project}} && setopt share_history
         windows:
           - {{project}}:
               layout: main-vertical
