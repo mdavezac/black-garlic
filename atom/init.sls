@@ -12,7 +12,8 @@ atom:
                    'symbols-tree-view',
                    'markdown-scroll-sync', 'markdown-writer', 'markdown-preview',
                    'language-fortran',
-                   'linter', 'linter-clang', 'linter-gcc', 'linter-pyflakes'] %}
+                   'linter', 'linter-clang', 'linter-gcc', 'linter-pyflakes',
+                   'uber-juno'] %}
 atom {{package}}:
   cmd.run:
     - name: apm install {{package}}
