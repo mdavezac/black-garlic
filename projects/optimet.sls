@@ -35,6 +35,7 @@ belos spack packages:
       - scipy
       - numpy
       - jupyter
+      - ipywidgets
       - invoke
       - paramiko
       - py
@@ -129,12 +130,21 @@ julia package metadir:
     - env:
       - JULIA_PKGDIR: {{prefix}}/julia
 
+git://github.com/JuliaLang/METADATA.jl:
+  git.latest:
+    - target: {{prefix}}/julia/v0.4/METADATA
+    - update_head: True
+    - force_fetch: True
 
-{% for pkg in ['YAML']: %}
+julia:
+  cask.installed
+
+{% for pkg in ['YAML', 'DataFrames', 'Bokeh', 'Gadfly', 'IJulia']: %}
 julia package {{pkg}}:
   cmd.run:
     - creates: {{prefix}}/julia/v0.4/{{pkg}}
     - name: julia -e "Pkg.add(\"{{pkg}}\")"
     - env:
       - JULIA_PKGDIR: {{prefix}}/julia
+      - JUPYTER: {{prefix}}/bin/jupyter
 {% endfor %}
