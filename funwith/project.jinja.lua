@@ -39,7 +39,9 @@ elseif (mode() == "unload") then
   unsetenv("_FUNWITH_DYLD_FALLBACK_LIBRARY_PATH")
 end
 
+setenv("CURRENT_FUN_WITH", "{{name}}")
 setenv("HISTFILE", pathJoin(homedir, ".zhistory"))
+
 {% if footer -%}
 {{footer}}
 {% endif -%}
