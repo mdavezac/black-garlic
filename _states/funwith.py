@@ -110,6 +110,7 @@ def modulefile(name, prefix=None, cwd=None, footer=None, virtualenv=None,
     virtualenv = _get_virtualenv(name, prefix, virtualenv)
 
     context = {
+        'project': name,
         'homedir': prefix,
         'srcdir': cwd,
         'footer': footer,
