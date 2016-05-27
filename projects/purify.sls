@@ -1,50 +1,32 @@
+{% from 'projects/fixtures.sls' import tmuxinator %}
 {% set python = "python2" %}
 {% set compiler = "clang" %}
+{% set project = "purify" %}
 {% set prefix = salt['funwith.prefix']('purify') %}
-purify:
-  funwith.present:
-    - github: astro-informatics/purify
-    - spack:
-      - GreatCMakeCookoff
-      - UCL-RITS.eigen %{{compiler}} -debug
-      - gbenchmark %{{compiler}}
-      - Catch %{{compiler}}
-      - spdlog %{{compiler}}
-      - cfitsio %{{compiler}}
-{% if compiler == 'gcc' %}
-      - openblas %{{compiler}}
+{% set openmp = "+openmp" if compiler != "clang" else "-openmp" %}
+{% set spack_packages = [
+  "fftw %s" % openmp,
+  "GreatCMakeCookoff", "eigen -mpfr +fftw -metis -scotch -suitesparse",
+  "gbenchmark", "Catch", "spdlog", "cfitsio", "bison"
+]%}
+{% if compiler != 'clang' %}
+{% do spack_packages.append('openblas %s' % openmp) %}
 {% endif %}
 
-    - virtualenv:
-        system_site_packages: True
-        python: {{python}}
-        use_wheel: True
-        pip_upgrade: True
-        pip_pkgs:
-          - numpy
-          - scipy
-          - pytest
-          - pandas
-          - cython
+{{project}} spack packages:
+  spack.installed:
+    - pkgs: {{spack_packages}}
+    - compiler: {{compiler}}
 
-    - vimrc:
-        makeprg: True
-        footer: |
-            let g:ycm_collect_identifiers_from_tags_files=1
-            noremap <F5> :Autoformat<CR>
-            let g:formatdef_llvm_cpp = '"clang-format -style=file"'
-            let g:formatters_cpp = ['llvm_cpp']
+purify:
+  github.present:
+    - target: {{prefix}}/src/{{project}}
 
-    - ctags: True
-    - cppconfig:
-        cpp11: True
-        source_includes:
-          - build/external/include
-          - build/include/purify
-          - cpp
-          - cpp/examples
-          - include
-
+  funwith.modulefile:
+    - prefix: {{prefix}}/src/{{project}}
+    - cwd: {{prefix}}/src/{{project}}
+    - spack: {{spack_packages}}
+    - compiler: {{compiler}}
 {% if compiler == "gcc" %}
     - footer: |
         setenv("CXXFLAGS", "-Wno-parentheses -Wno-deprecated-declarations")
@@ -52,12 +34,46 @@ purify:
         setenv("CC", "gcc-5")
 {% endif %}
 
-  pkg.installed:
-    - pkgs:
-      - fftw
-      - ninja
-      - libtiff
-      - cmake
+
+  virtualenv.managed:
+     - name: {{prefix}}
+     - python: {{python}}
+     - use_wheel: True
+     - pip_upgrade: True
+     - pip_pkgs:
+          - pip
+          - numpy
+          - scipy
+          - pytest
+          - pandas
+          - cython
+          - jupyter
+
+  ctags.run:
+    - name: {{prefix}}/src/{{project}}
+    - exclude: ['.git', 'build']
+
+{{project}} vimrc:
+    funwith.add_vimrc:
+      - name: {{prefix}}
+      - makeprg: True
+      - footer: |
+            let g:ycm_collect_identifiers_from_tags_files=1
+            noremap <F5> :Autoformat<CR>
+            let g:formatdef_llvm_cpp = '"clang-format -style=file"'
+            let g:formatters_cpp = ['llvm_cpp']
+
+{{project}} cppconfig:
+    funwith.add_cppconfig:
+      - prefix: {{prefix}}
+      - cpp11: True
+      - source_dir: {{prefix}}/src/{{project}}
+      - source_includes:
+          - build/external/include
+          - build/include/purify
+          - cpp
+          - cpp/examples
+          - include
 
 astro-informatics/sopt:
   github.present:
@@ -74,3 +90,17 @@ astro-informatics/sopt:
         make install -j 4
     - creates: {{prefix}}/share/cmake/sopt/SoptConfig.cmake
     - cwd: {{prefix}}/src/sopt/build
+
+
+{{prefix}}/data/:
+  file.directory
+
+{{prefix}}/data/WSRT_Measures:
+  archive.extracted:
+    - source: ftp://ftp.astron.nl/outgoing/Measures/WSRT_Measures.ztar
+    - source_hash: md5=21ff070311be09dd7aec581f1c59655e
+    - archive_format: tar
+    - tar_options: z
+    - if_missing: {{prefix}}/data/WSRT_Measueres/ephemerides
+
+{{tmuxinator('purify', root="%s/src/purify" % prefix)}}
