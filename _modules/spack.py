@@ -168,10 +168,16 @@ def is_installed(name):
     _init_spack()
     from spack import repo
     from spack.cmd import parse_specs
-    specs = parse_specs(name, concretize=True)
-    for spec in specs:
-        if not repo.get(spec).installed:
-            return False
+    names = [name] if isinstance(name, str) else name
+    for name in names:
+        specs = parse_specs(name, concretize=True)
+        for spec in specs:
+            try:
+                a = repo.get(spec)
+                if not a.installed:
+                    return False
+            except:
+                raise
     return True
 
 
@@ -180,6 +186,15 @@ def install(name, keep_prefix=False, keep_stage=False, ignore_deps=False, enviro
     from spack import repo, installed_db
     from spack.cmd import parse_specs
     from os import environ
+    if not isinstance(name, str):
+        results = [], []
+        for pkg in name:
+            a, b = install(pkg, keep_prefix=keep_prefix, keep_stage=keep_stage,
+                           ignore_deps=ignore_deps, environs=environs,
+                           compiler=compiler)
+            results[0].extend(a)
+            results[1].extend(b)
+        return results
     if environs is not None:
         environ.update(environs)
     if compiler is not None:
