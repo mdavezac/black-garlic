@@ -164,20 +164,21 @@ def package_prefix(specs):
     return packages[0].prefix
 
 
-def is_installed(name):
+def is_installed(name, compiler=None):
     _init_spack()
     from spack import repo
     from spack.cmd import parse_specs
     names = [name] if isinstance(name, str) else name
     for name in names:
+        if compiler is not None:
+            name = name.split()
+            name.insert(1, "%" + compiler.rstrip().lstrip())
+            name = ' '.join(name)
         specs = parse_specs(name, concretize=True)
         for spec in specs:
-            try:
-                a = repo.get(spec)
-                if not a.installed:
-                    return False
-            except:
-                raise
+           a = repo.get(spec)
+           if not a.installed:
+               return False
     return True
 
 
