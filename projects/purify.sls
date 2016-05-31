@@ -98,7 +98,7 @@ astro-informatics/sopt:
 {{prefix}}/data/WSRT_Measures:
   archive.extracted:
     - source: ftp://ftp.astron.nl/outgoing/Measures/WSRT_Measures.ztar
-    - source_hash: md5=21ff070311be09dd7aec581f1c59655e
+    - source_hash: md5=69d0e8aa479585f1be65be2ca51a9e25
     - archive_format: tar
     - tar_options: z
     - if_missing: {{prefix}}/data/WSRT_Measueres/ephemerides
