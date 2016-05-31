@@ -5,3 +5,4 @@ etc/
 pillar/condiment.sls
 pillar/secrets.sls
 .*.swp
+.zhistory
