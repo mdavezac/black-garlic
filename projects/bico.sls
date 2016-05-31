@@ -7,7 +7,7 @@ bico:
     - github: astro-informatics/sopt
     - spack:
       - GreatCMakeCookoff
-      - UCL-RITS.Eigen %{{compiler}} -debug
+      - eigen -fftw -metis -mpfr -scotch -suitesparse %{{compiler}}
       - gbenchmark %{{compiler}}
       - Catch %{{compiler}}
       - spdlog %{{compiler}}
