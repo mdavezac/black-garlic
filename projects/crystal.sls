@@ -43,4 +43,4 @@ mdavezac/Crystal.jl:
         setenv("JULIA_PKGDIR", "{{prefix}}/julia")
         prepend_path("DYLD_LIBRARY_PATH", "/usr/lib")
 
-{{tmuxinator(project, root="%s/julia/v0.4/Crystal" % prefix)}}
+{{tmuxinator(project, root="%s/julia/v0.4/Crystal" % prefix, layout="main-horizontal")}}
