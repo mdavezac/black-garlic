@@ -1,4 +1,4 @@
-{% macro tmuxinator(project, root="", file="") -%}
+{% macro tmuxinator(project, root="", file="", layout="main-vertical") -%}
 {{grains['userhome']}}/.tmuxinator/{{project}}.yml:
   file.managed:
     - contents: |
@@ -7,7 +7,7 @@
         pre_window: module load {{project}} && setopt share_history
         windows:
           - {{project}}:
-              layout: main-vertical
+              layout: {{layout}}
               panes:
                 - vim:
                   - vim {{file}}
