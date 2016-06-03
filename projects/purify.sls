@@ -23,7 +23,7 @@ purify:
     - target: {{prefix}}/src/{{project}}
 
   funwith.modulefile:
-    - prefix: {{prefix}}/src/{{project}}
+    - prefix: {{prefix}}
     - cwd: {{prefix}}/src/{{project}}
     - spack: {{spack_packages}}
     - compiler: {{compiler}}
