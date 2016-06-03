@@ -40,6 +40,7 @@ PIDFILE_DIR="$(pwd)/build/var/run"
 SPM_FORMULA_PATH="$(pwd)/build/srv/spm/salt"
 SPM_PILLAR_PATH="$(pwd)/build/srv/spm/pillar"
 SPM_REACTOR_PATH="$(pwd)/build/srv/spm/reactor"
+BASE_THORIUM_ROOTS_DIR=None
 EOF
 
 mkdir -p $condiment_dir/build/etc
