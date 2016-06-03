@@ -98,10 +98,10 @@ belos spack packages:
     - contents: |
         name: {{project}}
         root: {{prefix}}/src/{{project}}
-        pre_window: export CURRENT_FUN_WITH={{project}} && module load {{project}}
+        pre_window: module load {{project}} && setopt share_history
         windows:
           - {{project}}:
-              layout: main-vertical
+              layout: main-horizontal
               panes:
                 - vim:
                   - vim Solver.cpp
