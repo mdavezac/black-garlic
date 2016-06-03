@@ -1,5 +1,5 @@
-# This sets permissions for running brew at /usr/local
-# It takes while to execute, so it is better to leave it out unless necessary
+# This sets permissions for running brew at /usr/local
+# It takes while to execute, so it is better to leave it out unless necessary
 CondimentStation:
   group.present: []
   user.present:
