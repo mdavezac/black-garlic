@@ -52,6 +52,7 @@ if [[ "${do_command}" = "true" ]] ; then
 fi
 
 if [[ "${do_init}" = "true" ]]; then
+  salt-call --local state.sls init.salt
   sudo salt-call --local state.sls init.bootstrap
 fi
 if [[ ${#args} -gt 0 ]]; then
