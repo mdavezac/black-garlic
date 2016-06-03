@@ -1,4 +1,4 @@
-{% macro tmuxinator(project, root="", file="", layout="main-vertical") -%}
+{% macro tmuxinator(project, root="", file="", layout="main-horizontal") -%}
 {{grains['userhome']}}/.tmuxinator/{{project}}.yml:
   file.managed:
     - contents: |
