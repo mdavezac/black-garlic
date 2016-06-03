@@ -30,3 +30,7 @@ spack external packages:
 UCL-RITS:
   spack.add_repo:
     - github: UCL-RITS/spack_packages
+
+include:
+  - .ipython
+
