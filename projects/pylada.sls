@@ -1,3 +1,4 @@
+{% from 'projects/fixtures.sls' import tmuxinator %}
 {% set prefix = salt['funwith.prefix']('pylada-light') %}
 {% set compiler = "gcc" %}
 {% set python = "python3" %}
@@ -89,17 +90,4 @@ install python packages in {{project}}:
     - source_hash: md5=a3d484716851b7478138a2c164915f0c
 
 
-{{grains['userhome']}}/.tmuxinator/{{project}}.yml:
-  file.managed:
-    - contents: |
-        name: {{project}}
-        root: {{prefix}}/src/{{project}}
-        pre_window: export CURRENT_FUN_WITH={{project}} && module load {{project}}
-        windows:
-          - {{project}}:
-              layout: main-vertical
-              panes:
-                - vim:
-                  - vim crystal/__init__.py
-                - build:
-                  -
+{{tmuxinator(project, root="%s/src/%s" % (prefix, project), file="crystal/__init__.py")}}
