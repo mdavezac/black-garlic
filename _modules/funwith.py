@@ -13,6 +13,7 @@ def defaults(key=None, value=None):
     }
     return values[key] if key is not None else values
 
+
 def prefix(name):
     """ Computes prefix for given project """
     from os.path import join
