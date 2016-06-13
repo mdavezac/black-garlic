@@ -14,16 +14,16 @@ from salt.exceptions import CommandExecutionError, MinionError
 
 log = logging.getLogger(__name__)
 
-from salt.modules import brew
+from salt.modules import mac_brew
 
 
 def _call_cask(cmd):
     '''
     Calls the brew command with the user account of brew
     '''
-    brew.__salt__ = __salt__
-    brew.__opts__ = __opts__
-    return brew._call_brew(cmd)
+    mac_brew.__salt__ = __salt__
+    mac_brew.__opts__ = __opts__
+    return mac_brew._call_brew(cmd)
 
 def list_pkgs(check_context=True, **kwargs):
     '''
