@@ -1,33 +1,11 @@
-{% set prefix = salt['funwith.prefix']('jenkins') %}
-jenkins:
-  funwith.present:
-    - github : ucl-rits/jenkins-job-builder-files
-    - srcname: jenkins
-    - virtualenv:
-        system_site_packages: True
-        python: python2
-        use_wheel: True
-        pip_upgrade: True
-        pip_pkgs:
-          - ipython[all]
-          - numpy
-          - scipy
-          - pytest
-          - pandas
-          - cython
-          - python-jenkins==0.4.8
-          - jenkins-job-builder
-          - git+https://github.com/UCL/jenkjobs
-          - git+https://github.com/asmundg/jenkins-jobs-slack.git
+{% from 'projects/fixtures.sls' import tmuxinator %}
+{% set project = "jenkins" %}
+{% set prefix = salt['funwith.prefix'](project) %}
+{% set home = grains['userhome'] %}
 
-    - vimrc:
-        makeprg: False
-        footer: au BufRead,BufNewFile *_install setfiletype sh
-
-    - footer: |
-        set_alias("production", "jenkins-jobs --ignore-cache --conf {{prefix}}/.production.ini")
-        set_alias("staging", "jenkins-jobs --ignore-cache --conf {{prefix}}/.staging.ini")
-
+ucl-rits/jenkins-job-builder-files:
+  github.present:
+    - target: {{prefix}}/src/{{project}}
 
 UCL-RITS/rc_puppet:
   github.present:
@@ -36,6 +14,42 @@ UCL-RITS/rc_puppet:
 UCL-RITS/rcps-buildscripts:
   github.present:
     - target: {{prefix}}/src/buildscripts
+
+{{prefix}}:
+  virtualenv.managed:
+    - python: python2
+    - use_wheel: True
+    - pip_upgrade: True
+    - pip_pkgs:
+      - pip
+      - ipython[all]
+      - numpy
+      - scipy
+      - pytest
+      - pandas
+      - cython
+      - python-jenkins==0.4.8
+      - jenkins-job-builder
+      - git+https://github.com/UCL/jenkjobs
+      - git+https://github.com/asmundg/jenkins-jobs-slack.git
+
+
+{{project}} vimrc:
+  funwith.add_vimrc:
+    - name: {{prefix}}
+    - makeprg: False
+    - footer: au BufRead,BufNewFile *_install setfiletype sh
+
+
+{{project}}:
+  funwith.modulefile:
+    - prefix: {{prefix}}
+    - cwd: {{prefix}}/src/{{project}}
+    - virtualenv: {{project}}
+    - footer: |
+        set_alias("production", "jenkins-jobs --ignore-cache --conf {{prefix}}/.production.ini")
+        set_alias("staging", "jenkins-jobs --ignore-cache --conf {{prefix}}/.staging.ini")
+
 
 {{prefix}}/.staging.ini:
   file.managed:
@@ -61,3 +75,5 @@ UCL-RITS/rcps-buildscripts:
   file.managed:
     - contents: ssh jenkins_legion "bash -l" < $1
     - mode: 700
+
+{{tmuxinator(project, root="%s/src/%s" % (prefix, project))}}
