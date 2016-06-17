@@ -6,8 +6,11 @@
 {% set openmp = "+openmp" if compiler != "clang" else "-openmp" %}
 {% set spack_packages = [
   "fftw %s" % openmp,
-  "GreatCMakeCookoff", "eigen -mpfr +fftw -metis -scotch -suitesparse",
-  "gbenchmark", "Catch", "spdlog", "cfitsio", "bison"
+  "GreatCMakeCookoff",
+  "eigen -mpfr +fftw -metis -scotch -suitesparse ^fftw %s" %openmp,
+  "gbenchmark", "Catch", "spdlog", "cfitsio", "bison",
+  "boost +python -mpi -multithreaded -program_options"
+  + " -random -regex -serialization -signals +singlethreaded -system -test -thread -wave"
 ]%}
 {% if compiler != 'clang' %}
 {% do spack_packages.append('openblas %s' % openmp) %}
@@ -18,23 +21,7 @@
     - pkgs: {{spack_packages}}
     - compiler: {{compiler}}
 
-purify:
-  github.present:
-    - target: {{prefix}}/src/{{project}}
-
-  funwith.modulefile:
-    - prefix: {{prefix}}
-    - cwd: {{prefix}}/src/{{project}}
-    - spack: {{spack_packages}}
-    - compiler: {{compiler}}
-{% if compiler == "gcc" %}
-    - footer: |
-        setenv("CXXFLAGS", "-Wno-parentheses -Wno-deprecated-declarations")
-        setenv("CXX", "g++-5")
-        setenv("CC", "gcc-5")
-{% endif %}
-
-
+{{project}} virtualenv:
   virtualenv.managed:
      - name: {{prefix}}
      - python: {{python}}
@@ -49,6 +36,41 @@ purify:
           - cython
           - jupyter
 
+{% do spack_packages.append("casacore +fftw +python ^fftw %s" % openmp) %}
+install casacore:
+  spack.installed:
+    - name: {{spack_packages[-1]}}
+    - ignore_deps: True
+    - compiler: {{compiler}}
+
+  cmd.run:
+    - name: |
+        source $SPACK_ROOT/share/spack/setup-env.sh
+        {% for pkg in spack_packages %}
+        spack load {{pkg}}
+        {% endfor %}
+        {{prefix}}/bin/pip install python-casacore
+    - env:
+      - SPACK_ROOT: {{salt['spack.defaults']('directory')}}
+
+
+purify:
+  github.present:
+    - target: {{prefix}}/src/{{project}}
+
+  funwith.modulefile:
+    - prefix: {{prefix}}
+    - cwd: {{prefix}}/src/{{project}}
+    - spack: {{spack_packages}}
+    - compiler: {{compiler}}
+    - virtualenv: {{project}}
+{% if compiler == "gcc" %}
+    - footer: |
+        setenv("CXXFLAGS", "-Wno-parentheses -Wno-deprecated-declarations")
+        setenv("CXX", "g++-5")
+        setenv("CC", "gcc-5")
+{% endif %}
+
   ctags.run:
     - name: {{prefix}}/src/{{project}}
     - exclude: ['.git', 'build']
@@ -56,6 +78,7 @@ purify:
 {{project}} vimrc:
     funwith.add_vimrc:
       - name: {{prefix}}
+      - source_dir: {{prefix}}/src/{{project}}
       - makeprg: True
       - footer: |
             let g:ycm_collect_identifiers_from_tags_files=1
