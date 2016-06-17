@@ -7,6 +7,10 @@ ucl-rits/jenkins-job-builder-files:
   github.present:
     - target: {{prefix}}/src/{{project}}
 
+UCL/jenkjobs:
+  github.present:
+    - target: {{prefix}}/src/JenkJobs
+
 UCL-RITS/rc_puppet:
   github.present:
     - target: {{prefix}}/src/rc-puppet
@@ -31,7 +35,6 @@ UCL-RITS/rcps-buildscripts:
       - python-jenkins==0.4.8
       - jenkins-job-builder
       - git+https://github.com/UCL/jenkjobs
-      - git+https://github.com/asmundg/jenkins-jobs-slack.git
 
 
 {{project}} vimrc:
@@ -41,14 +44,38 @@ UCL-RITS/rcps-buildscripts:
     - footer: au BufRead,BufNewFile *_install setfiletype sh
 
 
+{{prefix}}/bin/production.sh:
+  file.managed:
+    - mode: 0775
+    - contents: |
+        #! /usr/local/bin/zsh
+        echo "UCL RSDT Jenkins" > {{prefix}}/src/{{project}}/jenkinsdescription.yaml
+        jenkins-jobs --ignore-cache --conf {{prefix}}/.production.ini "$@"
+
+
+{{prefix}}/bin/staging.sh:
+  file.managed:
+    - mode: 0775
+    - contents: |
+        #! /usr/local/bin/zsh
+        echo "UCL RSDT Jenkins (Staging)" > {{prefix}}/src/{{project}}/jenkinsdescription.yaml
+        jenkins-jobs --ignore-cache --conf {{prefix}}/.staging.ini "$@"
+
+{{prefix}}/src/{{project}}/purify-slack-token:
+  file.managed:
+    - mode: 0500
+    - contents: {{salt['pillar.get']('slack_token:bico')}}
+
+{{prefix}}/src/{{project}}/ucl-rits-slack-token:
+  file.managed:
+    - mode: 0500
+    - contents: {{salt['pillar.get']('slack_token:rits')}}
+
 {{project}}:
   funwith.modulefile:
     - prefix: {{prefix}}
     - cwd: {{prefix}}/src/{{project}}
     - virtualenv: {{project}}
-    - footer: |
-        set_alias("production", "jenkins-jobs --ignore-cache --conf {{prefix}}/.production.ini")
-        set_alias("staging", "jenkins-jobs --ignore-cache --conf {{prefix}}/.staging.ini")
 
 
 {{prefix}}/.staging.ini:
@@ -65,7 +92,7 @@ UCL-RITS/rcps-buildscripts:
         [jenkins]
         user=mdavezac
         password={{salt['pillar.get']('jenkins_token:production')}}
-        url=http://staging.development.rc.ucl.ac.uk/jenkins/
+        url=http://development.rc.ucl.ac.uk/jenkins/
 
 {{prefix}}/src/jenkins/branch.yaml:
   file.managed:
