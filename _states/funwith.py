@@ -15,6 +15,8 @@ def _get_virtualenv(name, prefix, virtualenv):
         return None
     if virtualenv is True:
         virtualenv = {}
+    elif isinstance(virtualenv, str):
+        virtualenv = {'name': virtualenv}
     else:
         virtualenv = virtualenv.copy()
     if 'name' not in virtualenv:
