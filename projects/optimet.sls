@@ -1,14 +1,13 @@
 {% set project = "optimet" %}
 {% set prefix = salt['funwith.prefix'](project) %}
 {% set home = grains['userhome'] %}
-{% set compiler = "gcc" %}
+{% set compiler = "intel" %}
 {% set openmp = "+openmp" if compiler != 'clang' else "-openmp"%}
 {% set ldflags = "/usr/local/Cellar/gcc/5.3.0/lib/gcc/5/libgfortran.dylib" %}
-{% set spack_packages = [ "f2c", "gsl", "boost", "hdf5 -fortran -cxx -mpi",
+{% set spack_packages = [ "f2c", "gsl", "boost -locale", "hdf5 -fortran -cxx -mpi",
       "Catch", "UCL-RITS.eigen +debug", "openmpi -pmi", "gbenchmark",
-      "openblas %s" % openmp,
-      "scalapack +debug ^openblas %s ^openmpi -pmi" % openmp,
-      "belos +mpi -openmp +lapack ^openblas %s ^openmpi -pmi" % openmp,
+      "scalapack +debug  ^openmpi -pmi ^openblas -openmp %gcc",
+      "belos +mpi -openmp +lapack  ^openmpi -pmi ^openblas -openmp %gcc",
 ]%}
 
 {% if compiler == "clang" %}
