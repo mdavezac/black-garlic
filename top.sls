@@ -1,7 +1,8 @@
 base:
   '*':
-    - init.directories
     - brew-cask
+    - spack
+    - funwith
     - setup_github
     - karabiner
     - applications
@@ -9,6 +10,3 @@ base:
     - git
     - zsh
     - dotfiles
-    - funwith
-    - spack
-    - projects
