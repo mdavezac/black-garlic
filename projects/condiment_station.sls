@@ -1,9 +1,5 @@
-{% from 'projects/fixtures.sls' import tmuxinator %}
-condiment_station:
-    funwith.modulefile:
-        - cwd: {{pillar['condiment_dir']}}
-        - prefix: {{pillar['condiment_dir']}}
-        - virtualenv:
-            name: {{pillar['condiment_dir']}}/salt-env
+include:
+  - CondimentStation.projects.condiment_station
 
+{% from 'projects/fixtures.sls' import tmuxinator %}
 {{tmuxinator('condiment_station', root=pillar['condiment_dir'])}}

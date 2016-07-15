@@ -2,7 +2,7 @@ build
 salt-env
 bin/activate
 etc/
-pillar/condiment.sls
+pillar/salt.sls
 pillar/secrets.sls
 .*.swp
 .zhistory

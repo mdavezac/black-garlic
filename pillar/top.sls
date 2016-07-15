@@ -1,8 +1,9 @@
 base:
   '*':
-    - git_global
-    - condiment
-    - iterm
-    - funwith
-    - spack
+    - salt
     - secrets
+    - condiments
+    - spack
+    - funwith
+    - git_global
+    - iterm
