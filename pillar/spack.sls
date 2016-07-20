@@ -1,5 +1,5 @@
 spack:
-  add_to_zprofile: True
+  add_to_zprofile: False
   compilers_file: salt://files/spack/compilers.yaml
   external_packages: salt://files/spack/packages.yaml
   repos:

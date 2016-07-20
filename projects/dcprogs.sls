@@ -1,37 +1,18 @@
-{% set python = "python2" %}
-{% set compiler = "clang" %}
-{% set prefix = salt['funwith.prefix']('dcprogs') %}
-dcprogs:
-  funwith.present:
-    - github: DCPROGS/HJCFIT
-    - spack:
-      - GreatCMakeCookoff
-      - eigen %{{compiler}} -fftw -metis -scotch -suitesparse
-      - swig %{{compiler}}
+{% set project = sls.split('.')[-1] %}
+{% set workspace = salt['funwith.workspace'](project) %}
 
-    - virtualenv:
-        system_site_packages: True
-        python: {{python}}
-        use_wheel: True
-        pip_upgrade: True
-        pip_pkgs:
-          - numpy
-          - scipy
-          - pytest
-          - pandas
-          - cython
-          - behave
+include:
+  - UCL-RITS.black-garlic.projects.dcprogs
 
-    - vimrc:
-        makeprg: True
-        footer: |
-            let g:ycm_collect_identifiers_from_tags_files=1
-            noremap <F5> :Autoformat<CR>
+{{project}} ctags:
+  ctags.run:
+    - name: {{workspace}}/src/{{project}}
 
-    - ctags: True
-
-{% if compiler == "gcc" %}
+{{project}} vimrc:
+  funwith.add_vimrc:
+    - name: {{workspace}}
+    - source_dir: {{workspace}}/src/{{project}}
+    - makeprg: True
     - footer: |
-        setenv("CXX", "g++-5")
-        setenv("CC", "gcc-5")
-{% endif %}
+        let g:ycm_collect_identifiers_from_tags_files=1
+        noremap <F5> :Autoformat<CR>
