@@ -1,72 +1,44 @@
-{% set python = "python2" %}
-{% set compiler="intel" %}
-{% set prefix = salt['funwith.prefix']('bico') %}
 {% from 'projects/fixtures.sls' import tmuxinator %}
-bico:
-  funwith.present:
-    - github: astro-informatics/sopt
-    - spack:
-      - GreatCMakeCookoff
-      - eigen -fftw -metis -mpfr -scotch -suitesparse %{{compiler}}
-      - gbenchmark %{{compiler}}
-      - Catch %{{compiler}}
-      - spdlog %{{compiler}}
-{% if compiler in ["gcc", "intel"] %}
-      - openblas %gcc
-{% endif %}
+{% set compiler = salt['pillar.get']('compiler', 'gcc') %}
+{% set python = salt['pillar.get']('python', 'python2') %}
+{% set project = sls.split('.')[-1] %}
+{% set workspace = salt['funwith.workspace'](project) %}
 
-    - virtualenv:
-        system_site_packages: True
-        python: python3
-        use_wheel: True
-        pip_upgrade: True
-        pip_pkgs:
-          - pyWavelets
+include:
+  - chilly-oil.projects.bico
 
-    - vimrc:
-        makeprg: "ninja\\ -C\\ $CURRENT_FUN_WITH_DIR/build/"
-        footer: |
-            let g:ycm_collect_identifiers_from_tags_files=1
-            noremap <F5> :Autoformat<CR>
-            let g:formatdef_llvm_cpp = '"clang-format -style=file"'
-            let g:formatters_cpp = ['llvm_cpp']
-
-{% if compiler == "gcc" %}
+{{project}} vimrc:
+  funwith.add_vimrc:
+    - name: {{workspace}}
+    - makeprg: "ninja\\ -C\\ $CURRENT_FUN_WITH_DIR/build/"
     - footer: |
-        setenv("CXXFLAGS", "-Wall -Wno-parentheses -Wno-deprecated-declarations")
-        setenv("CXX", "g++-5")
-        setenv("CC", "gcc-5")
-        setenv("BLA_VENDOR", "OpenBlas")
-{% elif compiler == "intel" %}
-    - footer: |
-        setenv("CXX", "icpc")
-        setenv("CC", "icc")
-        setenv("BLA_VENDOR", "OpenBlas")
-{% endif %}
+          let g:ycm_collect_identifiers_from_tags_files=1
+          noremap <F5> :Autoformat<CR>
+          let g:formatdef_llvm_cpp = '"clang-format -style=file"'
+          let g:formatters_cpp = ['llvm_cpp']
 
-    - ctags: True
-    - cppconfig:
-        cpp11: True
-        source_includes:
-          - build/external/include
-          - build/include
-          - include
-          - build/python/
-          - cpp
-          - cpp/examples
+{{project}} ctags:
+  ctags.run:
+    - name: {{workspace}}/src/sopt
+
+{{project}} cppconfig:
+  funwith.add_cppconfig:
+    - name: {{workspace}}
+    - cpp11: True
+    - source_dir: {{workspace}}/src/sopt
+    - source_includes:
+        - build/external/include
+        - build/include
+        - include
+        - build/python/
+        - cpp
+        - cpp/examples
 {% if python == 'python3' %}
-          - {{prefix}}/include/python3.5m
+        - {{workspace}}/include/python3.5m
 {% else %}
-          - {{prefix}}/include/python2.7
+        - {{workspace}}/include/python2.7
 {% endif %}
-        defines:
-          - SOPT_HAS_NOT_USING
+    - defines:
+        - SOPT_HAS_NOT_USING
 
-  pkg.installed:
-    - pkgs:
-      - fftw
-      - ninja
-      - libtiff
-      - cmake
-
-{{tmuxinator('bico', root="%s/src/sopt" % prefix)}}
+{{tmuxinator(project, root="%s/src/sopt" % workspace)}}
