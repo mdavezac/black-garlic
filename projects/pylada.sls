@@ -8,6 +8,9 @@
   spack.installed:
     - pkgs: &spack_packages
       - GreatCMakeCookoff
+      - openblas %{{compiler}}
+      - scalapack %{{compiler}}
+      - openmpi %{{compiler}} -pmi
       - espresso %{{compiler}} +mpi +scalapack ^openblas ^openmpi -pmi
       - eigen %{{compiler}} -fftw -scotch -metis -suitesparse
 
@@ -40,6 +43,7 @@ pylada/{{project}}:
   github.latest:
     - target: {{workspace}}/src/{{project}}
     - email: mdavezac@gmail.com
+    - unless: test -d {{workspace}}/src/{{project}}/.git
 
 {{project}} modulefile:
   funwith.modulefile:
