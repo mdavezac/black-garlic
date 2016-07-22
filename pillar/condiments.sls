@@ -1,3 +1,4 @@
 # Dictionary of extra condiments
 condiments:
-  UCL-RITS/black-garlic
+  chilly-oil:
+      github: UCL-RITS/black-garlic

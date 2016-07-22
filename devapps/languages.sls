@@ -6,7 +6,6 @@ languages:
       - python3
       - luajit
       - ruby
-      - lua
       - node
       - nodeenv
 
@@ -31,11 +30,3 @@ basic python packages for python{{version}}:
 
 julia:
   cask.installed
-
-luarocks install luafilesystem:
-  cmd.run:
-    - unless: /usr/local/bin/lua -e 'require "lfs"'
-
-luarocks install luaposix:
-  cmd.run:
-    - unless: /usr/local/bin/lua -e 'require "posix"'

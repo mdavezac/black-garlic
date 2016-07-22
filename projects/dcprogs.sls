@@ -2,7 +2,7 @@
 {% set workspace = salt['funwith.workspace'](project) %}
 
 include:
-  - UCL-RITS.black-garlic.projects.dcprogs
+  - chilly-oil.projects.dcprogs
 
 {{project}} ctags:
   ctags.run:

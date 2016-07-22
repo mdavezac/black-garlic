@@ -4,13 +4,15 @@
     - contents: |
         name: {{project}}
         root: {{"%s/src/%s" % (salt['funwith.prefix'](project), project) if root == "" else root}}
-        pre_window: module load {{project}} && setopt share_history
         windows:
           - {{project}}:
               layout: {{layout}}
               panes:
                 - vim:
+                  - module load {{project}}
+                  - fc -R
                   - vim {{file}}
                 - build:
-                  -
+                  - module load {{project}}
+                  - fc -R
 {%- endmacro %}

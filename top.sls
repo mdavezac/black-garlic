@@ -1,6 +1,6 @@
 base:
   '*':
-    - brew-cask
+    - condiments
     - spack
     - funwith
     - setup_github
