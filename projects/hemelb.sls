@@ -8,8 +8,8 @@ hemelb:
           setenv("CXXFLAGS", "-Wall -Wno-deprecated-register")
           setenv("TMP", "{{prefix}}/src/hemelb/build/tmp")
 {% if compiler == "gcc" %}
-          setenv("CC", "gcc-5")
-          setenv("CXX", "g++-5")
+          setenv("CC", "gcc-6")
+          setenv("CXX", "g++-6")
 {% elif compiler == "intel" %}
           setenv("CC", "icc")
           setenv("CXX", "icpc")

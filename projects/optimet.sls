@@ -3,7 +3,7 @@
 {% set home = grains['userhome'] %}
 {% set compiler = "intel" %}
 {% set openmp = "+openmp" if compiler != 'clang' else "-openmp"%}
-{% set ldflags = "/usr/local/Cellar/gcc/5.3.0/lib/gcc/5/libgfortran.dylib" %}
+{% set ldflags = "/usr/local/Cellar/gcc/6.1.0/lib/gcc/6/libgfortran.dylib" %}
 {% set spack_packages = [ "f2c", "gsl", "boost -locale", "hdf5 -fortran -cxx -mpi",
       "Catch", "UCL-RITS.eigen +debug", "openmpi -pmi", "gbenchmark",
       "scalapack +debug  ^openmpi -pmi ^openblas -openmp %gcc",
@@ -63,8 +63,8 @@ belos spack packages:
 {% elif compiler == "gcc" %}
         setenv("LDFLAGS", "-lgfortran")
         setenv("CXXFLAGS", "-Wno-parentheses -Wno-deprecated-declarations")
-        setenv("CXX", "g++-5")
-        setenv("CC", "gcc-5")
+        setenv("CXX", "g++-6")
+        setenv("CC", "gcc-6")
 {% endif %}
         setenv("JULIA_PKGDIR", "{{prefix}}/julia")
 
