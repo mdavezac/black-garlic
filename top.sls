@@ -1,12 +1,12 @@
 base:
   '*':
     - brew-cask
-    # - spack
-    # - funwith
-    # - setup_github
-    # - karabiner
-    # - applications
-    # - devapps
-    # - git
-    # - zsh
-    # - dotfiles
+    - spack
+    - funwith
+    - setup_github
+    - karabiner
+    - applications
+    - devapps
+    - git
+    - zsh
+    - dotfiles
