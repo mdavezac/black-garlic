@@ -26,9 +26,9 @@ update julia packages:
       - JUPYTER: {{workspace}}/bin/jupyter
 
 
-mdavezac/Crystal.jl:
+mdavezac/Crystals.jl:
   github.latest:
-    - target: {{workspace}}/julia/v0.4/Crystal
+    - target: {{workspace}}/julia/v0.4/Crystals
     - update_head: False
 
 
@@ -36,10 +36,10 @@ mdavezac/Crystal.jl:
   funwith.modulefile:
     - name: {{project}}
     - workspace: {{workspace}}
-    - cwd: {{workspace}}/julia/v0.4/Crystal
+    - cwd: {{workspace}}/julia/v0.4/Crystals
     - footer: |
         setenv("JULIA_PKGDIR", "{{workspace}}/julia")
         prepend_path("DYLD_LIBRARY_PATH", "/usr/lib")
 
 
-{{tmuxinator(project, root="%s/julia/v0.4/Crystal" % workspace, layout="main-horizontal")}}
+{{tmuxinator(project, root="%s/julia/v0.4/Crystals" % workspace, layout="main-horizontal")}}
