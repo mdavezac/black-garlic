@@ -9,9 +9,9 @@
     - pkgs: &spack_packages
       - GreatCMakeCookoff
       - openblas %{{compiler}}
-      - scalapack %{{compiler}}
+      - scalapack %{{compiler}} ^openblas ^openmpi -pmi
       - openmpi %{{compiler}} -pmi
-      - espresso %{{compiler}} +mpi +scalapack ^openblas ^openmpi -pmi
+      - espresso %{{compiler}} +mpi +scalapack ^scalapack ^openblas ^openmpi -pmi
       - eigen %{{compiler}} -fftw -scotch -metis -suitesparse
 
 {{workspace}}/{{python}}:
