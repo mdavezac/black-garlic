@@ -1,46 +1,45 @@
 {% from 'projects/fixtures.sls' import tmuxinator %}
-{% set project = "crystal" %}
-{% set prefix = salt['funwith.prefix'](project) %}
-{% set home = grains['userhome'] %}
-{% set compiler = "clang" %}
+{% set compiler = salt['pillar.get']('compiler', 'gcc') %}
+{% set python = salt['pillar.get']('python', 'python2') %}
+{% set project = sls.split('.')[-1] %}
+{% set workspace = salt['funwith.workspace'](project) %}
 
-{{prefix}}:
-  file.directory:
+{{workspace}}/julia/v0.4/REQUIRE:
+  file.managed:
+    - contents: |
+        DataFrames
+        FactCheck
     - makedirs: True
 
 julia metadir:
     git.latest:
       - name: git://github.com/JuliaLang/METADATA.jl
-      - target: {{prefix}}/julia/v0.4/METADATA
-      - update_head: True
+      - target: {{workspace}}/julia/v0.4/METADATA
       - force_fetch: True
 
-
-{{prefix}}/julia/v0.4/REQUIRE:
-  file.managed:
-    - contents: |
-        DataFrames
-        FactCheck
 
 update julia packages:
   cmd.run:
     - name: julia -e "Pkg.resolve()"
     - env:
-      - JULIA_PKGDIR: {{prefix}}/julia
-      - JUPYTER: {{prefix}}/bin/jupyter
+      - JULIA_PKGDIR: {{workspace}}/julia
+      - JUPYTER: {{workspace}}/bin/jupyter
+
 
 mdavezac/Crystal.jl:
-  github.present:
-    - target: {{prefix}}/julia/v0.4/Crystal
+  github.latest:
+    - target: {{workspace}}/julia/v0.4/Crystal
+    - update_head: False
 
 
 {{project}} modulefile:
   funwith.modulefile:
     - name: {{project}}
-    - prefix: {{prefix}}
-    - cwd: {{prefix}}/julia/v0.4/Crystal
+    - workspace: {{workspace}}
+    - cwd: {{workspace}}/julia/v0.4/Crystal
     - footer: |
-        setenv("JULIA_PKGDIR", "{{prefix}}/julia")
+        setenv("JULIA_PKGDIR", "{{workspace}}/julia")
         prepend_path("DYLD_LIBRARY_PATH", "/usr/lib")
 
-{{tmuxinator(project, root="%s/julia/v0.4/Crystal" % prefix, layout="main-horizontal")}}
+
+{{tmuxinator(project, root="%s/julia/v0.4/Crystal" % workspace, layout="main-horizontal")}}
