@@ -9,6 +9,7 @@
     - contents: |
         DataFrames
         FactCheck
+        FixedSizeArrays
     - makedirs: True
 
 julia metadir:
