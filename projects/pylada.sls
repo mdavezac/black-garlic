@@ -38,6 +38,7 @@
       - pyflakes
       - pytest-flakes
       - pytest-bdd
+      - jupyter
 
 pylada/{{project}}:
   github.latest:
