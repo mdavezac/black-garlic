@@ -3,7 +3,7 @@
   file.managed:
     - contents: |
         name: {{project}}
-        root: {{"%s/src/%s" % (salt['funwith.prefix'](project), project) if root == "" else root}}
+        root: {{"%s/src/%s" % (salt['funwith.workspace'](project), project) if root == "" else root}}
         windows:
           - {{project}}:
               layout: {{layout}}
