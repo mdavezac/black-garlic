@@ -18,18 +18,11 @@ Valloric/YouCompleteMe:
     - creates:
       - {{bundledir}}/YouCompleteMe/third_party/ycmd/ycm_client_support.so
       - {{bundledir}}/YouCompleteMe/third_party/ycmd/ycm_core.so
-    - require:
-      - pkg: languages
-      - pkg: libraries
-      - pkg: vim
-
 
 {% for filename in ['vimrc', 'gvimrc', 'ycm_extra_conf.py'] %}
 {{home}}/.{{filename}}:
   file.symlink:
     - target: {{dotdir}}/vim/{{filename}}
-    - require:
-      - github: dotfiles
 {% endfor %}
 
 {% for dirname in ['undo', 'autoload', '.gissue-cache'] %}
