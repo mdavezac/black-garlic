@@ -11,3 +11,4 @@ spack:
   # repo_prefix: {{grains['userhome']}}/.spack_repos
 
 compiler: clang
+python: python3
