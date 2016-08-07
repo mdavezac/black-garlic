@@ -10,3 +10,4 @@ base:
     - git
     - zsh
     - dotfiles
+    - nvim
