@@ -7,3 +7,4 @@ base:
     - funwith
     - git_global
     - iterm
+    - apps
