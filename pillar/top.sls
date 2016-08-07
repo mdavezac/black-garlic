@@ -9,3 +9,4 @@ base:
     - iterm
     - apps
     - python
+    - nvim
