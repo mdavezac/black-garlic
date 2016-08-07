@@ -1,20 +1,16 @@
-karabiner:
-  cask.installed
+include:
+  - .apps
 
 key repeat from karabiner:
   mac_param.modify:
     - domain: "org.pqrs.Karabiner"
     - kIsOverwriteKeyRepeat: 1
-    - require:
-      - cask: karabiner
 
 Default profile:
   karabiner.profile:
     - name: Default
     - repeat.wait: 42
     - repeat.initial_wait: 401
-    - require:
-      - cask: karabiner
 
 Office profile:
   karabiner.profile:
@@ -25,5 +21,3 @@ Office profile:
     - remap.uk_backslash2hash: 1
     - remap.uk_section2backslash: 1
     - remap.uk_swap_at_doublequote: 1
-    - require:
-      - cask: karabiner
