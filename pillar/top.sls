@@ -8,3 +8,4 @@ base:
     - git_global
     - iterm
     - apps
+    - python

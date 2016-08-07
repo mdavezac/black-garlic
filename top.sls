@@ -5,6 +5,7 @@ base:
     - funwith
     - setup_github
     - apps
+    - python
     - karabiner
     - git
     - zsh
