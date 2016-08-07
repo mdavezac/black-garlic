@@ -8,3 +8,6 @@ packages:
            python@2.7.12: /usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7
            python@3.5.2: /usr/local/Cellar/python3/3.5.2/Frameworks/Python.framework/Versions/3.5
        buildable: False
+    boost:
+      paths:
+        boost@1.61.0 %clang: /usr/local/Cellar/boost/1.60.0_2/
