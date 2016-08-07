@@ -1,9 +1,6 @@
 {% set scheme_name = pillar['iterm']['name'] %}
-iterm2:
-  cask.installed:
-    - name: iterm2
-
-  file.managed: 
+iterm2 stuff:
+  file.managed:
     - name: {{pillar['condiment_build_dir']}}/{{scheme_name}}
     - contents: |
         defaults write \

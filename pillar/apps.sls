@@ -27,6 +27,7 @@ brew_apps:
   - doxygen
   - valgrind
   - tmux
+  - reattach-to-user-namespace
   - clang-format:
       options: [--HEAD]
   - universal-ctags:
