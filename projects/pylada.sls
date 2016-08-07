@@ -8,21 +8,19 @@
   spack.installed:
     - pkgs: &spack_packages
       - GreatCMakeCookoff
-      - openblas %{{compiler}}
-      - scalapack %{{compiler}} ^openblas ^openmpi -pmi
-      - openmpi %{{compiler}} -pmi
-      - espresso %{{compiler}} +mpi +scalapack ^scalapack ^openblas ^openmpi -pmi
-      - eigen %{{compiler}} -fftw -scotch -metis -suitesparse
+      - eigen %{{compiler}} -fftw -scotch -metis -suitesparse -mpfr
+      - openmpi %gcc
+      - openblas %gcc
+      - scalapack %gcc ^openmpi ^openblas
+      - espresso %gcc +mpi +scalapack ^scalapack ^openmpi ^openblas
 
 {{workspace}}/{{python}}:
   virtualenv.managed:
     - python: {{python}}
     - pip_upgrade: True
-    - env_vars:
-        CC: {{salt['spack.package_prefix']('openmpi %%%s' % compiler)}}/bin/mpicc
     - use_wheel: True
     - pip_pkgs:
-      - mpi4py
+      - pip
       - numpy
       - scipy
       - pytest
@@ -39,6 +37,14 @@
       - pytest-flakes
       - pytest-bdd
       - jupyter
+
+mpi4py:
+  pip.installed:
+    - bin_env: {{workspace}}/{{python}}
+    - pip_upgrade: True
+    - use_wheel: False
+    - env_vars:
+        CC: {{salt['spack.package_prefix']('openmpi %gcc')}}/bin/mpicc
 
 pylada/{{project}}:
   github.latest:
