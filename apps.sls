@@ -1,7 +1,7 @@
 {% set caskapps = salt['pillar.get']("cask_apps", []) %}
 
 {% for app in caskapps %}
-cask {{app}}:
+{{app}}:
   cask.installed:
     - name: {{app}}
 {% endfor %}
@@ -10,7 +10,7 @@ cask {{app}}:
 {% for app in brewapps %}
 {%   if app is mapping -%}
 {%     for name, options in app.items() -%}
-brew {{name}}:
+{{name}}:
   pkg.installed:
     - name: {{name}}
 {%       for opname, opval in options.items() %}
@@ -18,7 +18,7 @@ brew {{name}}:
 {%       endfor %}
 {%     endfor -%}
 {%   else -%}
-brew {{app}}:
+{{app}}:
   pkg.installed:
     - name: {{app}}
 {%   endif %}
