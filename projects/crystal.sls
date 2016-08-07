@@ -40,7 +40,6 @@ mdavezac/Crystals.jl:
     - cwd: {{workspace}}/julia/v0.4/Crystals
     - footer: |
         setenv("JULIA_PKGDIR", "{{workspace}}/julia")
-        prepend_path("DYLD_LIBRARY_PATH", "/usr/lib")
 
 
 {{tmuxinator(project, root="%s/julia/v0.4/Crystals" % workspace, layout="main-horizontal")}}

@@ -29,7 +29,6 @@
       - quantities
       - nose
       - nose_parameterized
-      - pip
       - six
       - traitlets
       - f90nml
