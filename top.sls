@@ -6,8 +6,6 @@ base:
     - setup_github
     - apps
     - karabiner
-    - applications
-    - devapps
     - git
     - zsh
     - dotfiles
