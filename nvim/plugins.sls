@@ -13,10 +13,10 @@
 {{pluginsrc}}:
   file.managed:
     - source: salt://files/nvim/plugins.vim
-  - context:
-    config: {{config}}
-    plugins: {{salt['pillar.get']('nvim:plugins', [])}}
-    plugin_functions: {{salt['pillar.get']('nvim:plugin_functions', [])}}
+    - context:
+        config: {{config}}
+        plugins: {{salt['pillar.get']('nvim:plugins', [])}}
+        plugin_functions: {{salt['pillar.get']('nvim:plugin_functions', [])}}
     - makedirs: True
     - template: jinja
 
@@ -33,7 +33,7 @@ nvim --headless +PlugUpdate +qall:
     - makedirs: True
     - template: jinja
     - context: {{config}}
-    {% endfor %}
+{% endfor %}
 
 {% for settings in salt['pillar.get']('nvim:settings', []) -%}
 {%   for name in settings -%}
@@ -43,6 +43,6 @@ nvim --headless +PlugUpdate +qall:
     - makedirs: True
     - template: jinja
     - context: {{config}}
-    {%   endfor -%}
-    {% endfor -%}
+{%   endfor -%}
+{% endfor -%}
 
