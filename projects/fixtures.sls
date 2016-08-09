@@ -8,10 +8,10 @@
           - {{project}}:
               layout: {{layout}}
               panes:
-                - vim:
+                - neovim:
                   - module load {{project}}
                   - fc -R
-                  - vim {{file}}
+                  - nvim {{file}}
                 - build:
                   - module load {{project}}
                   - fc -R
