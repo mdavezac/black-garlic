@@ -5,7 +5,6 @@
 include:
   - zsh
   - .vim
-  - .tmux
 
 dotfiles:
   github:

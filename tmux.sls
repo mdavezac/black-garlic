@@ -1,6 +1,5 @@
 {% set user = grains['user'] %}
 {% set home = grains['userhome'] %}
-{% set dotdir = pillar.get('dotdir', grains['userhome'] + "/.dotfiles") %}
 
 tmuxinator:
   gem.installed
@@ -10,5 +9,5 @@ tmuxinator:
     - user: {{user}}
 
 {{home}}/.tmux.conf:
-  file.symlink:
-    - target: {{dotdir}}/tmux.conf
+  file.managed:
+    - source: salt://files/tmux.conf

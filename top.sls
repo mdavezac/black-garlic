@@ -11,3 +11,4 @@ base:
     - zsh
     - dotfiles
     - nvim
+    - tmux
