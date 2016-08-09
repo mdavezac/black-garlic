@@ -36,6 +36,8 @@
       - pytest-flakes
       - pytest-bdd
       - jupyter
+      - jedi
+      - neovim
 
 mpi4py:
   pip.installed:
@@ -54,6 +56,7 @@ pylada/{{project}}:
 {{project}} modulefile:
   funwith.modulefile:
     - name: {{project}}
+    - cwd: {{workspace}}/src/{{project}}
     - spack: *spack_packages
     - virtualenv: {{workspace}}/{{python}}
     - footer:
@@ -85,7 +88,6 @@ pylada/{{project}}:
     - makeprg: "make\\ -C\\ $CURRENT_FUN_WITH_DIR/build/"
     - footer: |
         let g:ycm_collect_identifiers_from_tags_files=1
-        noremap <F5> :Autoformat<CR>
         let g:formatdef_llvm_cpp = '"clang-format -style=file"'
         let g:formatters_cpp = ['llvm_cpp']
         let g:syntastic_python_python_exe = "{{workspace}}/bin/python"
