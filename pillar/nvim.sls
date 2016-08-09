@@ -92,7 +92,7 @@ nvim:
     - colorscheme: |
         let $NVIM_TUI_ENABLE_TRUE_COLOR=1
         set background=dark
-        colorscheme gruvbox
+        colorscheme hybrid_reverse
     - deoplete: let g:deoplete#enable_at_startup = 1
     - nerdtree: |
         autocmd StdinReadPre * let s:std_in=1
