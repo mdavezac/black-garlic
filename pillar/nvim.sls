@@ -1,7 +1,7 @@
 nvim:
   plugins:
     - Shougo/deoplete.nvim: "{'do': function('DoRemote')}"
-    - zchee/deoplete-jedi
+    - zchee/deoplete-jedi: {for: python}
     - neomake/neomake
     - godlygeek/csapprox # Required for Gblame in terminal vim
     - itchyny/lightline.vim
