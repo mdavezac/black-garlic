@@ -42,3 +42,4 @@ brew_apps:
   - boost-python
   - zeromq
   - git
+  - tree
