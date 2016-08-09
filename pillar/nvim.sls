@@ -94,6 +94,7 @@ nvim:
         set background=dark
         colorscheme hybrid_reverse
     - deoplete: let g:deoplete#enable_at_startup = 1
+    - neomake: command Make Neomake!
     - nerdtree: |
         autocmd StdinReadPre * let s:std_in=1
         autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -104,3 +105,5 @@ nvim:
     - quick_fix_mappings: |
         nmap <silent> ,qc :cclose<CR>
         nmap <silent> ,qo :copen<CR>
+    - Autoformat_mapping: noremap <F5> :Autoformat<CR>
+    - Tagbar_mapping: noremap <F5> :TagbarToggle<CR>
