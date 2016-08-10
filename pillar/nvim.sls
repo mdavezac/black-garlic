@@ -93,7 +93,24 @@ nvim:
         let $NVIM_TUI_ENABLE_TRUE_COLOR=1
         set background=dark
         colorscheme hybrid_reverse
-    - deoplete: let g:deoplete#enable_at_startup = 1
+    - deoplete: |
+        let g:deoplete#enable_at_startup = 1
+        " <Tab> completion: "
+        " 1. If popup menu is visible, select and insert next item "
+        " 2. Otherwise, if within a snippet, jump to next input "
+        " 3. Otherwise, if preceding chars are whitespace, insert tab char "
+        " 4. Otherwise, start manual autocomplete "
+        imap <silent><expr><Tab> pumvisible() ? "\<C-n>"
+        	\ : (neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)"
+        	\ : (<SID>is_whitespace() ? "\<Tab>"
+        	\ : deoplete#manual_complete()))
+
+        smap <silent><expr><Tab> pumvisible() ? "\<C-n>"
+        	\ : (neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)"
+        	\ : (<SID>is_whitespace() ? "\<Tab>"
+        	\ : deoplete#manual_complete()))
+
+        inoremap <expr><S-Tab>  pumvisible() ? "\<C-p>" : "\<C-h>"
     - neomake: |
         set errorformat+=%Dninja\ -C\ %f
         set errorformat+=%Dmake\ -C\ %f
@@ -109,4 +126,4 @@ nvim:
         nmap <silent> ,qc :cclose<CR>
         nmap <silent> ,qo :copen<CR>
     - Autoformat_mapping: noremap <F5> :Autoformat<CR>
-    - Tagbar_mapping: noremap <F5> :TagbarToggle<CR>
+    - Tagbar_mapping: noremap <F4> :TagbarToggle<CR>
