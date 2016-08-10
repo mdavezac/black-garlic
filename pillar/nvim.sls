@@ -46,6 +46,8 @@ nvim:
         nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
         nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
         nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
+        " because weird bug in terminals that map <C-h> to <BS> "
+        nmap <bs> :<c-u>TmuxNavigateLeft<cr>
     - tcomment: |
         nmap <silent> gcp <c-_>p
         autocmd FileType julia set commentstring=#\ %s
