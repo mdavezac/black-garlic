@@ -1,4 +1,4 @@
-{% from 'projects/fixtures.sls' import tmuxinator %}
+{% from 'projects/fixtures.sls' import tmuxinator, jedi %}
 {% set compiler = salt['pillar.get']('compiler', 'gcc') %}
 {% set python = salt['pillar.get']('python', 'python2') %}
 {% set project = sls.split('.')[-1] %}
@@ -6,7 +6,6 @@
 
 include:
   - chilly-oil.projects.purify
-
 
 {{project}} ctags:
   ctags.run:
@@ -37,3 +36,4 @@ include:
           - include
 
 {{tmuxinator('purify', root="%s/src/purify" % workspace)}}
+{{jedi(workspace + "/" + python)}}

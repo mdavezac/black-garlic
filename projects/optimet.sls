@@ -30,5 +30,6 @@ include:
         - ./
 
 
-{% from 'projects/fixtures.sls' import tmuxinator %}
+{% from 'projects/fixtures.sls' import tmuxinator, jedi %}
 {{tmuxinator(project, file="Solver.cpp")}}
+{{jedi(workspace + "/" + python)}}

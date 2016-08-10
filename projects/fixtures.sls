@@ -16,3 +16,10 @@
                   - module load {{project}}
                   - fc -R
 {%- endmacro %}
+
+{% macro jedi(bin_env) -%}
+{{bin_env}} jedi:
+  pip.installed:
+    - bin_env: {{bin_env}}
+    - pkgs: [jedi, neovim]
+{% endmacro %}
