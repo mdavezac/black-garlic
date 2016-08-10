@@ -11,3 +11,7 @@ packages:
     boost:
       paths:
         boost@1.61.0 %clang: /usr/local/Cellar/boost/1.60.0_2/
+    mkl:
+      paths:
+        mkl@system: /opt/intel
+      buildable: False
