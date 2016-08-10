@@ -3,9 +3,13 @@ nvim:
     - Shougo/deoplete.nvim: "{'do': function('DoRemote')}"
     - zchee/deoplete-jedi: {for: python}
     - neomake/neomake
+    - tpope/vim-dispatch
     - godlygeek/csapprox # Required for Gblame in terminal vim
     - itchyny/lightline.vim
     - flazz/vim-colorschemes
+    - arakashic/nvim-colors-solarized
+    - morhetz/gruvbox
+    - whatyouhide/vim-gotham
     - xsunsmile/showmarks
     - tpope/vim-fugitive
     - tpope/vim-git
@@ -27,9 +31,7 @@ nvim:
     - sjl/gundo.vim
     - vim-scripts/AutoTag
     - vim-scripts/AnsiEsc.vim
-    - arakashic/nvim-colors-solarized
-    - morhetz/gruvbox
-    - whatyouhide/vim-gotham
+    - tpope/vim-unimpaired # quick-fix and list navigation
   plugin_functions:
     - DoRemote: UpdateRemotePlugins
   settings_files:
@@ -92,7 +94,10 @@ nvim:
         set background=dark
         colorscheme hybrid_reverse
     - deoplete: let g:deoplete#enable_at_startup = 1
-    - neomake: command Make Neomake!
+    - neomake: |
+        set errorformat+=%Dninja\ -C\ %f
+        set errorformat+=%Dmake\ -C\ %f
+    - dispatch: nnoremap <F9> :Dispatch<CR>
     - nerdtree: |
         autocmd StdinReadPre * let s:std_in=1
         autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
