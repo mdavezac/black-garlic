@@ -43,3 +43,5 @@ brew_apps:
   - zeromq
   - git
   - tree
+  - llvm:
+      options: ['--with-python', '--with-lldb']

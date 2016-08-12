@@ -21,5 +21,5 @@
 {{bin_env}} jedi:
   pip.installed:
     - bin_env: {{bin_env}}
-    - pkgs: [jedi, neovim]
+    - pkgs: [jedi, neovim, libclang-py3]
 {% endmacro %}

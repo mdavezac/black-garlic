@@ -11,3 +11,4 @@ python_pkgs:
   - autopep8
   - jedi
   - neovim
+  - libclang-py3

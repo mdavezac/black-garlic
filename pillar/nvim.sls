@@ -2,6 +2,7 @@ nvim:
   plugins:
     - Shougo/deoplete.nvim: "{'do': function('DoRemote')}"
     - zchee/deoplete-jedi: {for: python}
+    - zchee/deoplete-clang
     - Shougo/neosnippet
     - Shougo/neosnippet-snippets
     - neomake/neomake
@@ -88,6 +89,8 @@ nvim:
         colorscheme hybrid_reverse
     - deoplete: |
         let g:deoplete#enable_at_startup = 1
+        let g:deoplete#sources#clang#libclang_path = "/Library/Developer/CommandLineTools/usr/lib/libclang.dylib"
+        let g:deoplete#sources#clang#clang_header = "/Library/Developer/CommandLineTools/usr/include"
     - neomake: |
         set errorformat+=%Dninja\ -C\ %f
         set errorformat+=%Dmake\ -C\ %f
@@ -114,3 +117,4 @@ nvim:
         endif
         inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
   ultisnips: ['_']
+
