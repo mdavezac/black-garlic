@@ -2,8 +2,8 @@
 {% set configdir = config.get('configdir', '~/.config/nvim') %}
 
 {% for filename in salt['pillar.get']('nvim:ultisnips', []) -%}
-{{configdir}}/Ultisnips/{{filename}}.snippets:
+{{configdir}}/Ultisnips/{{filename}}.snip:
   file.managed:
-    - source: salt://files/nvim/ultisnips/{{filename}}.snippets
+    - source: salt://files/nvim/ultisnips/{{filename}}.snip
     - makedirs: True
 {% endfor -%}

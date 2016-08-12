@@ -2,6 +2,8 @@ nvim:
   plugins:
     - Shougo/deoplete.nvim: "{'do': function('DoRemote')}"
     - zchee/deoplete-jedi: {for: python}
+    - Shougo/neosnippet
+    - Shougo/neosnippet-snippets
     - neomake/neomake
     - tpope/vim-dispatch
     - godlygeek/csapprox # Required for Gblame in terminal vim
@@ -16,8 +18,6 @@ nvim:
     - jaxbot/github-issues.vim
     - sheerun/vim-polyglot
     - saltstack/salt-vim
-    - SirVer/ultisnips
-    - honza/vim-snippets
     - jtratner/vim-flavored-markdown
     - Chiel92/vim-autoformat
     - jistr/vim-nerdtree-tabs
@@ -32,11 +32,11 @@ nvim:
     - vim-scripts/AutoTag
     - vim-scripts/AnsiEsc.vim
     - tpope/vim-unimpaired # quick-fix and list navigation
+    - critiqjo/lldb.nvim: "{'do': function('DoRemote')}"
   plugin_functions:
     - DoRemote: UpdateRemotePlugins
   settings_files:
     - lightline
-  ultisnips: [all, ]
   settings:
     - gissues: |
         let g:github_access_token=$HOMEBREW_GITHUB_API_TOKEN
@@ -76,13 +76,6 @@ nvim:
             exe 'source '.filename
           endif
         endif
-    - ultisnips: |
-        let g:UltiSnipsEditSplit = "context"
-        let g:ycm_use_ultisnips_completer = 1
-        let g:UltiSnipsExpandTrigger = "<tab>"
-        let g:UltiSnipsJumpForwardTrigger = "<tab>"
-        let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-        let g:UltiSnipsSnippetsDir=expand("~/.config/nvim/UltiSnips")
     - neoterm: |
         tnoremap <Esc> <C-\><C-n>
         tnoremap <C-h> <C-\><C-n><C-w>h
@@ -95,22 +88,6 @@ nvim:
         colorscheme hybrid_reverse
     - deoplete: |
         let g:deoplete#enable_at_startup = 1
-        " <Tab> completion: "
-        " 1. If popup menu is visible, select and insert next item "
-        " 2. Otherwise, if within a snippet, jump to next input "
-        " 3. Otherwise, if preceding chars are whitespace, insert tab char "
-        " 4. Otherwise, start manual autocomplete "
-        imap <silent><expr><Tab> pumvisible() ? "\<C-n>"
-        	\ : (neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)"
-        	\ : (<SID>is_whitespace() ? "\<Tab>"
-        	\ : deoplete#manual_complete()))
-
-        smap <silent><expr><Tab> pumvisible() ? "\<C-n>"
-        	\ : (neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)"
-        	\ : (<SID>is_whitespace() ? "\<Tab>"
-        	\ : deoplete#manual_complete()))
-
-        inoremap <expr><S-Tab>  pumvisible() ? "\<C-p>" : "\<C-h>"
     - neomake: |
         set errorformat+=%Dninja\ -C\ %f
         set errorformat+=%Dmake\ -C\ %f
@@ -127,3 +104,13 @@ nvim:
         nmap <silent> ,qo :copen<CR>
     - Autoformat_mapping: noremap <F5> :Autoformat<CR>
     - Tagbar_mapping: noremap <F4> :TagbarToggle<CR>
+    - neosnippet: |
+        let g:neosnippet#snippets_directory=expand("~/.config/nvim/UltiSnips")
+        imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+        smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+        xmap <C-k>     <Plug>(neosnippet_expand_target)
+        if has('conceal')
+          set conceallevel=2 concealcursor=niv
+        endif
+        inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+  ultisnips: ['_']
