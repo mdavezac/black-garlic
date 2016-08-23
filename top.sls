@@ -12,3 +12,4 @@ base:
     - dotfiles
     - nvim
     - tmux
+    - xhyve

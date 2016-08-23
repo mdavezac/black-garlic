@@ -45,3 +45,5 @@ brew_apps:
   - tree
   - llvm:
       options: ['--with-python', '--with-lldb']
+  - docker-machine-driver-xhyve
+  - docker
