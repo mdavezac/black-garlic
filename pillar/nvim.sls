@@ -116,5 +116,6 @@ nvim:
           set conceallevel=2 concealcursor=niv
         endif
         inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+    - julia: let g:latex_to_unicode_tab = 1
   ultisnips: ['_']
 
