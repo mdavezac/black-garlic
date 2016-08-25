@@ -41,5 +41,9 @@ mdavezac/Crystals.jl:
     - footer: |
         setenv("JULIA_PKGDIR", "{{workspace}}/julia")
 
+{{project}} vimrc:
+  funwith.add_vimrc:
+    - name: {{workspace}}
+    - makeprg: "make\\ -C\\ $CURRENT_FUN_WITH_DIR/build/"
 
 {{tmuxinator(project, root="%s/julia/v0.4/Crystals" % workspace, layout="main-horizontal")}}
