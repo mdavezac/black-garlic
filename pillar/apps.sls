@@ -47,3 +47,5 @@ brew_apps:
       options: ['--with-python', '--with-lldb']
   - docker-machine-driver-xhyve
   - docker
+  - gdb
+  - cgdb
