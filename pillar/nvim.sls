@@ -34,6 +34,9 @@ nvim:
     - vim-scripts/AnsiEsc.vim
     - tpope/vim-unimpaired # quick-fix and list navigation
     - critiqjo/lldb.nvim: "{'do': function('DoRemote')}"
+    - xolox/vim-colorscheme-switcher
+    - Taverius/vim-colorscheme-manager
+    - xolox/vim-misc
   plugin_functions:
     - DoRemote: UpdateRemotePlugins
   settings_files:
@@ -83,10 +86,12 @@ nvim:
         tnoremap <C-j> <C-\><C-n><C-w>j
         tnoremap <C-k> <C-\><C-n><C-w>k
         tnoremap <C-l> <C-\><C-n><C-w>l
+        let g:terminal_scrollback_buffer_size=100000
     - colorscheme: |
         let $NVIM_TUI_ENABLE_TRUE_COLOR=1
         set background=dark
         colorscheme hybrid_reverse
+        let g:colorscheme_manager_file=expand("$HOME/.config/nvim/colorscheme")
     - deoplete: |
         let g:deoplete#enable_at_startup = 1
         let g:deoplete#sources#clang#libclang_path = "/Library/Developer/CommandLineTools/usr/lib/libclang.dylib"
