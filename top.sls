@@ -12,4 +12,4 @@ base:
     - dotfiles
     - nvim
     - tmux
-    - xhyve
+    - docker
