@@ -9,7 +9,7 @@
 {{grains['userhome']}}/.salted/completions/_docker:
   file.managed:
     - source: https://raw.githubusercontent.com/docker/docker/master/contrib/completion/zsh/_docker
-    - source_hash: sha1=9b634c6a45e5b3a09be945e1f221c663cf064337
+    - source_hash: sha1=a1540ca9df4b2ca44371f2baaae77e7b4c7e2552
     - makedirs: true
 
 {{grains['userhome']}}/.salted/completions/_docker-machine:
