@@ -2,7 +2,7 @@ nvim:
   plugins:
     - Shougo/deoplete.nvim: "{'do': function('DoRemote')}"
     - zchee/deoplete-jedi: {for: python}
-    - zchee/deoplete-clang
+    - zchee/deoplete-clang: {for: cpp}
     - Shougo/neosnippet
     - Shougo/neosnippet-snippets
     - neomake/neomake
