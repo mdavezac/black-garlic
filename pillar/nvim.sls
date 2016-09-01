@@ -35,7 +35,6 @@ nvim:
     - tpope/vim-unimpaired # quick-fix and list navigation
     - critiqjo/lldb.nvim: "{'do': function('DoRemote')}"
     - xolox/vim-colorscheme-switcher
-    - Taverius/vim-colorscheme-manager
     - xolox/vim-misc
   plugin_functions:
     - DoRemote: UpdateRemotePlugins
@@ -128,4 +127,3 @@ nvim:
           \ 'kinds'     : ['a:abstract', 'i:immutable', 't:type', 'f:function', 'm:macro']
           \ }
   ultisnips: ['_']
-
