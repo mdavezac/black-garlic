@@ -10,6 +10,8 @@ zsh:
       SAVEHIST: 100000
       TERM: screen-256color
   alias:
+      vi: nvim
+      vim: nvim
       tmux: tmux -2
       cmake: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
   options:
