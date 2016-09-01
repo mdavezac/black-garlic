@@ -12,3 +12,8 @@ include:
 
 {{grains['userhome']}}/.salted:
   file.directory
+
+{{grains['userhome']}}/.ctags:
+  file.managed:
+    - source: salt://files/ctags
+    - makedirs: True
