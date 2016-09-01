@@ -1,29 +1,8 @@
-{% set project = "cookoff" %}
-{% set prefix = salt['funwith.prefix']('cookoff') %}
-cookoff:
-  funwith.present:
-    - github: UCL/GreatCMakeCookoff
-    - virtualenv:
-        pip_pkgs:
-          - numpy
-          - scipy
-          - pytest
-          - cython
+{% from 'projects/fixtures.sls' import tmuxinator %}
+{% set project = sls.split('.')[-1] %}
+{% set workspace = salt['funwith.workspace'](project) %}
 
-{{grains['userhome']}}/.tmuxinator/{{project}}.yml:
-  file.managed:
-    - contents: |
-        name: {{project}}
-        root: {{prefix}}/src/GreatCMakeCookoff
-        pre_window: export CURRENT_FUN_WITH={{project}} && module load {{project}}
-        windows:
-          - {{project}}:
-              layout: main-vertical
-              panes:
-                - vim:
-                  - vim ./
-                -
-          - legion:
-              panes:
-                - legion:
-                  - ssh legion
+include:
+  - chilly-oil.projects.cookoff
+
+{{tmuxinator(project, root="%s/src/%s" % (workspace, project))}}
