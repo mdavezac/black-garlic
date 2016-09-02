@@ -18,4 +18,4 @@ github.com:
 ~/.ssh/github_rsa:
   file.exists:
     - user: {{grains['user']}}
-    - mode: 600
+    - mode: 400
