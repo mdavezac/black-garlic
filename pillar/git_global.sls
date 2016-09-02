@@ -3,7 +3,7 @@ git_global:
   user.email: m.davezac@ucl.ac.uk
   core.editor: vim
   core.autoclrf: input
-  core.excludesfile: ~/.dotfiles/gitignore
+  core.excludesfile: {{grains['userhome']}}/.gitignore
   color.ui: true
   apply.whitespace: nowarn
   branch.autosetupmerge: true

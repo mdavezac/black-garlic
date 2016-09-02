@@ -5,3 +5,9 @@ user config {{key}}:
     - value: {{value}}
     - global: True
 {% endfor      %}
+
+{{grains['userhome']}}/.gitignore:
+  file.managed:
+    - source: salt://files/gitignore
+    - mode: 444
+    - user: {{grains['user']}}
