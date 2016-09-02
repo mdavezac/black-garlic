@@ -13,3 +13,4 @@ base:
     - nvim
     - tmux
     - docker
+    - hg

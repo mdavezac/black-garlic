@@ -1,0 +1,10 @@
+source {{prezto}}/runcoms/zprofile
+source {{salted}}/envvar.zsh
+
+[[ -e {{salted}}/zprofile ]] && source {{salted}}/zprofile
+
+export fpath=($fpath {{salted}}/completions)
+
+export HOMEBREW_ROOT=$(brew --prefix)
+export LUA_PATH="$HOMEBREW_ROOT\/share/lua/5.2/?.lua;$HOMEBREW_ROOT\/share/lua/5.2/?/init.lua;;"
+export LUA_CPATH="$HOMEBREW_ROOT\/lib/lua/5.2/?.so;;"

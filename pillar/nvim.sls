@@ -36,7 +36,6 @@ nvim:
     - tpope/vim-unimpaired # quick-fix and list navigation
     - critiqjo/lldb.nvim: "{'do': function('DoRemote')}"
     - xolox/vim-colorscheme-switcher
-    - Taverius/vim-colorscheme-manager
     - xolox/vim-misc
   plugin_functions:
     - DoRemote: UpdateRemotePlugins
@@ -123,6 +122,10 @@ nvim:
           set conceallevel=2 concealcursor=niv
         endif
         inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-    - julia: let g:latex_to_unicode_tab = 1
+    - julia: |
+        let g:latex_to_unicode_tab = 1
+        let g:tagbar_type_julia = {
+          \ 'ctagstype' : 'julia',
+          \ 'kinds'     : ['a:abstract', 'i:immutable', 't:type', 'f:function', 'm:macro']
+          \ }
   ultisnips: ['_']
-

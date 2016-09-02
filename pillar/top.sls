@@ -10,3 +10,4 @@ base:
     - apps
     - python
     - nvim
+    - zsh

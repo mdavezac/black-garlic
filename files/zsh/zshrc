@@ -1,0 +1,5 @@
+source {{prezto}}/runcoms/zshrc
+
+for filename in {{salted}}/settings/*.zsh; do
+  source $filename
+done
