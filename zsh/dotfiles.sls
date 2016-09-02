@@ -9,6 +9,7 @@
 {{grains['userhome']}}/.{{filename}}:
   file.managed:
     - source: salt://files/zsh/{{filename}}
+    - mode: 400
     - template: jinja
     - default:
       home: {{home}}

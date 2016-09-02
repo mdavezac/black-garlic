@@ -11,3 +11,4 @@ tmuxinator:
 {{home}}/.tmux.conf:
   file.managed:
     - source: salt://files/tmux.conf
+    - mode: 400
