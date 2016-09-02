@@ -1,0 +1,61 @@
+IdentitiesOnly=yes
+Host github github.com
+  User git
+  HostName github.com
+  IdentityFile ~/.ssh/github_rsa
+  PreferredAuthentications publickey
+Host gist gist.github.com
+  User git
+  HostName gist.github.com
+  IdentityFile ~/.ssh/github_rsa
+  PreferredAuthentications publickey
+Host bitbucket bitbucket.org
+  hostname bitbucket.org
+  User git
+  PreferredAuthentications publickey
+  ForwardAgent no
+  IdentityFile ~/.ssh/bitbucket_rsa
+Host newlegion login09.external.legion.ucl.ac.uk
+  hostname login09.external.legion.ucl.ac.uk
+  User cceamda
+  ForwardAgent yes
+  IdentityFile ~/.ssh/legion_dsa
+  PreferredAuthentications publickey
+Host legion legion.rc.ucl.ac.uk
+  hostname legion.rc.ucl.ac.uk
+  User cceamda
+  ForwardAgent yes
+  IdentityFile ~/.ssh/legion_dsa
+  PreferredAuthentications publickey
+Host jenkins
+  User ccsprsd
+  HostName staging.development.rc.ucl.ac.uk
+  IdentityFile ~/.ssh/ulam_rsa
+  ForwardAgent no
+Host jenkins_legion
+  User ccsprsd
+  # Hostname login09.external.legion.ucl.ac.uk
+  Hostname legion.rc.ucl.ac.uk
+  IdentityFile ~/.ssh/legion_as_ccsprsd_dsa
+  ForwardAgent yes
+  # ProxyCommand ssh jenkins nc %h %p
+Host pma pm-a.rcdev.ucl.ac.uk
+  Hostname pm-a.rcdev.ucl.ac.uk
+  User cceamda
+Host macslave
+  Hostname rsd-js05d.rcdev.ucl.ac.uk
+  User cceamda
+Host batman
+  Hostname login.archer.ac.uk
+  User batman
+  IdentityFile ~/.ssh/archer_rsa
+  PreferredAuthentications publickey
+  ForwardAgent yes
+Host uncafedetrop
+  Hostname uncafedetrop.rits-ids.ucl.ac.uk
+  user mdavezac
+Host data ssh.rd.ucl.ac.uk
+  Hostname ssh.rd.ucl.ac.uk
+  IdentityFile ~/.ssh/data_rsa
+  PreferredAuthentications publickey
+  user cceamda

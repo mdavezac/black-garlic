@@ -4,6 +4,7 @@ base:
     - spack
     - funwith
     - setup_github
+    - ssh
     - apps
     - python
     - karabiner
