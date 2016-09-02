@@ -9,7 +9,6 @@ base:
     - karabiner
     - git
     - zsh
-    - dotfiles
     - nvim
     - tmux
     - docker
