@@ -1,3 +1,4 @@
+{% set fundir = salt['funwith.defaults']('modulefiles') %}
 zsh:
   envvar:
       DEFAULT_USER: $(whoami)
@@ -23,7 +24,7 @@ zsh:
     - HIST_REDUCE_BLANKS
   settings:
     - completions: |
-        fpath=($HOME/.dotfiles/zsh/completions $fpath)
+        fpath=({{salt['pillar.get']('zsh:salted', grains['userhome'] + "/.salted")}}/completions $fpath)
         autoload -U compinit
         compinit -U
     - setup_funwith: |
@@ -41,3 +42,6 @@ zsh:
     - spack: |
          export SPACK_ROOT={{salt['spack.defaults']('directory')}}
          source $SPACK_ROOT/share/spack/setup-env.sh
+  completions:
+    - funwith: >
+        "_arguments \"1: :($(/usr/bin/basename -s .lua {{fundir}}/*.lua))\""
