@@ -1,4 +1,4 @@
-{% set salted = salt['pillar.get']('zsh:salted', home + "/.salted") %}
+{% set salted = salt['pillar.get']('zsh:salted', grains['userhome'] + "/.salted") %}
 {% set homebrew = salt['cmd.shell']('brew --prefix') %}
 
 {{homebrew}}/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve:
@@ -10,7 +10,7 @@
 {{salted}}/completions/_docker:
   file.managed:
     - source: https://raw.githubusercontent.com/docker/docker/master/contrib/completion/zsh/_docker
-    - source_hash: sha1=a1540ca9df4b2ca44371f2baaae77e7b4c7e2552
+    - source_hash: sha1=dbc4fc63f5b16ae74dc893e453ca7d089e
     - makedirs: true
 
 {{salted}}/completions/_docker-machine:
