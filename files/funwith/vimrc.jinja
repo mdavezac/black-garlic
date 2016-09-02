@@ -1,0 +1,36 @@
+" vim: set filetype=vim :
+set shiftwidth={{tabs}}
+set tabstop={{tabs}}
+set softtabstop={{tabs}}
+set expandtab
+
+set colorcolumn={{width + 1}}
+set textwidth={{width}}
+
+{% if makeprg -%}
+set makeprg={{makeprg}}
+{% endif -%}
+
+if !exists("g:deoplete#sources#clang#flags")
+  let g:deoplete#sources#clang#flags=[]
+endif
+for i in split($CMAKE_PREFIX_PATH, ';')
+  for suffix in ["include", "include/eigen"]
+    if isdirectory($i . $suffix)
+      let g:deoplete#sources#clang#flags+=["-I" . $i . $suffix]
+    endif
+  endfor
+endfor
+for i in split($CMAKE_INCLUDE_PATH, ';')
+  if isdirectory($i)
+    let g:deoplete#sources#clang#flags+=["-I" . $i]
+  endif
+endfor
+
+if filereadable("{{prefix}}/.cppconfig")
+  let g:deoplete#sources#clang#flags+=readfile("{{prefix}}/.cppconfig")
+endif
+
+{% if footer -%}
+{{footer}}
+{% endif -%}
