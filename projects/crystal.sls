@@ -15,6 +15,7 @@
 julia metadir:
     git.latest:
       - name: git://github.com/JuliaLang/METADATA.jl
+      - email: mdavezac@gmail.com
       - target: {{workspace}}/julia/v0.4/METADATA
       - force_fetch: True
 
@@ -30,6 +31,7 @@ update julia packages:
 mdavezac/Crystals.jl:
   github.latest:
     - target: {{workspace}}/julia/v0.4/Crystals
+    - email: mdavezac@gmail.com
     - update_head: False
 
 
