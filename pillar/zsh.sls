@@ -43,5 +43,5 @@ zsh:
          export SPACK_ROOT={{salt['spack.defaults']('directory')}}
          source $SPACK_ROOT/share/spack/setup-env.sh
   completions:
-    - funwith: >
-        "_arguments \"1: :($(/usr/bin/basename -s .lua {{fundir}}/*.lua))\""
+    - funwith: |
+        _arguments "1: :($(/usr/bin/basename -s .lua {{fundir}}/*.lua))"

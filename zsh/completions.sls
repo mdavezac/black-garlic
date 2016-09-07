@@ -13,7 +13,7 @@ CMake completions:
   file.managed:
     - makedirs: true
     - mode: 400
-    - contents:
-        # compdef {{completion.keys()[0]}}
+    - contents: |-
+        #compdef {{completion.keys()[0]}}
         {{completion.values()[0]}}
 {% endfor %}
