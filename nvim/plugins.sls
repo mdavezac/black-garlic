@@ -8,6 +8,7 @@
     - source: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     - source_hash: md5=0ec2be5d481f384253910ef8320c85fe
     - makedirs: True
+    - mode: 400
 
 
 {{pluginsrc}}:
@@ -19,6 +20,7 @@
         plugin_functions: {{salt['pillar.get']('nvim:plugin_functions', [])}}
     - makedirs: True
     - template: jinja
+    - mode: 400
 
 nvim --headless +PlugInstall +qall:
   cmd.run
@@ -33,6 +35,7 @@ nvim --headless +PlugUpdate +qall:
     - makedirs: True
     - template: jinja
     - context: {{config}}
+    - mode: 400
 {% endfor %}
 
 {% for settings in salt['pillar.get']('nvim:settings', []) -%}
@@ -43,6 +46,7 @@ nvim --headless +PlugUpdate +qall:
     - makedirs: True
     - template: jinja
     - context: {{config}}
+    - mode: 400
 {%   endfor -%}
 {% endfor -%}
 

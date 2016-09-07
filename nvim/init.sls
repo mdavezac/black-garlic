@@ -16,6 +16,7 @@
     - context: {{config}}
     - makedirs: True
     - template: jinja
+    - mode: 400
 
 include:
   - .plugins

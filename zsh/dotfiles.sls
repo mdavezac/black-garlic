@@ -19,5 +19,6 @@
 
 {{grains['userhome']}}/.ctags:
   file.managed:
+    - mode: 400
     - source: salt://files/ctags
     - makedirs: True
