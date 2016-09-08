@@ -6,5 +6,5 @@
   file.managed:
     - source: salt://files/nvim/ultisnips/{{filename}}.snip
     - makedirs: True
-    - mode: 400
+    - mode: 600
 {% endfor -%}
