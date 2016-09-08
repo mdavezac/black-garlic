@@ -2,11 +2,10 @@ nvim:
   plugins:
     - Shougo/deoplete.nvim: "{'do': function('DoRemote')}"
     - zchee/deoplete-jedi: {for: python}
-    - zchee/deoplete-clang: {for: cpp}
     - Shougo/neoinclude: {for: cpp}
     - Shougo/neosnippet
     - Shougo/neosnippet-snippets
-    - neomake/neomake
+    - neomake/neomake: {for: cpp}
     - tpope/vim-dispatch
     - godlygeek/csapprox # Required for Gblame in terminal vim
     - itchyny/lightline.vim
@@ -41,6 +40,7 @@ nvim:
     - DoRemote: UpdateRemotePlugins
   settings_files:
     - lightline
+    - neomake_clang
   settings:
     - gissues: |
         let g:github_access_token=$HOMEBREW_GITHUB_API_TOKEN
@@ -61,7 +61,6 @@ nvim:
         nmap ,u :GundoToggle<CR>
         let g:gundo_right = 1
         let g:gundo_width = 60
-
     - ctrlp: |
         let g:ctrlp_user_command = 'ag %s --files-with-matches -g "" --ignore "\.git$\|\.hg$\|\.svn$"'
         let g:ctrlp_use_caching = 0
@@ -94,12 +93,17 @@ nvim:
         let g:colorscheme_manager_file=expand("$HOME/.config/nvim/colorscheme")
     - deoplete: |
         let g:deoplete#enable_at_startup = 1
-        let g:deoplete#sources#clang#libclang_path = "/Library/Developer/CommandLineTools/usr/lib/libclang.dylib"
-        let g:deoplete#sources#clang#clang_header = "/Library/Developer/CommandLineTools/usr/include"
-        let g:deoplete#sources#cpp = ['buffer', 'tag']
+        let g:deoplete#tag#cache_limit_size = 5000000
+        " let g:deoplete#sources#clang#libclang_path = "/Library/Developer/CommandLineTools/usr/lib/libclang.dylib""
+        " let g:deoplete#sources#clang#clang_header = "/Library/Developer/CommandLineTools/usr/include""
+        " let g:deoplete#sources#cpp = ['buffer', 'tag']"
     - neomake: |
         set errorformat+=%Dninja\ -C\ %f
         set errorformat+=%Dmake\ -C\ %f
+        augroup neomake_cmd
+          autocmd!
+          autocmd BufWritePost,BufEnter *.cc,*.cpp,*.h Neomake
+        augroup END
     - dispatch: nnoremap <F9> :Dispatch<CR>
     - nerdtree: |
         autocmd StdinReadPre * let s:std_in=1
