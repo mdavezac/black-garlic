@@ -6,13 +6,13 @@ CMake completions:
     - source: https://raw.githubusercontent.com/skroll/zsh-cmake-completion/master/_cmake
     - source_hash: sha1=e1ecae244d4ea02c457b5fdfe60adcd294968054
     - makedirs: true
-    - mode: 400
+    - mode: 600
 
 {% for completion in salt['pillar.get']('zsh:completions', {}) %}
 {{salted}}/completions/_{{completion.keys()[0]}}:
   file.managed:
     - makedirs: true
-    - mode: 400
+    - mode: 600
     - contents: |-
         #compdef {{completion.keys()[0]}}
         {{completion.values()[0]}}

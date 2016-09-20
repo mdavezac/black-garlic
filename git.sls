@@ -9,5 +9,5 @@ user config {{key}}:
 {{grains['userhome']}}/.gitignore:
   file.managed:
     - source: salt://files/gitignore
-    - mode: 444
+    - mode: 600
     - user: {{grains['user']}}
