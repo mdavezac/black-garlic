@@ -15,33 +15,37 @@
 julia metadir:
     git.latest:
       - name: git://github.com/JuliaLang/METADATA.jl
-      - email: mdavezac@gmail.com
       - target: {{workspace}}/julia/v0.5/METADATA
       - force_fetch: True
 
 
 update julia packages:
   cmd.run:
-    - name: julia -e "Pkg.resolve()"
+    - name: /Applications/Julia-0.5.app/Contents/Resources/julia/bin/julia -e "Pkg.resolve()"
     - env:
       - JULIA_PKGDIR: {{workspace}}/julia
       - JUPYTER: {{workspace}}/bin/jupyter
 
 
-mdavezac/Crystals.jl:
+mdavezac/SIMeasurements.jl:
   github.latest:
-    - target: {{workspace}}/julia/v0.5/Crystals
-    - email: mdavezac@gmail.com
+    - target: {{workspace}}/julia/v0.5/SIMeasurements
     - update_head: False
 
+config mdavezac/SIMeasurements.jl:
+  git.config_set:
+    - name: user.email
+    - value: mdavezac@gmail.com
+    - repo: {{workspace}}/julia/v0.5/SIMeasurements
 
 {{project}} modulefile:
   funwith.modulefile:
     - name: {{project}}
     - workspace: {{workspace}}
-    - cwd: {{workspace}}/julia/v0.5/Crystals
+    - cwd: {{workspace}}/julia/v0.5/SIMeasurements
     - footer: |
         setenv("JULIA_PKGDIR", "{{workspace}}/julia")
+        prepend_path("PATH", "/Applications/Julia-0.5.app/Contents/Resources/julia/bin")
 
 {{project}} vimrc:
   funwith.add_vimrc:
@@ -50,4 +54,4 @@ mdavezac/Crystals.jl:
     - width: 80
     - tabs: 4
 
-{{tmuxinator(project, root="%s/julia/v0.5/Crystals" % workspace, layout="main-horizontal")}}
+{{tmuxinator(project, root="%s/julia/v0.5/SIMeasurements" % workspace, layout="main-horizontal")}}
