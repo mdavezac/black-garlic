@@ -23,3 +23,19 @@
     - bin_env: {{bin_env}}
     - pkgs: [jedi, neovim, libclang-py3]
 {% endmacro %}
+
+{% macro cookoff(prefix, subdir="src/cookoff") %}
+{{prefix}}/{{subdir}}:
+  github.latest:
+    - name: UCL/GreatCMakeCookoff
+    - target: {{prefix}}/{{subdir}}
+    - update_head: False
+
+  cmd.run:
+    - name: |
+        mkdir build && cd build
+        cmake -G Ninja -DCMAKE_INSTALL_PREFIX={{prefix}} -Dtests=OFF ..
+        ninja install -j 4
+    - cwd: {{prefix}}/{{subdir}}
+    - creates: {{prefix}}/share/GreatCMakeCookoff
+{% endmacro %}
