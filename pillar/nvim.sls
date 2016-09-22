@@ -132,4 +132,9 @@ nvim:
           \ 'ctagstype' : 'julia',
           \ 'kinds'     : ['a:abstract', 'i:immutable', 't:type', 'f:function', 'm:macro']
           \ }
+  after_plugin:
+    - comments: |
+        setlocal comments-=://
+        setlocal comments+=bO://!
+        setlocal comments+=b://
   ultisnips: ['_']
