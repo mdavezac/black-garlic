@@ -36,6 +36,7 @@ nvim:
     - critiqjo/lldb.nvim: "{'do': function('DoRemote')}"
     - xolox/vim-colorscheme-switcher
     - xolox/vim-misc
+    - fatih/vim-go: {for: go}
   plugin_functions:
     - DoRemote: UpdateRemotePlugins
   settings_files:
@@ -116,7 +117,8 @@ nvim:
         nmap <silent> ,qc :cclose<CR>
         nmap <silent> ,qo :copen<CR>
     - Autoformat_mapping: noremap <F5> :Autoformat<CR>
-    - Tagbar_mapping: noremap <F4> :TagbarToggle<CR>
+    - Tagbar: |
+        noremap <F4> :TagbarToggle<CR>
     - neosnippet: |
         let g:neosnippet#snippets_directory=expand("~/.config/nvim/UltiSnips")
         imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -132,8 +134,8 @@ nvim:
           \ 'ctagstype' : 'julia',
           \ 'kinds'     : ['a:abstract', 'i:immutable', 't:type', 'f:function', 'm:macro']
           \ }
-  after_plugin:
-    - comments: |
+  after_ftplugin:
+    - cpp: |
         setlocal comments-=://
         setlocal comments+=bO://!
         setlocal comments+=b://
