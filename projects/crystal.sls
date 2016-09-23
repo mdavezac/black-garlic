@@ -13,8 +13,8 @@
     - makedirs: True
 
 julia metadir:
-    git.latest:
-      - name: git://github.com/JuliaLang/METADATA.jl
+    github.latest:
+      - name: JuliaLang/METADATA.jl
       - email: mdavezac@gmail.com
       - target: {{workspace}}/julia/v0.5/METADATA
       - force_fetch: True

@@ -13,15 +13,16 @@
     - makedirs: True
 
 julia metadir:
-    git.latest:
-      - name: git://github.com/JuliaLang/METADATA.jl
+    github.latest:
+      - name: JuliaLang/METADATA.jl
       - target: {{workspace}}/julia/v0.5/METADATA
+      - email: mdavezac@gmail.com
       - force_fetch: True
 
 
 update julia packages:
   cmd.run:
-    - name: /Applications/Julia-0.5.app/Contents/Resources/julia/bin/julia -e "Pkg.resolve()"
+    - name: julia -e "Pkg.resolve()"
     - env:
       - JULIA_PKGDIR: {{workspace}}/julia
       - JUPYTER: {{workspace}}/bin/jupyter
@@ -30,13 +31,8 @@ update julia packages:
 mdavezac/SIMeasurements.jl:
   github.latest:
     - target: {{workspace}}/julia/v0.5/SIMeasurements
+    - email: mdavezac@gmail.com
     - update_head: False
-
-config mdavezac/SIMeasurements.jl:
-  git.config_set:
-    - name: user.email
-    - value: mdavezac@gmail.com
-    - repo: {{workspace}}/julia/v0.5/SIMeasurements
 
 {{project}} modulefile:
   funwith.modulefile:
@@ -45,7 +41,6 @@ config mdavezac/SIMeasurements.jl:
     - cwd: {{workspace}}/julia/v0.5/SIMeasurements
     - footer: |
         setenv("JULIA_PKGDIR", "{{workspace}}/julia")
-        prepend_path("PATH", "/Applications/Julia-0.5.app/Contents/Resources/julia/bin")
 
 {{project}} vimrc:
   funwith.add_vimrc:
