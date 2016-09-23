@@ -15,8 +15,8 @@
 julia metadir:
     github.latest:
       - name: JuliaLang/METADATA.jl
-      - email: mdavezac@gmail.com
       - target: {{workspace}}/julia/v0.5/METADATA
+      - email: mdavezac@gmail.com
       - force_fetch: True
 
 
@@ -28,18 +28,17 @@ update julia packages:
       - JUPYTER: {{workspace}}/bin/jupyter
 
 
-mdavezac/Crystals.jl:
+mdavezac/SIMeasurements.jl:
   github.latest:
-    - target: {{workspace}}/julia/v0.5/Crystals
+    - target: {{workspace}}/julia/v0.5/SIMeasurements
     - email: mdavezac@gmail.com
     - update_head: False
-
 
 {{project}} modulefile:
   funwith.modulefile:
     - name: {{project}}
     - workspace: {{workspace}}
-    - cwd: {{workspace}}/julia/v0.5/Crystals
+    - cwd: {{workspace}}/julia/v0.5/SIMeasurements
     - footer: |
         setenv("JULIA_PKGDIR", "{{workspace}}/julia")
 
@@ -50,4 +49,4 @@ mdavezac/Crystals.jl:
     - width: 80
     - tabs: 4
 
-{{tmuxinator(project, root="%s/julia/v0.5/Crystals" % workspace, layout="main-horizontal")}}
+{{tmuxinator(project, root="%s/julia/v0.5/SIMeasurements" % workspace, layout="main-horizontal")}}

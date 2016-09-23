@@ -1,14 +1,16 @@
 {% from 'projects/fixtures.sls' import tmuxinator %}
-{% set project = "cv" %}
-{% set prefix = salt['funwith.prefix']('cv') %}
+{% set project = sls.split('.')[-1] %}
+{% set workspace = salt['funwith.workspace'](project) %}
 
 mdavezac/{{project}}:
-  github.present:
-    - target: {{prefix}}
+  github.latest:
+    - target: {{workspace}}
+    - email: mdavezac@gmail.com
+    - update_head: False
 
 {{project}} modulefile:
   funwith.modulefile:
     - name: {{project}}
-    - cwd: {{prefix}}
+    - cwd: {{workspace}}
 
-{{tmuxinator(project, root=prefix, file="cv.tex")}}
+{{tmuxinator(project, root=workspace, file="cv.tex")}}

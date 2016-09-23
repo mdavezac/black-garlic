@@ -20,4 +20,5 @@
 
 include:
   - .plugins
+  - .after
   - .ultisnips
