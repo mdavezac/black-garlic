@@ -7,7 +7,7 @@ compilers:
       cxx: /usr/bin/clang++
       f77: /usr/local/bin/gfortran
       fc: /usr/local/bin/gfortran
-    spec: clang@7.3.0-apple
+    spec: clang@8.0.0-apple
 - compiler:
     modules: []
     operating_system: elcapitan
@@ -16,7 +16,7 @@ compilers:
       cxx: /usr/local/bin/g++-6
       f77: /usr/local/bin/gfortran
       fc: /usr/local/bin/gfortran
-    spec: gcc@6.1.0
+    spec: gcc@6.2.0
 - compiler:
     modules: []
     operating_system: elcapitan
