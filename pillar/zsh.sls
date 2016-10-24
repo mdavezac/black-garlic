@@ -16,6 +16,8 @@ zsh:
       vim: nvim
       tmux: tmux -2
       cmake: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+      issues: hub browse -- issues
+      pulls: hub browse -- pulls
   options:
     - SHARE_HISTORY
     - HIST_FIND_NO_DUPS
