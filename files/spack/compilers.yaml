@@ -1,7 +1,7 @@
 compilers:
 - compiler:
     modules: []
-    operating_system: elcapitan
+    operating_system: sierra
     paths:
       cc: /usr/bin/clang
       cxx: /usr/bin/clang++
@@ -10,7 +10,7 @@ compilers:
     spec: clang@8.0.0-apple
 - compiler:
     modules: []
-    operating_system: elcapitan
+    operating_system: sierra
     paths:
       cc: /usr/local/bin/gcc-6
       cxx: /usr/local/bin/g++-6
@@ -19,7 +19,7 @@ compilers:
     spec: gcc@6.2.0
 - compiler:
     modules: []
-    operating_system: elcapitan
+    operating_system: sierra
     paths:
       cc: /usr/local/bin/icc-16.0
       cxx: /usr/local/bin/icpc-16.0
