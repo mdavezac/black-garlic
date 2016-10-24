@@ -43,7 +43,8 @@ Host pma pm-a.rcdev.ucl.ac.uk
   Hostname pm-a.rcdev.ucl.ac.uk
   User cceamda
 Host macslave
-  Hostname rsd-js05d.rcdev.ucl.ac.uk
+  Hostname rsd-js06.rc.ucl.ac.uk
+  ForwardAgent yes
   User cceamda
 Host batman
   Hostname login.archer.ac.uk
