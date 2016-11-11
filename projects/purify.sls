@@ -30,7 +30,7 @@ include:
       - source_dir: {{workspace}}/src/{{project}}
       - source_includes:
           - build/external/include
-          - build/include/purify
+          - build/include
           - cpp
           - cpp/examples
           - include
