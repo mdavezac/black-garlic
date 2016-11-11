@@ -10,6 +10,7 @@
         DataFrames
         FactCheck
         FixedSizeArrays
+        Lumberjack
     - makedirs: True
 
 julia metadir:
