@@ -5,6 +5,7 @@ zsh:
       CFLAGS: "-Wall"
       CXXFLAGS: "$CFLAGS"
       EDITOR: nvim
+      VISUAL: nvim
       CLICOLOR: 1
       HISTFILE: ~/.zhistory
       HISTSIZE: 100000
