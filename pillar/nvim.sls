@@ -37,6 +37,7 @@ nvim:
     - xolox/vim-colorscheme-switcher
     - xolox/vim-misc
     - fatih/vim-go: {for: go}
+    - rizzatti/dash.vim
   plugin_functions:
     - DoRemote: UpdateRemotePlugins
   settings_files:

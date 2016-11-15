@@ -5,8 +5,9 @@ cask_apps:
   - google-chrome
   - dropbox
   - shiftit
-  - karabiner
+  - karabiner-elements
   - julia
+  - dash
   - caffeine
 
 brew_apps:
@@ -44,7 +45,7 @@ brew_apps:
   - git
   - tree
   - llvm:
-      options: ['--with-python', '--with-lldb']
+      options: ['--with-lldb']
   - docker-machine-driver-xhyve
   - docker
   - gdb
