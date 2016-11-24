@@ -34,9 +34,6 @@ brew_apps:
   - universal-ctags:
       options: [--HEAD]
       taps: universal-ctags/universal-ctags
-  - vim:
-      options: [--with-lua, --with-luajit]
-      require: [luajit]
   - neovim:
       taps: neovim/neovim
   - boost
