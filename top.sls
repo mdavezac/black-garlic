@@ -7,7 +7,6 @@ base:
     - ssh
     - apps
     - python
-    - karabiner
     - git
     - zsh
     - nvim
