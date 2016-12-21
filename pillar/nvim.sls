@@ -2,7 +2,6 @@ nvim:
   plugins:
     - Shougo/deoplete.nvim: "{'do': function('DoRemote')}"
     - zchee/deoplete-jedi: {for: python}
-    - Shougo/neoinclude.vim: {for: cpp}
     - Shougo/neosnippet
     - Shougo/neosnippet-snippets
     - neomake/neomake: {for: cpp}
@@ -38,6 +37,7 @@ nvim:
     - xolox/vim-misc
     - fatih/vim-go: {for: go}
     - rizzatti/dash.vim
+    - kassio/neoterm
   plugin_functions:
     - DoRemote: UpdateRemotePlugins
   settings_files:
