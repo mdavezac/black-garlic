@@ -5,9 +5,17 @@ packages:
         buildable: False
     python:
        paths:
-           python@2.7.12: /usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7
-           python@3.5.2: /usr/local/Cellar/python3/3.5.2_1/Frameworks/Python.framework/Versions/3.5
+           python@2.7.12: /usr/local/Cellar/python/2.7.12_2/Frameworks/Python.framework/Versions/2.7
+           python@3.5.2: /usr/local/Cellar/python3/3.5.2_3/Frameworks/Python.framework/Versions/3.5
        buildable: False
+    pcre:
+      paths:
+           pcre@8.2%clang: /usr/local/Cellar/pcre/8.39/
+      buildable: False
+    git:
+      paths:
+           git@2.11.0: /usr/local/Cellar/git/2.11.0/
+      buildable: False
     pkgconfig:
       variants: -internal_glib
     # boost:
@@ -18,3 +26,8 @@ packages:
       paths:
         mkl@system%intel: /opt/intel
       buildable: False
+    curl:
+      paths:
+        curl@system: /usr/
+      buildable: False
+
