@@ -1,8 +1,10 @@
 IdentitiesOnly=yes
+UseKeychain yes
+AddKeysToAgent yes
 Host github github.com
   User git
   HostName github.com
-  IdentityFile ~/.ssh/github_rsa
+  IdentityFile ~/.ssh/github_ed25519
   PreferredAuthentications publickey
 Host gist gist.github.com
   User git
