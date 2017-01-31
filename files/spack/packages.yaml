@@ -17,17 +17,17 @@ packages:
            git@2.11.0: /usr/local/Cellar/git/2.11.0/
       buildable: False
     pkgconfig:
-      variants: -internal_glib
+      variants: ~internal_glib
+    pkg-config:
+      variants: ~internal_glib
     # boost:
     #   paths:
-    #     boost@1.60.0%clang: /usr/local/Cellar/boost/1.60.0_2/
-    #     boost@1.61.0%clang: /usr/local/Cellar/boost/1.61.0_1/
-    mkl:
+    #     boost@1.63.0 -python %clang: /usr/local/Cellar/boost/1.63.0/
+    intel-mkl:
       paths:
-        mkl@system%intel: /opt/intel
+        intel-mkl@system%intel: /opt/intel
       buildable: False
     curl:
       paths:
         curl@system: /usr/
       buildable: False
-

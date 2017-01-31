@@ -12,11 +12,20 @@ compilers:
     modules: []
     operating_system: sierra
     paths:
-      cc: /usr/local/bin/gcc-6
-      cxx: /usr/local/bin/g++-6
-      f77: /usr/local/bin/gfortran
-      fc: /usr/local/bin/gfortran
+      cc: /usr/local/Cellar/gcc/6.2.0/bin/gcc-6
+      cxx: /usr/local/Cellar/gcc/6.2.0/bin/g++-6
+      f77: /usr/local/Cellar/gcc/6.2.0/bin/gfortran
+      fc: /usr/local/Cellar/gcc/6.2.0/bin/gfortran
     spec: gcc@6.2.0
+- compiler:
+    modules: []
+    operating_system: sierra
+    paths:
+        cc: /usr/local/Cellar/gcc/6.3.0_1/bin/gcc-6
+        cxx: /usr/local/Cellar/gcc/6.3.0_1/bin/g++-6
+        f77: /usr/local/Cellar/gcc/6.3.0_1/bin/gfortran
+        fc: /usr/local/Cellar/gcc/6.3.0_1/bin/gfortran
+    spec: gcc@6.3.0
 - compiler:
     modules: []
     operating_system: sierra
