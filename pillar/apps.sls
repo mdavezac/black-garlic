@@ -9,6 +9,8 @@ cask_apps:
   - julia
   - dash
   - caffeine
+  - inkscape
+  - vivaldi
 
 brew_apps:
   - gcc
