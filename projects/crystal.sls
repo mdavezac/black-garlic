@@ -9,8 +9,11 @@
     - contents: |
         DataFrames
         FactCheck
-        FixedSizeArrays
         Lumberjack
+        Unitful
+        AffineTransforms
+        Documenter
+        DocStringExtensions
     - makedirs: True
 
 julia metadir:
@@ -48,7 +51,7 @@ mdavezac/Crystals.jl:
   funwith.add_vimrc:
     - name: {{workspace}}
     - makeprg: "make\\ -C\\ $CURRENT_FUN_WITH_DIR/build/"
-    - width: 80
+    - width: 92
     - tabs: 4
 
 {{tmuxinator(project, root="%s/julia/v0.5/Crystals" % workspace, layout="main-horizontal")}}
