@@ -1,6 +1,11 @@
 IdentitiesOnly=yes
 UseKeychain yes
 AddKeysToAgent yes
+Host gitlab gitlab.com
+  User git
+  HostName gitlab.com
+  IdentityFile ~/.ssh/gitlab_ed25519
+  PreferredAuthentications publickey
 Host github github.com
   User git
   HostName github.com

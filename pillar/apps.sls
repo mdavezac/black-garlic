@@ -14,6 +14,7 @@ cask_apps:
 
 brew_apps:
   - gcc
+  - gcc@4.9
   - python
   - python3
   - luajit
