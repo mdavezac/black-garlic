@@ -8,3 +8,5 @@ export fpath=($fpath {{salted}}/completions)
 export HOMEBREW_ROOT=$(brew --prefix)
 export LUA_PATH="$HOMEBREW_ROOT\/share/lua/5.2/?.lua;$HOMEBREW_ROOT\/share/lua/5.2/?/init.lua;;"
 export LUA_CPATH="$HOMEBREW_ROOT\/lib/lua/5.2/?.so;;"
+
+export PATH=$HOME/.local/bin:$PATH
