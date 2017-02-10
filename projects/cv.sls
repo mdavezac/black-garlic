@@ -3,7 +3,7 @@
 {% set workspace = salt['funwith.workspace'](project) %}
 
 mdavezac/{{project}}:
-  github.latest:
+  gitlab.latest:
     - target: {{workspace}}
     - email: mdavezac@gmail.com
     - update_head: False
