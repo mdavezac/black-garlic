@@ -1,5 +1,5 @@
 {% from 'projects/fixtures.sls' import tmuxinator %}
-{% set compiler = salt['pillar.get']('compiler', 'gcc') %}
+{% set compiler = salt["spack.compiler"]() %}
 {% set python = salt['pillar.get']('python', 'python2') %}
 {% set project = sls.split('.')[-1] %}
 {% set workspace = salt['funwith.workspace'](project) %}
