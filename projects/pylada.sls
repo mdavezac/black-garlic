@@ -1,6 +1,7 @@
 {% from 'projects/fixtures.sls' import tmuxinator %}
 {% set compiler = salt["spack.compiler"]() %}
-{% set python = salt['pillar.get']('python', 'python2') %}
+{% set python = salt['spack.python']() %}
+{% set python_exec = salt['spack.python_exec']() %}
 {% set project = "pylada-light" %}
 {% set workspace = salt['funwith.workspace'](project) %}
 
@@ -16,7 +17,7 @@
 
 {{workspace}}/{{python}}:
   virtualenv.managed:
-    - python: {{python}}
+    - python: {{python_exec}}
     - pip_upgrade: True
     - use_wheel: True
     - pip_pkgs:
