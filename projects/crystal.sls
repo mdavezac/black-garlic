@@ -1,6 +1,7 @@
 {% from "projects/fixtures.sls" import tmuxinator %}
-{% set compiler = salt["pillar.get"]("compiler", "gcc") %}
-{% set python = salt["pillar.get"]("python", "python3") %}
+{% set compiler = salt["spack.compiler"]() %}
+{% set python = salt["spack.python"]() %}
+{% set python_exec = salt["spack.python_exec"]() %}
 {% set mpilib = salt["pillar.get"]("mpi", "openmpi")  %}
 {% set openmp = "-openmp" if compiler != "clang" else "-openmp"%}
 {% set project = sls.split(".")[-1] %}
@@ -11,7 +12,7 @@
     - pkgs: &spack_packages
       - hdf5 -fortran -cxx -mpi %{{compiler}}
       - {{mpilib}} %{{compiler}}
-      - libxc
+      # - libxc
 {% if compiler == "intel" %}
       - openblas {{openmp}} %intel
       - scalapack +debug %intel  ^{{mpilib}} ^openblas {{openmp}}
@@ -57,7 +58,7 @@ mdavezac/Crystals.jl:
 
 {{workspace}}/{{python}}:
   virtualenv.managed:
-    - python: {{python}}
+    - python: {{python_exec}}
     - pip_upgrade: True
     - use_wheel: True
     - pip_pkgs: [pip, numpy, scipy, pytest, pandas, cython, pyWavelets, jupyter]
@@ -68,6 +69,7 @@ mdavezac/Crystals.jl:
     - name: {{project}}
     - spack: *spack_packages
     - workspace: {{workspace}}
+    - virtualenv: {{workspace}}/{{python}}
     - cwd: {{workspace}}/julia/v0.5/Crystals
     - footer: |
         setenv("JULIA_PKGDIR", "{{workspace}}/julia")
