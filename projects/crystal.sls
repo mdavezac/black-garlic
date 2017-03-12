@@ -61,16 +61,17 @@ mdavezac/Crystals.jl:
     - python: {{python_exec}}
     - pip_upgrade: True
     - use_wheel: True
-    - pip_pkgs: [pip, numpy, scipy, pytest, pandas, cython, pyWavelets, jupyter]
+    - pip_pkgs: [pip, numpy, scipy, pytest, pandas, cython, matplotlib, jupyter, ase]
 
 
 {{project}} modulefile:
   funwith.modulefile:
     - name: {{project}}
+    - virtualenv: {{workspace}}/{{python}}
     - spack: *spack_packages
     - workspace: {{workspace}}
     - virtualenv: {{workspace}}/{{python}}
-    - cwd: {{workspace}}/julia/v0.5/Crystals
+    - cwd: {{workspace}}/julia/v0.5/LibXC
     - footer: |
         setenv("JULIA_PKGDIR", "{{workspace}}/julia")
 
@@ -83,9 +84,9 @@ mdavezac/Crystals.jl:
 
 {{project}} gpaw:
   gitlab.latest:
-    - name: gpaw/gpaw.git
+    - name: gpaw/gpaw
     - email: mdavezac@gmail.com
     - target: {{workspace}}/src/gpaw
     - force_fetch: True
 
-{{tmuxinator(project, root="%s/julia/v0.5/Crystals" % workspace, layout="main-horizontal")}}
+{{tmuxinator(project, root="%s/julia/v0.5/LibXC" % workspace, layout="main-horizontal")}}
