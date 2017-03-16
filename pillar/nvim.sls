@@ -157,6 +157,14 @@ nvim:
         if $CURRENT_FUN_WITH_HOMEDIR != ""
            let g:easytags_file = expand("$CURRENT_FUN_WITH_HOMEDIR/.tags")
         endif
+    - lldb: |
+        nmap <C-q> <Plug>LLBreakSwitch
+        nnoremap <F6> :LLmode debug<CR>
+        nnoremap <S-F6> :LLmode code<CR>
+        nnoremap <F8> :LL continue<CR>
+        nnoremap <S-F8> :LL process interrupt<CR>
+        nnoremap <F9> :LL print <C-R>=expand('<cword>')<CR>
+        vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<CR><CR>
   after_ftplugin:
     - cpp: |
         setlocal comments-=://
