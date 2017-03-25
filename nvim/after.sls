@@ -1,5 +1,5 @@
 {% set config = salt['pillar.get']('nvim:config', {}) %}
-{% set configdir = config.get('configdir', '~/.config/nvim') %}
+{% set configdir = config.get('configdir', grains['userhome'] + '/.config/nvim') %}
 
 {% for settings in salt['pillar.get']('nvim:after_plugin', []) -%}
 {%   for name in settings -%}

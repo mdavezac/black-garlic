@@ -1,3 +1,8 @@
+{% set config = salt['pillar.get']('nvim:config', {}) %}
+{% set configdir = config.get('configdir', grains['userhome'] + '/.config/nvim') %}
+{% set virtdirs = config.get('virtualenv_dirs', configdir + "/virtualenvs") %}
+
+# - Shougo/neoinclude.vim: {for: cpp}
 nvim:
   plugins:
     - Shougo/deoplete.nvim: "{'do': function('DoRemote')}"
@@ -22,7 +27,6 @@ nvim:
     - jaxbot/github-issues.vim
     - sheerun/vim-polyglot
     - saltstack/salt-vim
-    - jtratner/vim-flavored-markdown
     - Chiel92/vim-autoformat
     - jistr/vim-nerdtree-tabs
     - scrooloose/nerdtree
@@ -33,15 +37,19 @@ nvim:
     - christoomey/vim-tmux-navigator
     - tomtom/tcomment_vim
     - sjl/gundo.vim
-    - vim-scripts/AutoTag
-    - vim-scripts/AnsiEsc.vim
+    - xolox/vim-easytags
     - tpope/vim-unimpaired # quick-fix and list navigation
+    - Rip-Rip/clang_complete
     - critiqjo/lldb.nvim: "{'do': function('DoRemote')}"
     - xolox/vim-colorscheme-switcher
     - xolox/vim-misc
     - fatih/vim-go: {for: go}
     - rizzatti/dash.vim
     - kassio/neoterm
+    - tpope/vim-liquid
+    - tpope/vim-liquid
+    - floobits/floobits-neovim: "{'do': function('DoRemote')}"
+    - vim-scripts/AnsiEsc.vim
   plugin_functions:
     - DoRemote: UpdateRemotePlugins
   settings_files:
@@ -100,9 +108,14 @@ nvim:
     - deoplete: |
         let g:deoplete#enable_at_startup = 1
         let g:deoplete#tag#cache_limit_size = 5000000
-        " let g:deoplete#sources#clang#libclang_path = "/Library/Developer/CommandLineTools/usr/lib/libclang.dylib""
-        " let g:deoplete#sources#clang#clang_header = "/Library/Developer/CommandLineTools/usr/include""
-        " let g:deoplete#sources#cpp = ['buffer', 'tag']"
+        let g:deoplete#sources#clang#libclang_path = "/Library/Developer/CommandLineTools/usr/lib/libclang.dylib""
+        let g:deoplete#sources#clang#clang_header = "/Library/Developer/CommandLineTools/usr/include""
+        let g:deoplete#sources#cpp = ['buffer', 'tag']"
+        let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib'
+        let g:clang_complete_auto = 0
+        let g:clang_auto_select = 0
+        let g:clang_omnicppcomplete_compliance = 0
+        let g:clang_make_default_keymappings = 0
     - neomake: |
         set errorformat+=%Dninja\ -C\ %f
         set errorformat+=%Dmake\ -C\ %f
@@ -116,8 +129,8 @@ nvim:
         autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
         map <C-n> :NERDTreeToggle<CR>
     - python: |
-        let g:python_host_prog = '/usr/local/bin/python2'
-        let g:python3_host_prog = '/usr/local/bin/python3'
+        let g:python_host_prog = '{{virtdirs}}/python2/bin/python2'
+        let g:python3_host_prog = '{{virtdirs}}/python3/bin/python3'
     - quick_fix_mappings: |
         nmap <silent> ,qc :cclose<CR>
         nmap <silent> ,qo :copen<CR>
@@ -139,6 +152,15 @@ nvim:
           \ 'ctagstype' : 'julia',
           \ 'kinds'     : ['a:abstract', 'i:immutable', 't:type', 'f:function', 'm:macro']
           \ }
+    - easytags: |
+        let g:easytags_suppress_ctags_warning = 1
+        let g:easytags_cmd = '/usr/local/bin/ctags'
+        let g:easytags_async = 1
+        let g:easytags_syntax_keyword = 'always'
+        let g:easytags_include_members = 1
+        if $CURRENT_FUN_WITH_HOMEDIR != ""
+           let g:easytags_file = expand("$CURRENT_FUN_WITH_HOMEDIR/.tags")
+        endif
   after_ftplugin:
     - cpp: |
         setlocal comments-=://
