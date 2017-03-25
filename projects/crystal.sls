@@ -15,10 +15,10 @@
       # - libxc
 {% if compiler == "intel" %}
       - openblas {{openmp}} %intel
-      - scalapack +debug %intel  ^{{mpilib}} ^openblas {{openmp}}
+      - netlib-scalapack %intel  ^{{mpilib}} ^openblas {{openmp}}
 {% else %}
       - openblas %{{compiler}} {{openmp}}
-      - scalapack +debug %{{compiler}}  ^{{mpilib}} ^openblas {{openmp}}
+      - netlib-scalapack %{{compiler}}  ^{{mpilib}} ^openblas {{openmp}}
 {% endif %}
 
 {{workspace}}/julia/v0.5/REQUIRE:
