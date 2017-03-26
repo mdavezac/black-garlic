@@ -3,6 +3,7 @@ zsh:
     - pkgs:
       - zsh
       - zsh-lovers
+      - zplug
 
 include:
   - .powerfonts

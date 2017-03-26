@@ -23,17 +23,22 @@ include:
             let g:formatdef_llvm_cpp = '"clang-format -style=file"'
             let g:formatters_cpp = ['llvm_cpp']
 
-{{project}} cppconfig:
-    funwith.add_cppconfig:
-      - name: {{workspace}}
-      - cpp11: True
-      - source_dir: {{workspace}}/src/{{project}}
-      - source_includes:
-          - build/external/include
-          - build/include
-          - cpp
-          - cpp/examples
-          - include
+{{workspace}}/src/{{project}}/.cppconfig:
+  file.managed:
+    - contents: |
+          -isystem {{workspace}}/src/{{project}}build/external/include
+          -isystem {{workspace}}/src/{{project}}build/external/include/eigen3
+          -I{{workspace}}/src/{{project}}/build/include
+          -I{{workspace}}/src/{{project}}/cpp
+          -I{{workspace}}/src/{{project}}/cpp/examples
+          -std=c++11
+          -Wall
+          -Wno-c++98-compat
+          -Wno-c++98-compat-pedantic
+          -Wno-documentation
+          -Wno-documentation-unknown-command
+          -Wno-source-uses-openmp
+          -Wno-float-conversion
 
 {{tmuxinator('purify', root="%s/src/purify" % workspace)}}
 {{jedi(workspace + "/" + python)}}

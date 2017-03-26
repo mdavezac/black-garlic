@@ -42,13 +42,6 @@ julia metadir:
       - force_fetch: True
 
 
-update julia packages:
-  cmd.run:
-    - name: julia -e "Pkg.resolve()"
-    - env:
-      - JULIA_PKGDIR: {{workspace}}/julia
-      - JUPYTER: {{workspace}}/bin/jupyter
-
 
 mdavezac/Crystals.jl:
   github.latest:
@@ -71,6 +64,14 @@ mdavezac/AtomicDFT.jl:
   github.latest:
     - target: {{workspace}}/julia/v0.5/AtomicDFT
     - email: mdavezac@gmail.com
+
+update julia packages:
+  cmd.run:
+    - name: julia -e "Pkg.resolve()"
+    - env:
+      - JULIA_PKGDIR: {{workspace}}/julia
+      - JUPYTER: {{workspace}}/bin/jupyter
+
 
 {{workspace}}/{{python}}:
   virtualenv.managed:

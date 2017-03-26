@@ -116,6 +116,9 @@ nvim:
         let g:clang_auto_select = 0
         let g:clang_omnicppcomplete_compliance = 0
         let g:clang_make_default_keymappings = 0
+        if !empty(findfile("compile_commands.json", $CURRENT_FUN_WITH_DIR . "/build"))
+          let g:deoplete#sources#clang#clang_complete_database = $CURRENT_FUN_WITH_DIR . "/build"
+        end
     - neomake: |
         set errorformat+=%Dninja\ -C\ %f
         set errorformat+=%Dmake\ -C\ %f
