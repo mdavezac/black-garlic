@@ -31,6 +31,7 @@
         AffineTransforms
         Documenter
         DocStringExtensions
+        AxisArrays
     - makedirs: True
 
 julia metadir:
@@ -55,6 +56,21 @@ mdavezac/Crystals.jl:
     - email: mdavezac@gmail.com
     - update_head: False
 
+mdavezac/UnitfulHartree.jl:
+  github.latest:
+    - target: {{workspace}}/julia/v0.5/UnitfulHartree
+    - email: mdavezac@gmail.com
+    - update_head: False
+
+mdavezac/LibXC.jl:
+  github.latest:
+      - target: {{workspace}}/julia/v0.5/LibXC
+      - email: mdavezac@gmail.com
+
+mdavezac/AtomicDFT.jl:
+  github.latest:
+    - target: {{workspace}}/julia/v0.5/AtomicDFT
+    - email: mdavezac@gmail.com
 
 {{workspace}}/{{python}}:
   virtualenv.managed:
