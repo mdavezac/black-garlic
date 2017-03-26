@@ -7,11 +7,15 @@ nvim:
   plugins:
     - Shougo/deoplete.nvim: "{'do': function('DoRemote')}"
     - zchee/deoplete-jedi: {for: python}
+    - JuliaEditorSupport/deoplete-julia: {for: julia}
+    - JuliaEditorSupport/julia-vim
+    - Shougo/neoinclude.vim: {for: cpp}
     - Shougo/neosnippet
     - Shougo/neosnippet-snippets
     - neomake/neomake: {for: cpp}
     - tpope/vim-dispatch
     - godlygeek/csapprox # Required for Gblame in terminal vim
+    - kassio/neoterm
     - itchyny/lightline.vim
     - flazz/vim-colorschemes
     - arakashic/nvim-colors-solarized

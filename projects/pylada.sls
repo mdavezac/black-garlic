@@ -12,8 +12,8 @@
       - eigen %{{compiler}} -fftw -scotch -metis -suitesparse -mpfr
       - openmpi %gcc
       - openblas %gcc
-      - scalapack %gcc ^openmpi ^openblas
-      - espresso %gcc +mpi +scalapack ^scalapack ^openmpi ^openblas
+      - netlib-scalapack %gcc ^openmpi ^openblas
+      - espresso %gcc +mpi +scalapack ^netlib-scalapack ^openmpi ^openblas
 
 {{workspace}}/{{python}}:
   virtualenv.managed:

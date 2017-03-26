@@ -15,10 +15,10 @@
       # - libxc
 {% if compiler == "intel" %}
       - openblas {{openmp}} %intel
-      - scalapack +debug %intel  ^{{mpilib}} ^openblas {{openmp}}
+      - netlib-scalapack %intel  ^{{mpilib}} ^openblas {{openmp}}
 {% else %}
       - openblas %{{compiler}} {{openmp}}
-      - scalapack +debug %{{compiler}}  ^{{mpilib}} ^openblas {{openmp}}
+      - netlib-scalapack %{{compiler}}  ^{{mpilib}} ^openblas {{openmp}}
 {% endif %}
 
 {{workspace}}/julia/v0.5/REQUIRE:
@@ -26,8 +26,12 @@
     - contents: |
         DataFrames
         FactCheck
-        FixedSizeArrays
         Lumberjack
+        Unitful
+        AffineTransforms
+        Documenter
+        DocStringExtensions
+        AxisArrays
     - makedirs: True
 
 julia metadir:
@@ -52,22 +56,38 @@ mdavezac/Crystals.jl:
     - email: mdavezac@gmail.com
     - update_head: False
 
+mdavezac/UnitfulHartree.jl:
+  github.latest:
+    - target: {{workspace}}/julia/v0.5/UnitfulHartree
+    - email: mdavezac@gmail.com
+    - update_head: False
+
+mdavezac/LibXC.jl:
+  github.latest:
+      - target: {{workspace}}/julia/v0.5/LibXC
+      - email: mdavezac@gmail.com
+
+mdavezac/AtomicDFT.jl:
+  github.latest:
+    - target: {{workspace}}/julia/v0.5/AtomicDFT
+    - email: mdavezac@gmail.com
 
 {{workspace}}/{{python}}:
   virtualenv.managed:
     - python: {{python_exec}}
     - pip_upgrade: True
     - use_wheel: True
-    - pip_pkgs: [pip, numpy, scipy, pytest, pandas, cython, pyWavelets, jupyter]
+    - pip_pkgs: [pip, numpy, scipy, pytest, pandas, cython, matplotlib, jupyter, ase]
 
 
 {{project}} modulefile:
   funwith.modulefile:
     - name: {{project}}
+    - virtualenv: {{workspace}}/{{python}}
     - spack: *spack_packages
     - workspace: {{workspace}}
     - virtualenv: {{workspace}}/{{python}}
-    - cwd: {{workspace}}/julia/v0.5/Crystals
+    - cwd: {{workspace}}/julia/v0.5/LibXC
     - footer: |
         setenv("JULIA_PKGDIR", "{{workspace}}/julia")
 
@@ -75,14 +95,14 @@ mdavezac/Crystals.jl:
   funwith.add_vimrc:
     - name: {{workspace}}
     - makeprg: "make\\ -C\\ $CURRENT_FUN_WITH_DIR/build/"
-    - width: 80
+    - width: 92
     - tabs: 4
 
 {{project}} gpaw:
   gitlab.latest:
-    - name: gpaw/gpaw.git
+    - name: gpaw/gpaw
     - email: mdavezac@gmail.com
     - target: {{workspace}}/src/gpaw
     - force_fetch: True
 
-{{tmuxinator(project, root="%s/julia/v0.5/Crystals" % workspace, layout="main-horizontal")}}
+{{tmuxinator(project, root="%s/julia/v0.5/LibXC" % workspace, layout="main-horizontal")}}
