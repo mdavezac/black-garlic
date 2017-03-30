@@ -7,8 +7,8 @@ nvim:
   plugins:
     - Shougo/deoplete.nvim: "{'do': function('DoRemote')}"
     - zchee/deoplete-jedi: {for: python}
-    - JuliaEditorSupport/deoplete-julia: {for: julia}
     - JuliaEditorSupport/julia-vim
+    # - JuliaEditorSupport/deoplete-julia: {for: julia}
     - Shougo/neoinclude.vim: {for: cpp}
     - Shougo/neosnippet
     - Shougo/neosnippet-snippets
@@ -39,7 +39,7 @@ nvim:
     - sjl/gundo.vim
     - xolox/vim-easytags
     - tpope/vim-unimpaired # quick-fix and list navigation
-    - Rip-Rip/clang_complete
+    - Rip-Rip/clang_complete: {for: cpp}
     - critiqjo/lldb.nvim: "{'do': function('DoRemote')}"
     - xolox/vim-colorscheme-switcher
     - xolox/vim-misc

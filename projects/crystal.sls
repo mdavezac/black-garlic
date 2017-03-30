@@ -84,7 +84,6 @@ update julia packages:
 {{project}} modulefile:
   funwith.modulefile:
     - name: {{project}}
-    - virtualenv: {{workspace}}/{{python}}
     - spack: *spack_packages
     - workspace: {{workspace}}
     - virtualenv: {{workspace}}/{{python}}
