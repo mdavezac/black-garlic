@@ -21,7 +21,7 @@ include:
   ctags.run:
     - name: {{workspace}}/src/sopt
 
-{{workspace}}/src/{{project}}/.cppconfig:
+{{workspace}}/.cppconfig:
   file.managed:
     - contents: |
         -isystem {{workspace}}/src/{{project}}build/external/include
@@ -40,11 +40,6 @@ include:
         -Wno-documentation-unknown-command
         -Wno-source-uses-openmp
         -Wno-float-conversion
-
-{{project}} cppconfig:
-    - defines:
-        - SOPT_HAS_NOT_USING
-
 
 {{workspace}}/julia/v0.5/REQUIRE:
   file.managed:
