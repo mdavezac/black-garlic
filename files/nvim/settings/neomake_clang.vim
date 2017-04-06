@@ -19,8 +19,9 @@ endif
 if !empty(finddir("build", $CURRENT_FUN_WITH_DIR))
   let g:neomake_cpp_clang_cwd=$CURRENT_FUN_WITH_DIR . "/build"
   let g:neomake_cpp_clang_args=compiler_flags + ['-Weverything']
+  let g:neomake_cpp_gcc_exe='/usr/local/bin/g++-6'
   let g:neomake_cpp_gcc_cwd=$CURRENT_FUN_WITH_DIR . "/build"
-  let g:neomake_cpp_gcc_args=compiler_flags + ['-fpedantic']
+  let g:neomake_cpp_gcc_args=compiler_flags + ['-pedantic']
   let g:neomake_cpp_enabled_makers = ['gcc']
 end
 if !empty(findfile("compile_commands.json", $CURRENT_FUN_WITH_DIR . "/build"))

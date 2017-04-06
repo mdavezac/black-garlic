@@ -11,7 +11,7 @@ zsh:
       HISTSIZE: 100000
       SAVEHIST: 100000
       TERM: screen-256color
-      EVENT_NOKQUEUE: 1 # problem with tmux
+      EVENT_NOKQUEUE: 1 # problem with tmux
   alias:
       vi: nvim
       vim: nvim
