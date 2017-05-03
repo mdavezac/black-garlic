@@ -23,11 +23,11 @@ include:
             let g:formatdef_llvm_cpp = '"clang-format -style=file"'
             let g:formatters_cpp = ['llvm_cpp']
 
-{{workspace}}/src/{{project}}/.cppconfig:
+{{workspace}}/.cppconfig:
   file.managed:
     - contents: |
-          -isystem {{workspace}}/src/{{project}}build/external/include
-          -isystem {{workspace}}/src/{{project}}build/external/include/eigen3
+          -isystem{{workspace}}/src/{{project}}/build/external/include
+          -isystem{{workspace}}/src/{{project}}/build/external/include/eigen3
           -I{{workspace}}/src/{{project}}/build/include
           -I{{workspace}}/src/{{project}}/cpp
           -I{{workspace}}/src/{{project}}/cpp/examples
@@ -39,6 +39,7 @@ include:
           -Wno-documentation-unknown-command
           -Wno-source-uses-openmp
           -Wno-float-conversion
+          -Wno-unkown-pragmas
 
 {{tmuxinator('purify', root="%s/src/purify" % workspace)}}
 {{jedi(workspace + "/" + python)}}

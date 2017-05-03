@@ -47,7 +47,6 @@ nvim:
     - rizzatti/dash.vim
     - kassio/neoterm
     - tpope/vim-liquid
-    - tpope/vim-liquid
     - floobits/floobits-neovim: "{'do': function('DoRemote')}"
     - vim-scripts/AnsiEsc.vim
   plugin_functions:
@@ -162,7 +161,8 @@ nvim:
         let g:easytags_syntax_keyword = 'always'
         let g:easytags_include_members = 1
         if $CURRENT_FUN_WITH_HOMEDIR != ""
-           let g:easytags_file = expand("$CURRENT_FUN_WITH_HOMEDIR/.tags")
+           let g:easytags_file=expand("$CURRENT_FUN_WITH_DIR/tags")
+           set tags=tags;
         endif
     - lldb: |
         nmap <C-q> <Plug>LLBreakSwitch
