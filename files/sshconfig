@@ -1,3 +1,4 @@
+{% set keytype = "ed25519" if grains['os'] == "MacOS" else "rsa" %}
 IdentitiesOnly=yes
 {% if grains['os'] == "MacOS" -%}
 UseKeychain yes
@@ -6,17 +7,17 @@ AddKeysToAgent yes
 Host gitlab gitlab.com
   User git
   HostName gitlab.com
-  IdentityFile ~/.ssh/gitlab_ed25519
+  IdentityFile ~/.ssh/gitlab_{{keytype}}
   PreferredAuthentications publickey
 Host github github.com
   User git
   HostName github.com
-  IdentityFile ~/.ssh/github_ed25519
+  IdentityFile ~/.ssh/github_{{keytype}}
   PreferredAuthentications publickey
 Host gist gist.github.com
   User git
   HostName gist.github.com
-  IdentityFile ~/.ssh/github_rsa
+  IdentityFile ~/.ssh/github_{{keytype}}
   PreferredAuthentications publickey
 Host bitbucket bitbucket.org
   hostname bitbucket.org
@@ -32,36 +33,3 @@ Host {{name}} {{hostname}}
   IdentityFile ~/.ssh/legion_ed25519
   PreferredAuthentications publickey
 {% endfor %}
-Host jenkins
-  User ccsprsd
-  HostName staging.development.rc.ucl.ac.uk
-  IdentityFile ~/.ssh/ulam_rsa
-  ForwardAgent no
-Host jenkins_legion
-  User ccsprsd
-  Hostname legion.rc.ucl.ac.uk
-  IdentityFile ~/.ssh/legion_as_ccsprsd_ed25519
-  ForwardAgent yes
-  # Hostname login09.external.legion.ucl.ac.uk
-  # ProxyCommand ssh jenkins nc %h %p
-Host pma pm-a.rcdev.ucl.ac.uk
-  Hostname pm-a.rcdev.ucl.ac.uk
-  User cceamda
-Host macslave
-  Hostname rsd-js06.rc.ucl.ac.uk
-  ForwardAgent yes
-  User cceamda
-Host batman
-  Hostname login.archer.ac.uk
-  User batman
-  IdentityFile ~/.ssh/archer_rsa
-  PreferredAuthentications publickey
-  ForwardAgent yes
-Host uncafedetrop
-  Hostname uncafedetrop.rits-ids.ucl.ac.uk
-  user mdavezac
-Host data ssh.rd.ucl.ac.uk
-  Hostname ssh.rd.ucl.ac.uk
-  IdentityFile ~/.ssh/data_rsa
-  PreferredAuthentications publickey
-  user cceamda
