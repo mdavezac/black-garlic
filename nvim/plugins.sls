@@ -6,7 +6,7 @@
 {{configdir}}/autoload/plug.vim:
   file.managed:
     - source: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    - source_hash: md5=0ec2be5d481f384253910ef8320c85fe
+    - source_hash: md5=a18c6ecaed54d7421fb5d70dc0e0f6d5
     - makedirs: True
     - mode: 600
 
