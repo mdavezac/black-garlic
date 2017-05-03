@@ -3,10 +3,10 @@
 {% set settingsdir = config.get('settingsdir', configdir + "/settings") %}
 {% set pluginsrc = config.get('pluginsrc', configdir + "/plugins.vim") %}
 
-{{configdir}}/autoload/plug.vim:
+{{grains['userhome']}}/.local/share/nvim/site/autoload/plug.vim:
   file.managed:
     - source: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    - source_hash: md5=0ec2be5d481f384253910ef8320c85fe
+    - source_hash: md5=74293dd19677ad66504ec1d4356c10c4
     - makedirs: True
     - mode: 600
 
@@ -35,7 +35,6 @@ nvim --headless +PlugUpdate +qall:
     - makedirs: True
     - template: jinja
     - context: {{config}}
-    - mode: 400
 {% endfor %}
 
 {% for settings in salt['pillar.get']('nvim:settings', []) -%}
@@ -46,7 +45,6 @@ nvim --headless +PlugUpdate +qall:
     - makedirs: True
     - template: jinja
     - context: {{config}}
-    - mode: 600
 {%   endfor -%}
 {% endfor -%}
 

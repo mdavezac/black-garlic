@@ -1,3 +1,4 @@
+{% if grains['os'] == "MacOS" %}
 iterm:
   name: solarized_dark
   colors:
@@ -25,3 +26,6 @@ iterm:
     selected_text_color: [0.50599193572998047, 0.56485837697982788, 0.56363654136657715]
     selection_color: [0.0, 0.15575926005840302, 0.19370138645172119]
 shell: /usr/local/bin/zsh
+{% else %}
+shell: /usr/bin/zsh
+{% endif %}

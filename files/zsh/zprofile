@@ -5,8 +5,15 @@ source {{salted}}/envvar.zsh
 
 export fpath=($fpath {{salted}}/completions)
 
+{% if grains['os'] == "MacOS" %}
 export HOMEBREW_ROOT=$(brew --prefix)
 export LUA_PATH="$HOMEBREW_ROOT\/share/lua/5.2/?.lua;$HOMEBREW_ROOT\/share/lua/5.2/?/init.lua;;"
 export LUA_CPATH="$HOMEBREW_ROOT\/lib/lua/5.2/?.so;;"
+{% else %}
+if [ -n "$DESKTOP_SESSION" ]; then
+  eval $(gnome-keyring-daemon --start)
+  export SSH_AUTH_SOCK
+fi
+{% endif %}
 
 export PATH=$HOME/.local/bin:$PATH

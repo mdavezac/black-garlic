@@ -9,7 +9,6 @@
 {{grains['userhome']}}/.{{filename}}:
   file.managed:
     - source: salt://files/zsh/{{filename}}
-    - mode: 600
     - template: jinja
     - default:
       home: {{home}}
@@ -19,6 +18,5 @@
 
 {{grains['userhome']}}/.ctags:
   file.managed:
-    - mode: 600
     - source: salt://files/ctags
     - makedirs: True

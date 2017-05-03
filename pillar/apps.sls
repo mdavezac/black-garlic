@@ -1,3 +1,4 @@
+{% if grains['os'] == "MacOS" %}
 cask_apps:
   - zotero
   - slack
@@ -50,3 +51,43 @@ brew_apps:
   - docker
   - gdb
   - cgdb
+
+{% else %}
+repos:
+  neovim:
+    - ppa: neovim-ppa/stable
+
+mint_apps:
+  - git
+  - build-essential
+  - python-dev
+  - python-virtualenv
+  - zsh
+  - zsh-lovers
+  - cmake
+  - chromium-browser
+  - julia
+  - inkscape
+  - python
+  - python3
+  - linuxbrew-wrapper 
+  - lua
+  - lua-filesystem
+  - lua-posix
+  - lmod
+  - clang
+  - clang-format
+  - clang-tidy
+  - gfortran
+  - lldb
+  - neovim
+  - silversearcher-ag
+  - exuberant-ctags
+  - tmux
+  - tmuxinator
+  - virtualenv
+  - python3-virtualenv
+  - python-pip
+  - python3-pip
+  - xsel
+{% endif %}

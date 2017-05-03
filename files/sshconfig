@@ -1,5 +1,7 @@
 IdentitiesOnly=yes
+{% if grains['os'] == "MacOS" -%}
 UseKeychain yes
+{% endif -%}
 AddKeysToAgent yes
 Host gitlab gitlab.com
   User git
