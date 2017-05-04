@@ -64,7 +64,6 @@ mint_apps:
   - python-virtualenv
   - zsh
   - zsh-lovers
-  - cmake
   - chromium-browser
   - julia
   - inkscape
@@ -90,4 +89,13 @@ mint_apps:
   - python-pip
   - python3-pip
   - xsel
+  - default-jdk
+  - default-jre
+  - android-sdk
+  - gradle
+  - qemu-kvm
+  - libvirt-bin
+  - ubuntu-vm-builder
+  - bridge-utils
+  - cmake
 {% endif %}

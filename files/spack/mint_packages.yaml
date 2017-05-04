@@ -1,0 +1,22 @@
+packages:
+    cmake:
+        paths:
+          cmake@system: /usr/
+        buildable: False
+    python:
+       paths:
+         python@2.7: /usr
+         python@3.5: /usr
+       buildable: False
+    git:
+      paths:
+        git@system: /usr/
+      buildable: False
+    pkgconfig:
+      variants: ~internal_glib
+    pkg-config:
+      variants: ~internal_glib
+    curl:
+      paths:
+        curl@system: /usr/
+      buildable: False

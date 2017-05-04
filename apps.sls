@@ -40,6 +40,11 @@ salt packages:
 {{app}}:
   pkg.installed:
     - name: {{app}}
+{% if grains['os'] != "MacOS" %}
+    - provider:
+      - cmd: brew
+    - user: {{grains['user']}}
+{% endif %}
 {%   endif %}
 {% endfor %}
 

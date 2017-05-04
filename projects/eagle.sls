@@ -5,15 +5,21 @@
 {% set project = sls.split(".")[-1] %}
 {% set workspace = salt["funwith.workspace"](project) %}
 
+{% if grains['os'] == "MacOS" %}
 java and android:
   cask.installed:
     - pkgs:
       - java
       - android-studio
       - android-platform-tools
-
-gradle:
   pkg.installed
+    - pkgs: [gradle]
+{% else %}
+java and android:
+  pkg.installed:
+    - pkgs: [default-jdk, default-jre, android-sdk, gradle]
+{% endif %}
+
 
 cryptalabs/Eagle:
   gitlab.latest:
