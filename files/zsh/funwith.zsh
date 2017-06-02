@@ -16,7 +16,7 @@ function funwith() {
     nomorefun
   fi
 
-  if ( [ -e "{{tmuxinator}}/$1.yml" ] ) ; then
+  if ( [ -e "{{tmuxinator}}/$1.yml" ] && [ ! -n "$TMUX" ] ) ; then
     /usr/bin/env tmuxinator start $1
   else
     export CURRENT_FUN_WITH=$1
@@ -25,6 +25,7 @@ function funwith() {
       chdir $CURRENT_FUN_WITH_DIR
     fi
   fi
+  fc -R
 }
 function cdproject() {
   if ( [ -n "$CURRENT_FUN_WITH_DIR" ] ) ; then
