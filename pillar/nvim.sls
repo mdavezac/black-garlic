@@ -154,6 +154,7 @@ nvim:
           \ 'ctagstype' : 'julia',
           \ 'kinds'     : ['a:abstract', 'i:immutable', 't:type', 'f:function', 'm:macro']
           \ }
+        let g:latex_to_unicode_file_types = ".*"
     - easytags: |
         let g:easytags_suppress_ctags_warning = 1
         let g:easytags_cmd = '/usr/local/bin/ctags'
