@@ -9,11 +9,10 @@
               layout: {{layout}}
               panes:
                 - neovim:
-                  - module load {{project}}
-                  - fc -R
+                  - funwith {{project}}
                   - nvim {{file}}
                 - build:
-                  - module load {{project}}
+                  - funwith {{project}}
                   - fc -R
 {%- endmacro %}
 
