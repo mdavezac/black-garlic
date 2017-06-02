@@ -24,10 +24,10 @@ packages:
             {{u}}: {{dirname(dirname(v))}}
 {%- endfor %}
       buildable: False
-    pkgconfig:
-      variants: ~internal_glib
-    pkg-config:
-      variants: ~internal_glib
+    # pkgconfig:
+    #   variants: ~internal_glib
+    # pkg-config:
+    #   variants: ~internal_glib
     # boost:
     #   paths:
     #     boost@1.63.0 -python %clang: /usr/local/Cellar/boost/1.63.0/
