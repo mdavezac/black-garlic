@@ -13,7 +13,7 @@
       - openmpi %gcc
       - openblas %gcc
       - netlib-scalapack %gcc ^openmpi ^openblas
-      - espresso %gcc +mpi +scalapack ^netlib-scalapack ^openmpi ^openblas
+      - espresso %gcc +mpi -elpa +scalapack ^netlib-scalapack ^openmpi ^openblas
 
 {{workspace}}/{{python}}:
   virtualenv.managed:
