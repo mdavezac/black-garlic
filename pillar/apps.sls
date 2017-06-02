@@ -11,6 +11,7 @@ cask_apps:
   - caffeine
   - inkscape
   - vivaldi
+  - adobe-reader
 
 brew_apps:
   - gcc
