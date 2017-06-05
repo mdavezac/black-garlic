@@ -10,4 +10,5 @@ base:
     - apps
     - python
     - nvim
+    - spacevim
     - zsh
