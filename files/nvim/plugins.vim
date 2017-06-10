@@ -1,12 +1,12 @@
 {% for func in plugin_functions -%}
-function! {{func.keys()[0]}}(info)
-  {{func.values()[0]}}
+function! {{func.keys() | first}}(info)
+  {{func.values() | first}}
 endfunction
 {% endfor -%}
 
 {% for plugin in plugins -%}
 {%   if plugin is mapping -%}
-Plug '{{plugin.keys()[0]}}', {{plugin.values()[0]}}
+Plug '{{plugin.keys() | first}}', {{plugin.values() | first}}
 {%   else -%}
 Plug '{{plugin}}'
 {%   endif -%}

@@ -6,9 +6,8 @@
 {{configdir}}/autoload/plug.vim:
   file.managed:
     - source: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    - source_hash: md5=a18c6ecaed54d7421fb5d70dc0e0f6d5
+    - source_hash: md5=8f1da3e1dc456736eac2c472a12737d3
     - makedirs: True
-    - mode: 600
 
 
 {{pluginsrc}}:
@@ -20,7 +19,6 @@
         plugin_functions: {{salt['pillar.get']('nvim:plugin_functions', [])}}
     - makedirs: True
     - template: jinja
-    - mode: 600
 
 nvim --headless +PlugInstall +qall:
   cmd.run
@@ -35,7 +33,6 @@ nvim --headless +PlugUpdate +qall:
     - makedirs: True
     - template: jinja
     - context: {{config}}
-    - mode: 400
 {% endfor %}
 
 {% for settings in salt['pillar.get']('nvim:settings', []) -%}
@@ -46,7 +43,6 @@ nvim --headless +PlugUpdate +qall:
     - makedirs: True
     - template: jinja
     - context: {{config}}
-    - mode: 600
 {%   endfor -%}
 {% endfor -%}
 
