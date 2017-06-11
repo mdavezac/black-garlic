@@ -1,25 +1,30 @@
-{% set scheme_name = pillar['iterm']['name'] %}
-iterm2 stuff:
+{% set schemes = salt['pillar.get']('iterm:schemes', {}) %}
+{% set build = pillar['condiment_build_dir'] %}
+
+{{build}}/iterm_themes:
+  archive.extracted:
+    - name: {{pillar['condiment_build_dir']}}/iterm_themes
+    - source: https://github.com/mbadolato/iTerm2-Color-Schemes/tarball/master
+    - source_hash: md5=aecad0654d252606cbb7266b1f721616
+    - archive_format: tar
+    - enforce_toplevel: False
+    - options: --strip-components=1
+
+{% for scheme in schemes %}
+{{build}}/iterm_themes/{{scheme}}.sh:
   file.managed:
-    - name: {{pillar['condiment_build_dir']}}/{{scheme_name}}
     - contents: |
         defaults write \
         -app iTerm     \
         'Custom Color Presets' \
-        -dict-add '{{scheme_name}}' \
-        '{
-          {% for key, color in pillar['iterm']['colors'].items() %}
-          "{{key}}" = {
-            "Red component" = "{{color[0]}}";
-            "Green component" = "{{color[1]}}";
-            "Blue component" = "{{color[2]}}";
-          };
-          {% endfor %}
-        }'
+        -dict-add '{{scheme}}' \
+        "$(cat "{{build}}/iterm_themes/schemes/{{scheme}}.itermcolors")"
 
   cmd.run:
-    - name: bash {{pillar['condiment_build_dir']}}/{{scheme_name}}
+    - name: bash "{{build}}/iterm_themes/{{scheme}}.sh"
+{% endfor %}
 
+fullscreen iterm:
   mac_param.modify:
     - domain: -app Iterm
     - UseLionStyleFullscreen: 0

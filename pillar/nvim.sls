@@ -19,6 +19,8 @@ nvim:
     - itchyny/lightline.vim
     - flazz/vim-colorschemes
     - arakashic/nvim-colors-solarized
+    - rakr/vim-one
+    - joshdick/onedark.vim
     - morhetz/gruvbox
     - whatyouhide/vim-gotham
     - xsunsmile/showmarks
@@ -41,7 +43,6 @@ nvim:
     - tpope/vim-unimpaired # quick-fix and list navigation
     - Rip-Rip/clang_complete: {for: cpp}
     - critiqjo/lldb.nvim: "{'do': function('DoRemote')}"
-    - xolox/vim-colorscheme-switcher
     - xolox/vim-misc
     - fatih/vim-go: {for: go}
     - rizzatti/dash.vim
@@ -102,8 +103,11 @@ nvim:
     - colorscheme: |
         let $NVIM_TUI_ENABLE_TRUE_COLOR=1
         set background=dark
-        colorscheme hybrid_reverse
-        let g:colorscheme_manager_file=expand("$HOME/.config/nvim/colorscheme")
+        let g:one_terminal_italics=1
+        colorscheme one
+        if (has("termguicolors"))
+          set termguicolors
+        endif
     - deoplete: |
         let g:deoplete#enable_at_startup = 1
         let g:deoplete#tag#cache_limit_size = 5000000
