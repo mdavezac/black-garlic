@@ -15,6 +15,7 @@ nvim:
     - neomake/neomake: {for: cpp}
     - tpope/vim-dispatch
     - godlygeek/csapprox # Required for Gblame in terminal vim
+    - Shougo/deol.nvim
     - kassio/neoterm
     - itchyny/lightline.vim
     - flazz/vim-colorschemes
@@ -48,7 +49,8 @@ nvim:
     - rizzatti/dash.vim
     - kassio/neoterm
     - tpope/vim-liquid
-    - floobits/floobits-neovim: "{'do': function('DoRemote')}"
+    - wellle/targets.vim
+    # - floobits/floobits-neovim: "{'do': function('DoRemote')}"
     - vim-scripts/AnsiEsc.vim
   plugin_functions:
     - DoRemote: UpdateRemotePlugins
