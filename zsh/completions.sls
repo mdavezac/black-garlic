@@ -8,10 +8,10 @@ CMake completions:
     - makedirs: true
 
 {% for completion in salt['pillar.get']('zsh:completions', {}) %}
-{{salted}}/completions/_{{completion.keys()[0]}}:
+{{salted}}/completions/_{{completion.keys() | first}}:
   file.managed:
     - makedirs: true
     - contents: |-
-        #compdef {{completion.keys()[0]}}
-        {{completion.values()[0]}}
+        #compdef {{completion.keys() | first}}
+        {{completion.values() | first}}
 {% endfor %}
