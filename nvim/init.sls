@@ -16,7 +16,6 @@
     - context: {{config}}
     - makedirs: True
     - template: jinja
-    - mode: 600
 
 include:
   - .virtualenvs

@@ -9,7 +9,6 @@
     - makedirs: True
     - template: jinja
     - context: {{config}}
-    - mode: 600
 {%   endfor -%}
 {% endfor -%}
 
@@ -21,6 +20,5 @@
     - makedirs: True
     - template: jinja
     - context: {{config}}
-    - mode: 600
     {%   endfor -%}
 {% endfor -%}
