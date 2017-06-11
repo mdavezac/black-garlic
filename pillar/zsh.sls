@@ -12,6 +12,8 @@ zsh:
       SAVEHIST: 100000
       TERM: screen-256color
       EVENT_NOKQUEUE: 1 # problem with tmux
+      LC_ALL: en_GB.UTF-8
+      LANG: en_GB.UTF-8
   alias:
       vi: nvim
       vim: nvim

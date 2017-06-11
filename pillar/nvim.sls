@@ -94,6 +94,8 @@ nvim:
           endif
         endif
     - neoterm: |
+        let $LANG="en_GB.UTF-8"
+        let $LC_ALL="en_GB.UTF-8"
         tnoremap <Esc> <C-\><C-n>
         tnoremap <C-h> <C-\><C-n><C-w>h
         tnoremap <C-j> <C-\><C-n><C-w>j
