@@ -11,10 +11,9 @@ tmuxinator:
 {{home}}/.tmux.conf:
   file.managed:
     - source: salt://files/tmux.conf
-    - mode: 400
 
-{{home}}/.tmux/plugins/tpm:
-  github.latest:
-    - name: tmux-plugins/tpm
-    - target: {{home}}/.tmux/plugins/tpm
-    - force_fetch: True
+#{{home}}/.tmux/plugins/tpm:
+#  github.latest:
+#    - name: tmux-plugins/tpm
+#    - target: {{home}}/.tmux/plugins/tpm
+#    - force_fetch: True
