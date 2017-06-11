@@ -114,11 +114,13 @@ nvim:
         endif
     - deoplete: |
         let g:deoplete#enable_at_startup = 1
+{% if grains['os'] == "MacOS" %}
         let g:deoplete#tag#cache_limit_size = 5000000
         let g:deoplete#sources#clang#libclang_path = "/Library/Developer/CommandLineTools/usr/lib/libclang.dylib""
         let g:deoplete#sources#clang#clang_header = "/Library/Developer/CommandLineTools/usr/include""
-        let g:deoplete#sources#cpp = ['buffer', 'tag']"
         let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib'
+{% endif %}
+        let g:deoplete#sources#cpp = ['buffer', 'tag']"
         let g:clang_complete_auto = 0
         let g:clang_auto_select = 0
         let g:clang_omnicppcomplete_compliance = 0
@@ -165,7 +167,9 @@ nvim:
         let g:latex_to_unicode_file_types = ".*"
     - easytags: |
         let g:easytags_suppress_ctags_warning = 1
+{% if grains['os'] == "MacOS" %}
         let g:easytags_cmd = '/usr/local/bin/ctags'
+{% endif %}
         let g:easytags_async = 1
         let g:easytags_syntax_keyword = 'always'
         let g:easytags_include_members = 1

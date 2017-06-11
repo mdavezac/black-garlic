@@ -13,6 +13,7 @@ prezto:
 {% for filename in files %}
 {{home}}/.{{filename}}:
   file.symlink:
+    - user: {{grains['user']}}
     - target: {{location}}/runcoms/{{filename}}
 {% endfor %}
 

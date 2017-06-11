@@ -3,7 +3,7 @@
 {% set settingsdir = config.get('settingsdir', configdir + "/settings") %}
 {% set pluginsrc = config.get('pluginsrc', configdir + "/plugins.vim") %}
 
-{{configdir}}/autoload/plug.vim:
+{{grains['userhome']}}/.local/share/nvim/site/autoload/plug.vim:
   file.managed:
     - source: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     - source_hash: md5=8f1da3e1dc456736eac2c472a12737d3

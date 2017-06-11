@@ -3,15 +3,19 @@ zsh:
     - pkgs:
       - zsh
       - zsh-lovers
+{% if grains['os'] == "MacOS" %}
       - zplug
+{% endif %}
 
 include:
   - .powerfonts
   - .prezto
-  - .iterm2
   - .completions
   - .dotfiles
   - .settings
+{% if grains['os'] == "MacOS" %}
+  - .iterm2
+{% endif %}
 
 add shell to acceptable shells:
   cmd.run:

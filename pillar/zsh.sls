@@ -36,19 +36,32 @@ zsh:
     - setup_funwith: |
         [[ -e /usr/local/Cellar/lmod/5.9.3/init/zsh ]] && \
           source /usr/local/Cellar/lmod/5.9.3/init/zsh
+        [[ -e /usr/share/lmod/lmod/init/zsh ]] && \
+          source /usr/share/lmod/lmod/init/zsh
         module use $HOME/.funwith
         if [[ -n "$CURRENT_FUN_WITH" ]] ; then
           module unload $CURRENT_FUN_WITH
           module load $CURRENT_FUN_WITH
           fc -R
         fi
+{% if grains['os'] != "MacOS" %}
+    - ssh_agent: |
+        if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+            ssh-agent > ~/.ssh-agent-thing
+        fi
+        if [[ "$SSH_AGENT_PID" == "" ]]; then
+            eval "$(<~/.ssh-agent-thing)"
+        fi
+{% endif %}
     - github_api_token: |
         filename="$HOME/.secrets/homebrew_github_token"
         [[ -e $filename ]] && export HOMEBREW_GITHUB_API_TOKEN=$(cat $filename)
         filename="$HOME/.secrets/github_token"
         [[ -e $filename ]] && export GITHUB_API_TOKEN=$(cat $filename)
     - prompt: prompt funwith
+{% if grains['os'] == "MacOS" %}
     - latex: "eval `/usr/libexec/path_helper -s`"
+{% endif %}
     - travis: "[ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh"
     - spack: |
          export SPACK_ROOT={{salt['spack.defaults']('directory')}}
