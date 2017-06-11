@@ -1,18 +1,18 @@
 {% set config = salt['pillar.get']('spacevim:config', {}) %}
 {% set configdir = config.get('configdir', grains['userhome'] + '/.Spacevim.d/') %}
+{% set backupdir = configdir + "/backup" %}
 {% set virtdirs = config.get('virtualenv_dirs', configdir + "/virtualenvs") %}
 
 # - Shougo/neoinclude.vim: {for: cpp}
 spacevim:
     layers:
         - tmux
-        - lang#go
-        - lang#php
-        - lang#c
         - incsearch
+        - shell
+        - lang#go
+        - lang#c
         - lang#lua
         - lang#perl
-        - lang#swig
         - lang#rust
         - lang#java
         - lang#javascript
@@ -20,20 +20,41 @@ spacevim:
         - lang#python
         - lang#xml
         - lang#haskell
-        - lang#elixir
         - tools#screensaver
-        - shell
-        - tmux
 
     plugins:
         - JuliaEditorSupport/julia-vim
+        - ['JuliaEditorSupport/deoplete-julia',  {'on_ft' : 'julia'}]
 
     settings:
         global: |
+            let $LANG="en_GB.UTF-8"
             let g:spacevim_default_indent = 4
             let g:spacevim_max_column = 100
+            let mapleader=","
             let g:spacevim_enable_vimfiler_welcome = 1
             let g:spacevim_enable_debug = 1
+
+            set noswapfile
+            set nobackup
+            set nowb
+
+            let g:spacevim_plugin_manager = 'vim-plug'
+            let g:spacevim_plugin_bundle_dir = '{{configdir}}/cache'
+
+        persistent undo: |
+            if has('persistent_undo')
+                if !isdirectory('{{backupdir}}')
+                    silent !mkdir {{backupdir}} > /dev/null 2>&1
+                endif
+                set undodir={{backupdir}}
+                set undofile
+            endif
+
+        languages: |
+            unlet g:loaded_python3_provider
+            let g:python_host_prog = '{{virtdirs}}/python2/bin/python2'
+            let g:python3_host_prog = '{{virtdirs}}/python3/bin/python3'
             let g:deoplete#auto_complete_delay = 150
             let g:spacevim_buffer_index_type = 1
             let g:neomake_vim_enabled_makers = ['vimlint', 'vint']
@@ -50,7 +71,7 @@ spacevim:
             let g:spacevim_enable_os_fileformat_icon = 1
             let g:spacevim_statusline_separator = 'curve'
             let g:spacevim_enable_tabline_filetype_icon = 1
-            let g:spacevim_enable_cursorcolumn = 1
+            let g:spacevim_enable_cursorcolumn = 0
 
         funwith: |
             if $CURRENT_FUN_WITH_HOMEDIR != ""

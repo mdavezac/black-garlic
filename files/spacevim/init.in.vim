@@ -10,7 +10,7 @@ let g:spacevim_realtime_leader_guide = 1
 let g:spacevim_custom_plugins = [
 {%- for plugin in plugins %}
 {%-     if plugin is iterable and plugin is not string %}
-    \ [{{plugin}}]{{"," if not loop.last else ""}}
+    \ {{plugin}}{{"," if not loop.last else ""}}
 {%-     else %}
     \ ["{{plugin}}"]{{"," if not loop.last else ""}}
 {%-    endif %}
