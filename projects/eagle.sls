@@ -57,4 +57,15 @@ julia metadir:
     - target: {{workspace}}/julia/v0.5/METADATA
     - force_fetch: True
 
+CryptaLabs/ExtractRandom.jl:
+  github.latest:
+    - email: mayeul@cryptalabs.com
+    - target: {{workspace}}/julia/v0.5/ExtractRandom
+
+CryptaLabs/LibRaw.jl:
+  github.latest:
+    - email: mayeul@cryptalabs.com
+    - target: {{workspace}}/julia/v0.5/LibRaw
+
+
 {{tmuxinator(project, root="%s/src/%s" % (workspace, project), layout="main-horizontal")}}
