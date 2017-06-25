@@ -28,7 +28,3 @@ if !empty(findfile("compile_commands.json", $CURRENT_FUN_WITH_DIR . "/build"))
   let g:neomake_cpp_clangtidy_exe="/usr/local/Cellar/llvm/4.0.0/bin/clang-tidy"
   let g:neomake_cpp_clangtidy_args=['-p', $CURRENT_FUN_WITH_DIR . "/build"]
 end
-if !empty(findfile(".clang-format", $CURRENT_FUN_WITH_DIR))
-  let g:formatdef_llvm_cpp = '"clang-format -style=file"'
-  let g:formatters_cpp = ['llvm_cpp']
-end
