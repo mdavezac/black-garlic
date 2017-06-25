@@ -87,13 +87,6 @@ pylada/{{project}}:
   funwith.add_vimrc:
     - name: {{workspace}}
     - makeprg: "make\\ -C\\ $CURRENT_FUN_WITH_DIR/build/"
-    - footer: |
-        let g:formatdef_llvm_cpp = '"clang-format -style=file"'
-        let g:formatters_cpp = ['llvm_cpp']
-        let g:syntastic_python_python_exe = "{{workspace}}/bin/python"
-        let g:syntastic_python_checkers = ['pyflakes']
-        let g:syntastic_enable_balloons = 1
-
 
 {{salt['funwith.workspace']("data")}}:
   file.directory

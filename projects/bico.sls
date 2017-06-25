@@ -11,11 +11,6 @@ include:
   funwith.add_vimrc:
     - name: {{workspace}}
     - makeprg: "ninja\\ -C\\ $CURRENT_FUN_WITH_DIR/build/"
-    - footer: |
-          let g:ycm_collect_identifiers_from_tags_files=1
-          noremap <F5> :Autoformat<CR>
-          let g:formatdef_llvm_cpp = '"clang-format -style=file"'
-          let g:formatters_cpp = ['llvm_cpp']
 
 {{project}} ctags:
   ctags.run:
