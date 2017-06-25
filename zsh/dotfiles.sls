@@ -20,3 +20,7 @@
   file.managed:
     - source: salt://files/ctags
     - makedirs: True
+
+{{grains['userhome']}}/.juliarc.jl:
+  file.managed:
+    - source: salt://files/juliarc.jl
