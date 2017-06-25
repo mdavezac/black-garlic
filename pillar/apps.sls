@@ -41,6 +41,8 @@ brew_apps:
       taps: universal-ctags/universal-ctags
   - neovim:
       taps: neovim/neovim
+  - ktlint:
+      taps: shyiko/ktlint
   - boost
   - boost-python
   - zeromq
