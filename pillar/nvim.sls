@@ -8,8 +8,10 @@ nvim:
     - Shougo/deoplete.nvim: "{'do': function('DoRemote')}"
     - zchee/deoplete-jedi: {for: python}
     - JuliaEditorSupport/julia-vim
-    # - JuliaEditorSupport/deoplete-julia: {for: julia}
+    # - autozimu/LanguageClient-neovim: "{ 'do': ':UpdateRemotePlugins' }"
+    # - artur-shaik/vim-javacomplete2: {for: java}
     - Shougo/neoinclude.vim: {for: cpp}
+    - w0rp/ale: {for: kotlin}
     - Shougo/neosnippet
     - Shougo/neosnippet-snippets
     - neomake/neomake: {for: cpp}
@@ -30,7 +32,8 @@ nvim:
     - jaxbot/github-issues.vim
     - sheerun/vim-polyglot
     - saltstack/salt-vim
-    - Chiel92/vim-autoformat
+    # - Chiel92/vim-autoformat
+    - sbdchd/neoformat
     - jistr/vim-nerdtree-tabs
     - scrooloose/nerdtree
     - ctrlpvim/ctrlp.vim
@@ -50,7 +53,6 @@ nvim:
     - kassio/neoterm
     - tpope/vim-liquid
     - wellle/targets.vim
-    # - floobits/floobits-neovim: "{'do': function('DoRemote')}"
     - vim-scripts/AnsiEsc.vim
   plugin_functions:
     - DoRemote: UpdateRemotePlugins
@@ -128,6 +130,12 @@ nvim:
         if !empty(findfile("compile_commands.json", $CURRENT_FUN_WITH_DIR . "/build"))
           let g:deoplete#sources#clang#clang_complete_database = $CURRENT_FUN_WITH_DIR . "/build"
         end
+    - deoplete-java: |
+        if !exists("g:deoplete#omni_patterns")
+            let g:deoplete#omni_patterns = {}
+        endif
+        let g:deoplete#omni_patterns.java = '[^. *\t]\.\w*'
+        autocmd FileType java setlocal omnifunc=javacomplete#Complete
     - neomake: |
         set errorformat+=%Dninja\ -C\ %f
         set errorformat+=%Dmake\ -C\ %f
@@ -135,6 +143,9 @@ nvim:
           autocmd!
           autocmd BufWritePost,BufEnter *.cc,*.cpp,*.h Neomake
         augroup END
+    - ale: |
+        let g:ale_sign_warning = ''
+        let g:ale_sign_error = ''
     - dispatch: nnoremap <F9> :Dispatch<CR>
     - nerdtree: |
         autocmd StdinReadPre * let s:std_in=1
@@ -146,7 +157,24 @@ nvim:
     - quick_fix_mappings: |
         nmap <silent> ,qc :cclose<CR>
         nmap <silent> ,qo :copen<CR>
-    - Autoformat_mapping: noremap <F5> :Autoformat<CR>
+    - Autoformat_mapping: |
+        noremap <F5> :Neoformat<CR>
+        let g:neoformat_enabled_python = ['yapf', 'autopep8']
+        let g:neoformat_enabled_cpp = ['clangformat']
+        let g:neoformat_enabled_java = ['clangformat']
+        let g:neoformat_java_clangformat = neoformat#formatters#java#clangformat()
+        let g:neoformat_cpp_clangformat = neoformat#formatters#cpp#clangformat()
+        let g:neoformat_java_clangformat.args = ['-assume-filename=file.java']
+        if !empty(findfile(".clang-format", $CURRENT_FUN_WITH_DIR))
+            let g:neoformat_cpp_clangformat.args = ['-style=file']
+            let g:neoformat_java_clangformat.args = ['-style=file', '-assume-filename=file.java']
+        end
+        let g:neoformat_enabled_kotlin = ['ktlint']
+        let g:neoformat_kotlin_ktlint = {
+        \   'exe': 'ktlint',
+        \   'args': ['-F', '--stdin'],
+        \   'stdin': 1
+        \ }
     - Tagbar: |
         noremap <F4> :TagbarToggle<CR>
     - neosnippet: |
@@ -185,6 +213,16 @@ nvim:
         nnoremap <S-F8> :LL process interrupt<CR>
         nnoremap <F9> :LL print <C-R>=expand('<cword>')<CR>
         vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<CR><CR>
+    # - LanguageServerProtocol:
+    #     let g:LanguageClient_serverCommands = {
+    #         \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    #         \ 'javascript': ['/opt/javascript-typescript-langserver/lib/language-server-stdio.js'],
+    #         \ }
+    #     " Automatically start language servers. "
+    #     let g:LanguageClient_autoStart = 1
+    #     nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+    #     nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+    #     nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
   after_ftplugin:
     - cpp: |
         setlocal comments-=://
