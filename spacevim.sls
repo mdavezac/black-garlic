@@ -1,7 +1,14 @@
-{% set config = salt['pillar.get']('spacevim:config', {}) %}
-{% set configdir = config.get('configdir', grains['userhome'] + '/.SpaceVim.d') %}
 {% set settings = salt['pillar.get']('spacevim:settings', {}) %}
-{% set virtdirs = config.get('virtualenv_dirs', configdir + "/virtualenvs") %}
+{% set config = salt['pillar.get']('spacevim:config', {}) %}
+{% set spacevimdir = config.get('spacevimdir', grains['userhome'] + '/.SpaceVim') %}
+{% set configdir =  spacevimdir + ".d" %}
+{% set virtdirs = config.get('virtualenvs_dir', configdir + "/virtualenvs") %}
+
+SpaceVim/SpaceVim.git:
+  github.latest:
+    - target: {{spacevimdir}}
+    - email: mdavezac@gmail.com
+
 
 {{configdir}}/init.vim:
     file.managed:
@@ -13,12 +20,10 @@
 {%-     for key, value in settings.items() %}
                 {{key}}: |
                     {{value | indent(20)}}
-                    
 {%-     endfor %}
             plugins: {{salt['pillar.get']('spacevim:plugins', [])}}
         - makedirs: True
         - template: jinja
-        - mode: 600
 
 {{virtdirs}}:
   file.directory
@@ -43,8 +48,22 @@
 
 {{virtdirs}}/python3:
   virtualenv.managed:
-    - python: python3
+    - venv_bin: python3 -m venv
     - use_wheel: True
     - pip_upgrade: True
     - pip_pkgs: *pip_packages
 
+{{grains['userhome']}}/.Spacevim:
+  file.symlink:
+      - target: {{spacevimdir}}
+
+{{grains['userhome']}}/.Spacevim.d:
+  file.symlink:
+      - target: {{configdir}}
+
+{{grains['userhome']}}/.config/nvim:
+    file.symlink:
+      - target: {{spacevimdir}}
+
+neovim:
+  gem.installed

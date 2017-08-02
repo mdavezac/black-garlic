@@ -22,3 +22,7 @@ include:
   - .plugins
   - .after
   - .ultisnips
+
+{{grains['userhome']}}/.config/nvim:
+  file.symlink:
+    - target: {{configdir}}

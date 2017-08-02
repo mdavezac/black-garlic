@@ -1,6 +1,6 @@
 {% set config = salt['pillar.get']('nvim:config', {}) %}
 {% set configdir = config.get('configdir', grains['userhome'] + '/.config/nvim') %}
-{% set virtdirs = config.get('virtualenv_dirs', configdir + "/virtualenvs") %}
+{% set virtdirs = config.get('virtualenvs_dir', configdir + "/virtualenvs") %}
 
 {{virtdirs}}:
   file.directory
@@ -25,7 +25,7 @@
 
 {{virtdirs}}/python3:
   virtualenv.managed:
-    - python: python3
+    - venv_bin: python3 -m venv
     - use_wheel: True
     - pip_upgrade: True
     - pip_pkgs: *pip_packages

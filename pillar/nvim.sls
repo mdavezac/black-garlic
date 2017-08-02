@@ -1,9 +1,11 @@
-{% set config = salt['pillar.get']('nvim:config', {}) %}
-{% set configdir = config.get('configdir', grains['userhome'] + '/.config/nvim') %}
-{% set virtdirs = config.get('virtualenv_dirs', configdir + "/virtualenvs") %}
+{% set configdir = grains['userhome'] + "/.config/salted_nvim/"%}
+{% set virtdirs = configdir + "/virtualenvs" %}
 
 # - Shougo/neoinclude.vim: {for: cpp}
 nvim:
+  config:
+    configdir: {{configdir}}
+    virtdirs: {{virtdirs}}
   plugins:
     - Shougo/deoplete.nvim: "{'do': function('DoRemote')}"
     - zchee/deoplete-jedi: {for: python}
@@ -130,12 +132,12 @@ nvim:
         if !empty(findfile("compile_commands.json", $CURRENT_FUN_WITH_DIR . "/build"))
           let g:deoplete#sources#clang#clang_complete_database = $CURRENT_FUN_WITH_DIR . "/build"
         end
-    - deoplete-java: |
-        if !exists("g:deoplete#omni_patterns")
-            let g:deoplete#omni_patterns = {}
-        endif
-        let g:deoplete#omni_patterns.java = '[^. *\t]\.\w*'
-        autocmd FileType java setlocal omnifunc=javacomplete#Complete
+    # - deoplete-java: |
+    #     if !exists("g:deoplete#omni_patterns")
+    #         let g:deoplete#omni_patterns = {}
+    #     endif
+    #     let g:deoplete#omni_patterns.java = '[^. *\t]\.\w*'
+    #     autocmd FileType java setlocal omnifunc=javacomplete#Complete
     - neomake: |
         set errorformat+=%Dninja\ -C\ %f
         set errorformat+=%Dmake\ -C\ %f
