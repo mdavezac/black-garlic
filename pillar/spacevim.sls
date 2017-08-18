@@ -11,7 +11,7 @@ spacevim:
     layers:
         - tmux
         - incsearch
-        - shell
+        - tags
         - lang#c
         - lang#java
         - lang#javascript
