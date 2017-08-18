@@ -12,7 +12,7 @@ java and android:
       - java
       - android-studio
       - android-platform-tools
-  pkg.installed
+  pkg.installed:
     - pkgs: [gradle]
 {% else %}
 java and android:
@@ -34,6 +34,10 @@ cryptalabs/Eagle:
     - email: mayeul@cryptalabs.com
     - update_head: False
 
+{{project}} ctags:
+  ctags.run:
+    - name: {{workspace}}/src/{{project}}
+
 {{project}} modulefile:
   funwith.modulefile:
     - name: {{project}}
@@ -42,6 +46,7 @@ cryptalabs/Eagle:
     - cwd: {{workspace}}/src/{{project}}
     - footer: |
         setenv("JULIA_PKGDIR", "{{workspace}}/julia")
+        setenv("ANDROID_HOME", "{{grains['userhome']}}/Library/Android/sdk")
 
 {{project}} vimrc:
   funwith.add_vimrc:
@@ -54,18 +59,18 @@ julia metadir:
   github.latest:
     - name: JuliaLang/METADATA.jl
     - email: mayeul@cryptalabs.com
-    - target: {{workspace}}/julia/v0.5/METADATA
+    - target: {{workspace}}/julia/v0.6/METADATA
     - force_fetch: True
 
 CryptaLabs/ExtractRandom.jl:
   github.latest:
     - email: mayeul@cryptalabs.com
-    - target: {{workspace}}/julia/v0.5/ExtractRandom
+    - target: {{workspace}}/julia/v0.6/ExtractRandom
 
 CryptaLabs/LibRaw.jl:
   github.latest:
     - email: mayeul@cryptalabs.com
-    - target: {{workspace}}/julia/v0.5/LibRaw
+    - target: {{workspace}}/julia/v0.6/LibRaw
 
 
 {{tmuxinator(project, root="%s/src/%s" % (workspace, project), layout="main-horizontal")}}
