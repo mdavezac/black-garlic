@@ -24,3 +24,6 @@
 {{grains['userhome']}}/.juliarc.jl:
   file.managed:
     - source: salt://files/juliarc.jl
+    - template: jinja
+    - context:
+        packages: {{salt['pillar.get']('julia:packages', [])}}
