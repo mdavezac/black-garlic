@@ -21,7 +21,7 @@
       - netlib-scalapack %{{compiler}}  ^{{mpilib}} ^openblas {{openmp}}
 {% endif %}
 
-{{workspace}}/julia/v0.5/REQUIRE:
+{{workspace}}/julia/v0.6/REQUIRE:
   file.managed:
     - contents: |
         DataFrames
@@ -38,31 +38,31 @@ julia metadir:
     github.latest:
       - name: JuliaLang/METADATA.jl
       - email: mdavezac@gmail.com
-      - target: {{workspace}}/julia/v0.5/METADATA
+      - target: {{workspace}}/julia/v0.6/METADATA
       - force_fetch: True
 
 
 
 mdavezac/Crystals.jl:
   github.latest:
-    - target: {{workspace}}/julia/v0.5/Crystals
+    - target: {{workspace}}/julia/v0.6/Crystals
     - email: mdavezac@gmail.com
     - update_head: False
 
 mdavezac/UnitfulHartree.jl:
   github.latest:
-    - target: {{workspace}}/julia/v0.5/UnitfulHartree
+    - target: {{workspace}}/julia/v0.6/UnitfulHartree
     - email: mdavezac@gmail.com
     - update_head: False
 
 mdavezac/LibXC.jl:
   github.latest:
-      - target: {{workspace}}/julia/v0.5/LibXC
+      - target: {{workspace}}/julia/v0.6/LibXC
       - email: mdavezac@gmail.com
 
 mdavezac/AtomicDFT.jl:
   github.latest:
-    - target: {{workspace}}/julia/v0.5/AtomicDFT
+    - target: {{workspace}}/julia/v0.6/AtomicDFT
     - email: mdavezac@gmail.com
 
 update julia packages:
@@ -78,7 +78,7 @@ update julia packages:
     - python: {{python_exec}}
     - pip_upgrade: True
     - use_wheel: True
-    - pip_pkgs: [pip, numpy, scipy, pytest, pandas, cython, matplotlib, jupyter, ase]
+    - pip_pkgs: [pip, numpy, scipy, pytest, pandas, cython, matplotlib, jupyter, ase, neovim]
 
 
 {{project}} modulefile:
@@ -87,7 +87,7 @@ update julia packages:
     - spack: *spack_packages
     - workspace: {{workspace}}
     - virtualenv: {{workspace}}/{{python}}
-    - cwd: {{workspace}}/julia/v0.5/LibXC
+    - cwd: {{workspace}}/julia/v0.6/LibXC
     - footer: |
         setenv("JULIA_PKGDIR", "{{workspace}}/julia")
 
@@ -105,4 +105,4 @@ update julia packages:
     - target: {{workspace}}/src/gpaw
     - force_fetch: True
 
-{{tmuxinator(project, root="%s/julia/v0.5/LibXC" % workspace, layout="main-horizontal")}}
+{{tmuxinator(project, root="%s/julia/v0.6/LibXC" % workspace, layout="main-horizontal")}}
