@@ -28,6 +28,7 @@ spacevim:
         # - ['DonnieWest/VimStudio', {'on_ft': ['java', 'kotlin', 'groovy']}]
         - keith/investigate.vim
         - wellle/targets.vim
+        - sjl/gundo.vim
         # - ['JuliaEditorSupport/deoplete-julia',  {'on_ft' : 'julia'}]
         # - Shougo/neoinclude.vim
 
@@ -160,3 +161,10 @@ spacevim:
                 \ }
               let g:neoformat_enabled_cpp = ['clangformat']
             end
+            let g:investigate_dash_for_cpp="cpp"
+
+        sls: |
+            let g:investigate_dash_for_sls="SaltStack"
+
+        dockerfile: |
+            let g:investigate_dash_for_dockerfile="docker"
