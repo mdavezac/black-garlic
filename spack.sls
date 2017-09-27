@@ -7,3 +7,8 @@ include:
     - source: salt://files/spack/mint_packages.yaml
     - makedirs: True
 {% endif %}
+
+{{grains['userhome']}}/.spack/modules.yaml:
+  file.managed:
+    - source: salt://files/spack/modules.yaml
+    - makedirs: True

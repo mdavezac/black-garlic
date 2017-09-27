@@ -1,0 +1,10 @@
+modules:
+  enable:
+    - lmod
+  lmod:
+    core_compilers:
+      - 'clang@8.0.0'
+      - 'gcc@7.2'
+    hierarchy:
+      - mpi
+      - lapack
