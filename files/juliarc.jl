@@ -16,5 +16,8 @@ let
 end
 @schedule begin
     sleep(0.1)
-    @eval using Revise
+    @eval begin 
+        using Revise
+        colorscheme!("Monokai24bit")
+    end
 end
