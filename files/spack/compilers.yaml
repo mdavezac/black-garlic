@@ -18,12 +18,3 @@ compilers:
 {%-   endfor %}
     spec: {{name}}
 {%- endfor %}
-- compiler:
-    modules: []
-    operating_system: {{mac_version}}
-    paths:
-      cc: /usr/local/bin/icc-16.0
-      cxx: /usr/local/bin/icpc-16.0
-      f77: /usr/local/bin/ifort-16.0
-      fc: /usr/local/bin/ifort-16.0
-    spec: intel@16.0.1
