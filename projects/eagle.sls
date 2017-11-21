@@ -62,6 +62,27 @@ julia metadir:
     - target: {{workspace}}/julia/v0.6/METADATA
     - force_fetch: True
 
+{{workspace}}/julia/v0.6/REQUIRE:
+  file.managed:
+    - contents: |
+        DataFrames
+        ImageView
+        Images
+        Glob
+        ProgressMeter
+        AxisArrays
+        IJulia
+        Roots
+        JLD
+        YAML
+        SerialPorts
+        StatPlots
+        Lint
+        GLM
+        Query
+    - makedirs: True
+
+
 CryptaLabs/ExtractRandom.jl:
   github.latest:
     - email: mayeul@cryptalabs.com
