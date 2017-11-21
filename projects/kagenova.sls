@@ -86,6 +86,7 @@ update julia packages:
     - contents: |
         -I{{workspace}}/src/kage-core
         -I{{workspace}}/src/kage-core/build/external/include
+        -I{{workspace}}/src/kage-core/build/include
         -std=c++14
         -Wall
 
@@ -97,7 +98,7 @@ update julia packages:
     - tabs: 2
     - footer: |
         if filereadable("{{workspace}}/.cppconfig")
-		  let g:neomake_cpp_clang_args = readfile("/Users/mdavezac/workspaces/kagenova/.cppconfig")
+          let g:neomake_cpp_clang_args = readfile("{{workspace}}/.cppconfig")
         endif
 
 {{tmuxinator(project, root="%s/src/kage-core" % workspace, layout="main-horizontal")}}
