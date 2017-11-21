@@ -34,8 +34,8 @@ zsh:
         autoload -U compinit
         compinit -U
     - setup_funwith: |
-        [[ -e /usr/local/Cellar/lmod/5.9.3/init/zsh ]] && \
-          source /usr/local/Cellar/lmod/5.9.3/init/zsh
+        [[ -e /usr/local/Cellar/lmod/7.6.11/lmod/init/zsh ]] && \
+          source /usr/local/Cellar/lmod/7.6.11/lmod/init/zsh
         [[ -e /usr/share/lmod/lmod/init/zsh ]] && \
           source /usr/share/lmod/lmod/init/zsh
         module use $HOME/.funwith
