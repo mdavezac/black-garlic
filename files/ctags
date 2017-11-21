@@ -7,6 +7,8 @@
 --exclude=*/compiled
 --exclude=google-chrome*
 --exclude=chromium*
+--exclude=build
+--exclude=.externalNativeBuild
 
 --langdef=julia
 --langmap=julia:.jl
@@ -23,7 +25,6 @@
 
 --langdef=kotlin
 --langmap=kotlin:.kt
---langmap=kotlin:.kts
 --regex-kotlin=/^[ \t]*((abstract|final|sealed|implicit|lazy)[ \t]*)*(private[^ ]*|protected)?[ \t]*class[ \t]+([a-zA-Z0-9_]+)/\4/c,classes/
 --regex-kotlin=/^[ \t]*((abstract|final|sealed|implicit|lazy)[ \t]*)*(private[^ ]*|protected)?[ \t]*object[ \t]+([a-zA-Z0-9_]+)/\4/o,objects/
 --regex-kotlin=/^[ \t]*((abstract|final|sealed|implicit|lazy)[ \t]*)*(private[^ ]*|protected)?[ \t]*((abstract|final|sealed|implicit|lazy)[ \t]*)*data class[ \t]+([a-zA-Z0-9_]+)/\6/c,data classes/
