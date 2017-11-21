@@ -168,3 +168,6 @@ spacevim:
 
         dockerfile: |
             let g:investigate_dash_for_dockerfile="docker"
+
+        calendar: |
+            let g:calendar_google_calendar=1
