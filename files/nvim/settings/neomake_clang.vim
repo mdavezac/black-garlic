@@ -17,14 +17,19 @@ if filereadable($CURRENT_FUN_WITH_HOMEDIR . "/.cppconfig")
 endif
 
 if !empty(finddir("build", $CURRENT_FUN_WITH_DIR))
-  let g:neomake_cpp_clang_cwd=$CURRENT_FUN_WITH_DIR . "/build"
-  let g:neomake_cpp_clang_args=compiler_flags + ['-Weverything']
-  let g:neomake_cpp_gcc_exe='/usr/local/bin/g++-6'
-  let g:neomake_cpp_gcc_cwd=$CURRENT_FUN_WITH_DIR . "/build"
-  let g:neomake_cpp_gcc_args=compiler_flags + ['-pedantic']
-  let g:neomake_cpp_enabled_makers = ['gcc']
+  let g:neomake_cpp_clang_maker = {
+    \ 'cwd': $CURRENT_FUN_WITH_DIR . "/build",
+    \ 'args': compiler_flags + ['-pedantic', '-Wall', '-Wextra', '-fsyntax-only']
+    \ }
+  let g:neomake_cpp_gcc_maker= {
+    \ 'exe': '/usr/local/bin/g++-6',
+    \ 'cwd': $CURRENT_FUN_WITH_DIR . "/build",
+    \ 'args': compiler_flags + ['-pedantic', '-Wall', '-Wextra', '-fsyntax-only']
+    \ }
 end
 if !empty(findfile("compile_commands.json", $CURRENT_FUN_WITH_DIR . "/build"))
-  let g:neomake_cpp_clangtidy_exe="/usr/local/Cellar/llvm/4.0.0/bin/clang-tidy"
-  let g:neomake_cpp_clangtidy_args=['-p', $CURRENT_FUN_WITH_DIR . "/build"]
+  let g:neomake_cpp_clangtidy_maker = { 
+    \ 'exe': "/usr/local/Cellar/llvm/5.0.0/bin/clang-tidy",
+    \ 'args': ['-p', $CURRENT_FUN_WITH_DIR . "/build"]
+    \ }
 end

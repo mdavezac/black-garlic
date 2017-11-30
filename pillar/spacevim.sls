@@ -29,6 +29,7 @@ spacevim:
         - keith/investigate.vim
         - wellle/targets.vim
         - sjl/gundo.vim
+        - igankevich/mesonic
         # - ['JuliaEditorSupport/deoplete-julia',  {'on_ft' : 'julia'}]
         # - Shougo/neoinclude.vim
 
@@ -92,6 +93,7 @@ spacevim:
             let g:spacevim_colorscheme = 'molokai'
             let g:spacevim_enable_os_fileformat_icon = 1
             let g:spacevim_statusline_separator = 'curve'
+            let g:spacevim_statusline_left_sections = ['winr', 'syntax-checking', 'version control info']
             let g:spacevim_enable_tabline_filetype_icon = 1
             let g:spacevim_enable_cursorcolumn = 0
 
@@ -99,7 +101,7 @@ spacevim:
             if $CURRENT_FUN_WITH_HOMEDIR != ""
                 let filename = expand("$CURRENT_FUN_WITH_HOMEDIR/.vimrc")
                 if filereadable(filename)
-                    exe 'source '.filename
+                    exe 'source ' . filename
                 endif
             endif
 
@@ -161,7 +163,42 @@ spacevim:
                 \ }
               let g:neoformat_enabled_cpp = ['clangformat']
             end
+
             let g:investigate_dash_for_cpp="cpp"
+
+            let g:neomake_cpp_enabled_makers=['gcc', 'clang']
+            let compiler_flags=[]
+            for i in split($CMAKE_PREFIX_PATH, ':')
+              for suffix in ["include", "include/eigen3"]
+                if isdirectory(i . "/" . suffix)
+                  let compiler_flags+=["-isystem" . i . "/" . suffix]
+                endif
+              endfor
+            endfor
+            for i in split($CMAKE_INCLUDE_PATH, ';')
+              if isdirectory(i)
+                let compiler_flags+=["-I" . i]
+              endif
+            endfor
+            if filereadable($CURRENT_FUN_WITH_HOMEDIR . "/.cppconfig")
+              let compiler_flags+=readfile($CURRENT_FUN_WITH_HOMEDIR . "/.cppconfig")
+            endif
+            let g:neomake_cpp_clang_maker = {
+              \ 'cwd': $CURRENT_FUN_WITH_DIR . "/build",
+              \ 'args': ['-Wall', '-Wextra', '-fsyntax-only', '-pedantic'] + compiler_flags
+              \ }
+            let g:neomake_cpp_gcc_maker= {
+              \ 'exe': '/usr/local/bin/g++-7',
+              \ 'cwd': $CURRENT_FUN_WITH_DIR . "/build",
+              \ 'args': ['-Wall', '-Wextra', '-fsyntax-only', '-pedantic'] + compiler_flags
+              \ }
+            if !empty(findfile("compile_commands.json", $CURRENT_FUN_WITH_DIR . "/build"))
+              let g:neomake_cpp_clangtidy_maker = { 
+                \ 'exe': "/usr/local/Cellar/llvm/5.0.0/bin/clang-tidy",
+                \ 'args': ['-p', $CURRENT_FUN_WITH_DIR . "/build"]
+                \ }
+                let g:neomake_cpp_enabled_makers+=['clangtidy']
+            end
 
         sls: |
             let g:investigate_dash_for_sls="SaltStack"
