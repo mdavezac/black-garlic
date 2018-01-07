@@ -19,6 +19,7 @@ spacevim:
         - lang#python
         - lang#xml
         - tools#screensaver
+        - debug
 
     plugins:
         - JuliaEditorSupport/julia-vim
@@ -167,7 +168,7 @@ spacevim:
             let g:investigate_dash_for_cpp="cpp"
 
             let g:neomake_cpp_enabled_makers=['gcc', 'clang']
-            let compiler_flags=[]
+            let compiler_flags=['-Wall', '-Wextra', '-fsyntax-only', '-pedantic']
             for i in split($CMAKE_PREFIX_PATH, ':')
               for suffix in ["include", "include/eigen3"]
                 if isdirectory(i . "/" . suffix)
@@ -185,12 +186,12 @@ spacevim:
             endif
             let g:neomake_cpp_clang_maker = {
               \ 'cwd': $CURRENT_FUN_WITH_DIR . "/build",
-              \ 'args': ['-Wall', '-Wextra', '-fsyntax-only', '-pedantic'] + compiler_flags
+              \ 'args': compiler_flags
               \ }
             let g:neomake_cpp_gcc_maker= {
               \ 'exe': '/usr/local/bin/g++-7',
               \ 'cwd': $CURRENT_FUN_WITH_DIR . "/build",
-              \ 'args': ['-Wall', '-Wextra', '-fsyntax-only', '-pedantic'] + compiler_flags
+              \ 'args': compiler_flags
               \ }
             if !empty(findfile("compile_commands.json", $CURRENT_FUN_WITH_DIR . "/build"))
               let g:neomake_cpp_clangtidy_maker = { 
