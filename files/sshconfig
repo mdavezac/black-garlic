@@ -1,5 +1,5 @@
 {% set keytype = "ed25519" if grains['os'] == "MacOS" else "rsa" %}
-IdentitiesOnly=yes
+IdentitiesOnly yes
 {% if grains['os'] == "MacOS" -%}
 UseKeychain yes
 {% endif -%}
@@ -25,11 +25,3 @@ Host bitbucket bitbucket.org
   PreferredAuthentications publickey
   ForwardAgent no
   IdentityFile ~/.ssh/bitbucket_rsa
-{% for (name, hostname) in legion.items() %}
-Host {{name}} {{hostname}}
-  hostname {{hostname}}
-  User cceamda
-  ForwardAgent yes
-  IdentityFile ~/.ssh/legion_ed25519
-  PreferredAuthentications publickey
-{% endfor %}
