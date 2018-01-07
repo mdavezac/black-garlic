@@ -17,8 +17,8 @@
       - openblas {{openmp}} %intel
       - netlib-scalapack %intel  ^{{mpilib}} ^openblas {{openmp}}
 {% else %}
-      - openblas %{{compiler}} {{openmp}}
-      - netlib-scalapack %{{compiler}}  ^{{mpilib}} ^openblas {{openmp}}
+      - openblas %{{compiler}} threads=none
+      - netlib-scalapack %{{compiler}}  ^{{mpilib}} ^openblas threads=none
 {% endif %}
 
 {{workspace}}/julia/v0.6/REQUIRE:
