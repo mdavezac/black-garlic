@@ -4,6 +4,7 @@
 {% set python_exec = salt["spack.python_exec"]() %}
 {% set project = sls.split(".")[-1] %}
 {% set workspace = salt["funwith.workspace"](project) %}
+{% set android_home = grains['userhome'] + "/Library/Android/sdk" %}
 
 {% if grains['os'] == "MacOS" %}
 java and android:
@@ -46,7 +47,7 @@ cryptalabs/Eagle:
     - cwd: {{workspace}}/src/{{project}}
     - footer: |
         setenv("JULIA_PKGDIR", "{{workspace}}/julia")
-        setenv("ANDROID_HOME", "{{grains['userhome']}}/Library/Android/sdk")
+        setenv("ANDROID_HOME", "{{android_home}}")
 
 {{project}} vimrc:
   funwith.add_vimrc:
@@ -54,6 +55,15 @@ cryptalabs/Eagle:
     - makeprg: "make\\ -C\\ $CURRENT_FUN_WITH_DIR/build/"
     - width: 92
     - tabs: 4
+
+{{workspace}}/.cppconfig:
+  file.managed:
+    - contents: |
+        -std=c++11
+        -isystem/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk//System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+        -isystem{{android_home}}/ndk-bundle/sysroot/usr/include
+        -isystem{{android_home}}/ndk-bundle/sysroot/usr/include/arm-linux-androideabi/
+
 
 julia metadir:
   github.latest:
