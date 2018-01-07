@@ -14,7 +14,7 @@ let
 {%- endfor %}
     Pkg.installed("OhMyREPL") !== nothing && using OhMyREPL
 end
-@schedule begin
+Pkg.installed("Revise") !== nothing && @schedule begin
     sleep(0.1)
     @eval begin 
         using Revise
