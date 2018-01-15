@@ -2,7 +2,6 @@
 {% set compiler = salt["spack.compiler"]() %}
 {% set python = salt["spack.python"]() %}
 {% set python_exec = salt["spack.python_exec"]() %}
-{% set openmp = "-openmp" if compiler != "clang" else "-openmp"%}
 {% set project = sls.split(".")[-1] %}
 {% set workspace = salt["funwith.workspace"](project) %}
 
@@ -41,12 +40,12 @@ julia metadir:
 {{workspace}}/src/:
   file.directory
 
-# kagenova/kage-core:
-#   github.latest:
-#     - target: {{workspace}}/src/kage-core
-#     - email: mdavezac@gmail.com
-#     - update_head: False
-#
+kagenova/kage-core:
+  github.latest:
+    - target: {{workspace}}/src/kage-core
+    - email: mdavezac@gmail.com
+    - update_head: False
+
 # kagenova/kage-render:
 #   github.latest:
 #     - target: {{workspace}}/src/kage-render
