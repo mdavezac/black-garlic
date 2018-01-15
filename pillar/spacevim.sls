@@ -205,7 +205,6 @@ spacevim:
                 let g:neomake_cpp_enabled_makers+=["clangtidy"]
             end
 
-            let g:clamp_libclang_path="/usr/local/Cellar/llvm/5.0.0/lib/libclang.dylib"
             let g:chromatica#libclang_path="/usr/local/Cellar/llvm/5.0.0/lib"
 
         sls: |
