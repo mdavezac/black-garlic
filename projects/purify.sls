@@ -10,7 +10,7 @@ include:
 {{project}} ctags:
   ctags.run:
     - name: {{workspace}}/src/{{project}}
-    - exclude: ['.git', 'build']
+    - exclude: [".git", "build"]
 
 {{project}} vimrc:
     funwith.add_vimrc:
