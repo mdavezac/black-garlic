@@ -45,6 +45,8 @@ spacevim:
             let g:spacevim_enable_vimfiler_welcome = 1
             let g:spacevim_enable_debug = 1
 
+            let g:EditorConfig_exclude_patterns = ["fugitive://.*", "scp://.*"]
+
             set noswapfile
             set nobackup
             set nowb
