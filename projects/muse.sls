@@ -50,8 +50,7 @@ shebang_issue:
   cmd.run:
     - cwd: {{workspace}}/{{python}}/bin
     - name: |
-        sed -i ' ' \
-            's#CondimentStation/build/salt-env#workspaces/{{project}}/{{python}}#' \
+        sed -i '' 's#CondimentStation/build/salt-env#workspaces/{{project}}/{{python}}#' \
             $(ag -l Condiment) 
     - unless: test ${\#$(ag -l Condiment)} -eq 0
 
