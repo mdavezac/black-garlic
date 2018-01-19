@@ -10,9 +10,8 @@ cask_apps:
   - julia
   - dash
   - caffeine
+  - xquartz
   - inkscape
-  - vivaldi
-  - adobe-reader
 
 brew_apps:
   - gcc
@@ -31,7 +30,6 @@ brew_apps:
   - the_silver_searcher
   - pkg-config
   - doxygen
-  - valgrind
   - tmux
   - reattach-to-user-namespace
   - clang-format:
@@ -48,8 +46,7 @@ brew_apps:
   - zeromq
   - git
   - tree
-  - llvm:
-      options: ['--with-lldb']
+  - llvm
   - docker-machine-driver-xhyve
   - docker
   - gdb
