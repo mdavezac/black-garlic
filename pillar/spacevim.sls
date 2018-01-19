@@ -80,6 +80,7 @@ spacevim:
                 let g:ctrlp_map = ""
                 nnoremap <silent> <C-p> :Denite file_rec<CR>
             endif
+            let g:investigate_dash_for_python="Python3,Pandas,SciPy,NumPy,Matplotlib"
 
         investigate: |
             let g:investigate_dash_for_cmake="cmake"
