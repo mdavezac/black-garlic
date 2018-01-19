@@ -5,7 +5,7 @@
 mdavezac/nixboxed:
   github.latest:
     - target: {{workspace}}
-    - email: mdavezac@gmai.com
+    - email: mdavezac@gmail.com
     - update_head: False
 
 {{project}} modulefile:
