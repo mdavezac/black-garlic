@@ -11,6 +11,13 @@ cask_apps:
   - caffeine
   - xquartz
   - inkscape
+  - firefox
+  - font-sourcecodepro-nerd-font-mono
+  - font-sourcecodepro-nerd-font
+  - font-terminus-nerd-font-mono
+  - font-terminus-nerd-font
+  - font-dejavusansmono-nerd-font-mono
+  - font-dejavusansmono-nerd-font
 
 brew_apps:
   - gcc
