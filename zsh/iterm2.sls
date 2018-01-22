@@ -1,11 +1,15 @@
 {% set schemes = salt['pillar.get']('iterm:schemes', {}) %}
 {% set build = pillar['condiment_build_dir'] %}
 
-{{build}}/iterm_themes:
+{{build}}/iter_themse:
+  file.directory:
+    - makedirs: True
+
+{{build}}/iterm_themes archive:
   archive.extracted:
     - name: {{pillar['condiment_build_dir']}}/iterm_themes
     - source: https://github.com/mbadolato/iTerm2-Color-Schemes/tarball/master
-    - source_hash: md5=6fb0a1e173b2ccfa4a5c16912ac75575
+    - source_hash: md5=eecfa4063b64945e613121873c4f6c93
     - archive_format: tar
     - enforce_toplevel: False
     - options: --strip-components=1
