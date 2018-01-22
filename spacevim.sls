@@ -48,22 +48,23 @@ SpaceVim/SpaceVim.git:
 
 {{virtdirs}}/python3:
   virtualenv.managed:
-    - venv_bin: python3 -m venv
     - use_wheel: True
     - pip_upgrade: True
     - pip_pkgs: *pip_packages
+    - env_vars:
+        PATH_VARS: "/usr/local/bin"
 
-{{grains['userhome']}}/.Spacevim:
-  file.symlink:
-      - target: {{spacevimdir}}
-
-{{grains['userhome']}}/.Spacevim.d:
-  file.symlink:
-      - target: {{configdir}}
-
-{{grains['userhome']}}/.config/nvim:
-    file.symlink:
-      - target: {{spacevimdir}}
+# {{grains['userhome']}}/.Spacevim:
+#   file.symlink:
+#       - target: {{spacevimdir}}
+# 
+# {{grains['userhome']}}/.Spacevim.d:
+#   file.symlink:
+#       - target: {{configdir}}
+# 
+# {{grains['userhome']}}/.config/nvim:
+#     file.symlink:
+#       - target: {{spacevimdir}}
 
 neovim:
   gem.installed
