@@ -1,27 +1,39 @@
 {% set keytype = "ed25519" if grains['os'] == "MacOS" else "rsa" %}
 IdentitiesOnly yes
-{% if grains['os'] == "MacOS" -%}
-UseKeychain yes
-{% endif -%}
-AddKeysToAgent yes
 Host gitlab gitlab.com
   User git
   HostName gitlab.com
+  {% if grains['os'] == "MacOS" -%}
+  UseKeychain yes
+  {% endif -%}
+  AddKeysToAgent yes
   IdentityFile ~/.ssh/gitlab_{{keytype}}
   PreferredAuthentications publickey
 Host github github.com
   User git
   HostName github.com
+  {% if grains['os'] == "MacOS" -%}
+  UseKeychain yes
+  {% endif -%}
+  AddKeysToAgent yes
   IdentityFile ~/.ssh/github_{{keytype}}
   PreferredAuthentications publickey
 Host gist gist.github.com
   User git
   HostName gist.github.com
+  {% if grains['os'] == "MacOS" -%}
+  UseKeychain yes
+  {% endif -%}
+  AddKeysToAgent yes
   IdentityFile ~/.ssh/github_{{keytype}}
   PreferredAuthentications publickey
 Host bitbucket bitbucket.org
   hostname bitbucket.org
   User git
+  {% if grains['os'] == "MacOS" -%}
+  UseKeychain yes
+  {% endif -%}
+  AddKeysToAgent yes
   PreferredAuthentications publickey
   ForwardAgent no
   IdentityFile ~/.ssh/bitbucket_rsa
