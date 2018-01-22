@@ -6,7 +6,6 @@ cask_apps:
   - google-chrome
   - dropbox
   - shiftit
-  - karabiner-elements
   - julia
   - dash
   - caffeine
@@ -41,8 +40,6 @@ brew_apps:
       taps: neovim/neovim
   - ktlint:
       taps: shyiko/ktlint
-  - boost
-  - boost-python
   - zeromq
   - git
   - tree
