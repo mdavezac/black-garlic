@@ -208,7 +208,7 @@ spacevim:
                 let g:neomake_cpp_enabled_makers+=["clangtidy"]
             end
 
-            let g:chromatica#libclang_path="/usr/local/Cellar/llvm/5.0.0/lib"
+            let g:chromatica#libclang_path="/usr/local/Cellar/llvm/5.0.1/lib"
 
         sls: |
             let g:investigate_dash_for_sls="SaltStack"
