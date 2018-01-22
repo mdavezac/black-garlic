@@ -1,11 +1,11 @@
 {% set salted = salt['pillar.get']('zsh:salted', grains['userhome'] + "/.salted") %}
 {% set homebrew = salt['cmd.shell']('brew --prefix') %}
 
-{{homebrew}}/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve:
-  file.managed:
-    - user: root
-    - group: wheel
-    - mode: 4755
+# {{homebrew}}/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve:
+#   file.managed:
+#     - user: root
+#     - group: wheel
+#     - mode: 4755
 
 {{salted}}/completions/_docker:
   file.managed:
