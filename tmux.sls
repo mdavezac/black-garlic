@@ -11,6 +11,7 @@ tmuxinator:
 {{home}}/.tmux.conf:
   file.managed:
     - source: salt://files/tmux.conf
+    - template: jinja
 
 #{{home}}/.tmux/plugins/tpm:
 #  github.latest:
