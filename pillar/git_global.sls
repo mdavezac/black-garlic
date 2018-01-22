@@ -1,6 +1,6 @@
 git_global:
   user.name: "Mayeul d'Avezac"
-  user.email: mayeul@cryptalabs.com
+  user.email: m.davezac@imperial.ac.uk
   core.editor: /usr/local/bin/nvim
   core.autoclrf: input
   core.excludesfile: {{grains['userhome']}}/.gitignore
