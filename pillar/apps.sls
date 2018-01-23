@@ -18,6 +18,8 @@ cask_apps:
   - font-terminus-nerd-font
   - font-dejavusansmono-nerd-font-mono
   - font-dejavusansmono-nerd-font
+  - virtualbox
+  - virtualbox-extension-pack
 
 brew_apps:
   - gcc
