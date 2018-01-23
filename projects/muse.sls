@@ -22,6 +22,12 @@ ImperialCollegeLondon/StarMuse:
     - python: {{python_exec}}
     - system_site_packages: False
 
+{{workspace}}/.frosted.cfg:
+  file.managed:
+    - contents: |
+        ignore_frosted_errors=E265,E211,E501,W291,W293,E114,E202
+        run_doctests=False
+
 python_packages:
   pip.installed:
     - bin_env: {{workspace}}/{{python}}/bin/pip
@@ -36,12 +42,8 @@ python_packages:
       - pandas
       - matplotlib
       - jupyter
-      - neovim
-      - jedi
       - ipython
       - ipdb
-      - flake8
-      - pylint
       - click
     - env_vars:
         VIRTUAL_ENV: {{workspace}}/{{python}}
