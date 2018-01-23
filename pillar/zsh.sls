@@ -30,7 +30,11 @@ zsh:
     - HIST_REDUCE_BLANKS
   settings:
     - completions: |
-        fpath=({{salt['pillar.get']('zsh:salted', grains['userhome'] + "/.salted")}}/completions $fpath)
+        fpath=(
+            {{salt['pillar.get']('zsh:salted', grains['userhome'] + "/.salted")}}/completions
+            {{salt['cmd.shell']('brew --prefix hub')}}/zsh/site-functions/
+            $fpath
+        )
         autoload -U compinit
         compinit -U
     - setup_funwith: |
