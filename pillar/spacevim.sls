@@ -73,8 +73,8 @@ spacevim:
 
         python_plugins: |
             unlet g:loaded_python3_provider
-            let g:python_host_prog = "{{virtdirs}}/python2/bin/python2"
-            let g:python3_host_prog = "{{virtdirs}}/python3/bin/python3"
+            let g:python_host_prog = "/usr/local/bin/python2"
+            let g:python3_host_prog = "/usr/local/bin/python3"
             let g:deoplete#auto_complete_delay = 150
             let g:spacevim_buffer_index_type = 1
             let g:neomake_vim_enabled_makers = ["vimlint", "vint"]

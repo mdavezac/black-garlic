@@ -28,12 +28,12 @@ SpaceVim/SpaceVim.git:
 {{virtdirs}}:
   file.directory
 
-{{virtdirs}}/python2:
-  virtualenv.managed:
-    - python: /usr/bin/python2.7
+python2 neovim packages:
+  pip.installed:
+    - bin_env: /usr/local/bin/pip2
+    - upgrade: True
     - use_wheel: True
-    - pip_upgrade: True
-    - pip_pkgs: &pip_packages
+    - pkgs: &pip_packages
       - pip
       - numpy
       - scipy
@@ -43,16 +43,17 @@ SpaceVim/SpaceVim.git:
       - jupyter
       - neovim
       - autopep8
+      - pylint
+      - frosted
       - yapf
       - jedi
 
-{{virtdirs}}/python3:
-  virtualenv.managed:
+python3 neovim packages:
+  pip.installed:
+    - bin_env: /usr/local/bin/pip3
     - use_wheel: True
-    - pip_upgrade: True
-    - pip_pkgs: *pip_packages
-    - env_vars:
-        PATH_VARS: "/usr/local/bin"
+    - upgrade: True
+    - pkgs: *pip_packages
 
 # {{grains['userhome']}}/.Spacevim:
 #   file.symlink:
