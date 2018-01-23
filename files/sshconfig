@@ -37,3 +37,15 @@ Host bitbucket bitbucket.org
   PreferredAuthentications publickey
   ForwardAgent no
   IdentityFile ~/.ssh/bitbucket_rsa
+{% for name in ['cx1', 'cx2', 'ax4'] %}
+Host login.{{name}}.hpc.imperial.ac.uk {{name}}
+  hostname login.{{name}}.hpc.imperial.ac.uk
+  User mdavezac
+  {% if grains['os'] == "MacOS" -%}
+  UseKeychain yes
+  {% endif -%}
+  AddKeysToAgent yes
+  PreferredAuthentications publickey
+  ForwardAgent no
+  IdentityFile ~/.ssh/imperial_rsa
+{% endfor %}
