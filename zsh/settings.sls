@@ -3,17 +3,25 @@
 {% set location = salt['pillar.get']('prezto:location', home + "/.zprezto") %}
 {% set salted = salt['pillar.get']('zsh:salted', home + "/.salted") %}
 
-{% for settings in salt['pillar.get']('zsh:settings', []) -%}
-{%   for name in settings -%}
-{{salted}}/settings/{{name}}.zsh:
+{{salted}}/settings.zsh:
   file.managed:
-    - contents_pillar: zsh:settings:{{name}}
     - makedirs: True
-    - template: jinja
-    - context: {{config}}
-{%   endfor -%}
-{% endfor -%}
+    - contents: |
+        # Generated file
+{% for key, text in salt['pillar.get']('zsh:settings', {}).items() %}
+        # settings: {{key}}
+        {{text | indent(8)}}
+{% endfor %}
 
+        # options from zsh:options pillar
+{%- for option in salt['pillar.get']('zsh:options', []) %}
+        setopt {{option}}
+{%- endfor %}
+
+        # aliases from zsh:aliases pillar
+{%- for (name, cmd) in salt['pillar.get']('zsh:alias', {}).items() %}
+        alias {{name}}="{{cmd}}"
+{%- endfor %}
 
 {% set envvar = salt['pillar.get']('zsh:envvar', {}) %}
 {{salted}}/envvar.zsh:
@@ -21,31 +29,11 @@
     - makedirs: True
     - contents: |
         # environment variables from zsh:envvar pillar
-{%   for name, value in envvar.items() %}
+{% for name, value in envvar.items() %}
         export {{name}}={{value}}
-{%   endfor %}
+{% endfor %}
 
-{% set options = salt['pillar.get']('zsh:options', []) %}
-{{salted}}/settings/options.zsh:
-  file.managed:
-    - makedirs: True
-    - contents: |
-        # options from zsh:options pillar
-{%   for option in options %}
-        setopt {{option}}
-{%   endfor %}
-
-{% set aliases = salt['pillar.get']('zsh:alias', {}) %}
-{{salted}}/settings/alias.zsh:
-  file.managed:
-    - makedirs: True
-    - contents: |
-        # aliases from zsh:aliases pillar
-{%   for (name, cmd) in aliases.items() %}
-        alias {{name}}="{{cmd}}"
-{%   endfor %}
-
-{{salted}}/settings/funwith.zsh:
+{{salted}}/funwith.zsh:
   file.managed:
     - makedirs: True
     - template: jinja

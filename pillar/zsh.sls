@@ -29,44 +29,33 @@ zsh:
     - HIST_SAVE_NO_DUPS
     - HIST_REDUCE_BLANKS
   settings:
-    - completions: |
-        fpath=(
-            {{salt['pillar.get']('zsh:salted', grains['userhome'] + "/.salted")}}/completions
-            {{salt['cmd.shell']('brew --prefix hub')}}/zsh/site-functions/
-            $fpath
-        )
-        autoload -U compinit
-        compinit -U
-    - setup_funwith: |
-        source $(spack location -i lmod)/lmod/lmod/init/zsh
-        module use $HOME/.funwith
-        if [[ -n "$CURRENT_FUN_WITH" ]] ; then
-          module unload $CURRENT_FUN_WITH
-          module load $CURRENT_FUN_WITH
-          fc -R
-        fi
-{% if grains['os'] != "MacOS" %}
-    - ssh_agent: |
-        if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-            ssh-agent > ~/.ssh-agent-thing
-        fi
-        if [[ "$SSH_AGENT_PID" == "" ]]; then
-            eval "$(<~/.ssh-agent-thing)"
-        fi
-{% endif %}
-    - github_api_token: |
-        filename="$HOME/.secrets/homebrew_github_token"
-        [[ -e $filename ]] && export HOMEBREW_GITHUB_API_TOKEN=$(cat $filename)
-        filename="$HOME/.secrets/github_token"
-        [[ -e $filename ]] && export GITHUB_API_TOKEN=$(cat $filename)
-    - prompt: prompt funwith
-{% if grains['os'] == "MacOS" %}
-    - latex: "eval `/usr/libexec/path_helper -s`"
-{% endif %}
-    - travis: "[ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh"
-    - spack: |
-         export SPACK_ROOT={{salt['spack.defaults']('directory')}}
-         source $SPACK_ROOT/share/spack/setup-env.sh
+      completions: |
+          fpath=(
+              {{salt['pillar.get']('zsh:salted', grains['userhome'] + "/.salted")}}/completions
+              {{salt['cmd.shell']('brew --prefix hub')}}/zsh/site-functions/
+              $fpath
+          )
+          autoload -U compinit
+          compinit -U
+      setup_funwith: |
+          source $(spack location -i lmod)/lmod/lmod/init/zsh
+          module use $HOME/.funwith
+          if [[ -n "$CURRENT_FUN_WITH" ]] ; then
+            module unload $CURRENT_FUN_WITH
+            module load $CURRENT_FUN_WITH
+            fc -R
+          fi
+      github_api_token: |
+          filename="$HOME/.secrets/homebrew_github_token"
+          [[ -e $filename ]] && export HOMEBREW_GITHUB_API_TOKEN=$(cat $filename)
+          filename="$HOME/.secrets/github_token"
+          [[ -e $filename ]] && export GITHUB_API_TOKEN=$(cat $filename)
+      prompt: prompt funwith
+      latex: "eval `/usr/libexec/path_helper -s`"
+      travis: "[ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh"
+      spack: |
+          export SPACK_ROOT={{salt['spack.defaults']('directory')}}
+          source $SPACK_ROOT/share/spack/setup-env.sh
   completions:
     - funwith: |
         _arguments "1: :($(/usr/bin/basename -s .lua {{fundir}}/*.lua))"

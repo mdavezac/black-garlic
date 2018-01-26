@@ -1,5 +1,4 @@
 source {{prezto}}/runcoms/zshrc
 
-for filename in {{salted}}/settings/*.zsh; do
-  source $filename
-done
+[[ -e {{salted}}/settings.zsh ]] && source {{salted}}/settings.zsh
+[[ -e {{salted}}/funwith.zsh ]] && source {{salted}}/funwith.zsh
