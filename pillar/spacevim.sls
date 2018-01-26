@@ -70,6 +70,9 @@ spacevim:
                 set undodir={{backupdir}}
                 set undofile
             endif
+        gissues: |
+            let g:github_access_token=$GITHUB_API_TOKEN
+            let g:gissues_show_errors=1
 
         python_plugins: |
             unlet g:loaded_python3_provider
@@ -77,7 +80,7 @@ spacevim:
             let g:python3_host_prog = "/usr/local/bin/python3"
             let g:deoplete#auto_complete_delay = 150
             let g:spacevim_buffer_index_type = 1
-            let g:neomake_vim_enabled_makers = ["vimlint", "vint"]
+            let g:neomake_python_enabled_makers = ["flake8", "pylint"]
             if has("python3")
                 let g:ctrlp_map = ""
                 nnoremap <silent> <C-p> :Denite file_rec<CR>
