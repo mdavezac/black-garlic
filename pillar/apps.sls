@@ -20,6 +20,7 @@ cask_apps:
   - font-dejavusansmono-nerd-font
   - virtualbox
   - virtualbox-extension-pack
+  - miniconda
 
 brew_apps:
   - gcc
