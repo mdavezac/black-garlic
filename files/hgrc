@@ -6,7 +6,7 @@ rebase=
 strip=
 graphlog=
 [ui]
-username = Mayeul d'Avezac <m.davezac@ucl.ac.uk>
+username = Mayeul d'Avezac <m.davezac@imperial.ac.uk>
 merge = internal:merge
 editor = nvim
 [bookmarks]
