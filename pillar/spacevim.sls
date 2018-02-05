@@ -93,9 +93,13 @@ spacevim:
             vnoremap <leader>K :call investigate#Investigate("v")<CR>
 
         neoformat: |
-            noremap <F5> :Neoformat<CR>
             let g:clang2_placeholder_next = ""
             let g:clang2_placeholder_prev = ""
+            augroup fmt
+              autocmd!
+              autocmd BufWritePre * undojoin | Neoformat
+            augroup END
+
 
         theme: |
             let g:spacevim_colorscheme_bg = "dark"
@@ -137,7 +141,7 @@ spacevim:
 
         julia: |
             let g:latex_to_unicode_auto = 1
-            let g:latex_to_unicode_file_types = ["julia", "markdown", "kotlin"]
+            let g:latex_to_unicode_file_types = ["julia", "markdown", "kotlin", "cpp"]
             let g:latex_to_unicode_tab = 1
             let g:julia_syntax_highlight_deprecated=1
             let g:latex_to_unicode_suggestions=0
