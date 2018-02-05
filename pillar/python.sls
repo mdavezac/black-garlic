@@ -1,13 +1,6 @@
 python_pkgs:
-  - numpy
-  - scipy
-  - jupyter
-  - cython
-  - pytest
   - virtualenv
-  - matplotlib
-  - matplotlib-venn
-  - pandas
+  - flake8
   - autopep8
   - jedi
   - neovim
