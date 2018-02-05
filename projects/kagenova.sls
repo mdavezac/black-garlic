@@ -41,7 +41,7 @@ julia metadir:
   file.directory
 
 kagenova/kage-core:
-  github.latest:
+  gitlab.latest:
     - target: {{workspace}}/src/kage-core
     - email: mdavezac@gmail.com
     - update_head: False
@@ -58,7 +58,7 @@ kagenova/kage-core:
     - python: {{python_exec}}
     - pip_upgrade: True
     - use_wheel: True
-    - pip_pkgs: [pip, numpy, scipy, pytest, pandas, cython, matplotlib, jupyter, neovim]
+    - pip_pkgs: [pip, numpy, scipy, pytest, pandas, matplotlib, jupyter]
 
 update julia packages:
   cmd.run:
