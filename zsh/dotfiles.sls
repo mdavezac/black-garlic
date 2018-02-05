@@ -27,3 +27,8 @@
     - template: jinja
     - context:
         packages: {{salt['pillar.get']('julia:packages', [])}}
+
+{{grains['userhome']}}/.condarc:
+  file.managed:
+    - contents: |
+        envs_dirs: [{{grains['userhome']}}/.conda/envs]
