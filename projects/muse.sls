@@ -56,4 +56,22 @@ shebang_issue:
             $(ag -l Condiment) 
     - unless: test ${\#$(ag -l Condiment)} -eq 0
 
+{{project}} vimrc:
+  funwith.add_vimrc:
+    - name: {{workspace}}
+    - footer: |
+       let g:neomake_python_enabled_makers = ["flake8"]
+       let g:github_upstream_issues = 1
+       let g:gutentags_ctags_exclude = [
+          \ ".tox", "build", "packaging", "ReferenceMaterial\&Data"]
+       augroup fmt
+         au!
+       augroup END
+       augroup! fmt
+
+{{workspace}}/src/{{project}}/.env:
+  file.managed:
+    - contents: |
+        VIRTUAL_ENV={{workspace}}/{{python}}
+
 {{tmuxinator(project, root="%s/src/%s" % (workspace, project), layout="main-horizontal")}}
