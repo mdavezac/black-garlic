@@ -8,7 +8,7 @@
 mdavezac/spack:
   github.latest:
     - target: {{workspace}}/{{project}}
-    - email: m.davezac@ucl.ac.com
+    - email: m.davezac@imperial.ac.uk
     - update_head: False
 
 
