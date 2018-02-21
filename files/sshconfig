@@ -49,3 +49,11 @@ Host login.{{name}}.hpc.imperial.ac.uk {{name}}
   ForwardAgent no
   IdentityFile ~/.ssh/imperial_rsa
 {% endfor %}
+Host login.cosma.dur.ac.uk cosma
+  hostname login.cosma.dur.ac.uk
+  user dc-dave3
+  UseKeychain yes
+  AddKeysToAgent yes
+  PreferredAuthentications publickey
+  ForwardAgent no
+  IdentityFile ~/.ssh/dirac_rsa
