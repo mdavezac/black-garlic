@@ -105,4 +105,5 @@ mint_apps:
   - ubuntu-vm-builder
   - bridge-utils
   - cmake
+  - libtool
 {% endif %}
