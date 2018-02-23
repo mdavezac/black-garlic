@@ -56,8 +56,9 @@ spacevim:
 
             let g:spacevim_plugin_bundle_dir = "{{configdir}}/cache"
 
-            noremap \ f
-            noremap « F
+            let g:spacevim_unite_leader = 'T'
+            let g:spacevim_windows_leader = 'Y'
+
             noremap gw gw
             noremap gq gq
             noremap F4 TagBarToggle
@@ -170,6 +171,7 @@ spacevim:
             let g:investigate_dash_for_java="java,android"
 
         cpp: |
+            let g:chromatica#enable_at_startup=0
             if !empty(findfile(".clang-format", $CURRENT_FUN_WITH_DIR))
               let g:neoformat_cpp_clangformat = {
                 \ "exe": "clang-format",
@@ -216,6 +218,7 @@ spacevim:
             end
 
             let g:chromatica#libclang_path="/usr/local/Cellar/llvm/5.0.1/lib"
+            let g:clamp_libclang_file="/usr/local/Cellar/llvm/5.0.1/lib" 
 
         sls: |
             let g:investigate_dash_for_sls="SaltStack"
