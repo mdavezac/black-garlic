@@ -28,13 +28,9 @@ spacevim:
         - ["udalov/kotlin-vim", {"on_ft": "kotlin"}]
         - ["saltstack/salt-vim", {"on_ft": "sls"}]
         - ["stephpy/vim-yaml", {"on_ft": ["yaml", "sls"]}]
-        # - ["DonnieWest/VimStudio", {"on_ft": ["java", "kotlin", "groovy"]}]
         - keith/investigate.vim
         - wellle/targets.vim
         - sjl/gundo.vim
-        - igankevich/mesonic
-        # - ["JuliaEditorSupport/deoplete-julia",  {"on_ft" : "julia"}]
-        # - Shougo/neoinclude.vim
 
     settings:
         global: |
@@ -96,10 +92,6 @@ spacevim:
         neoformat: |
             let g:clang2_placeholder_next = ""
             let g:clang2_placeholder_prev = ""
-            augroup fmt
-              autocmd!
-              autocmd BufWritePre * undojoin | Neoformat
-            augroup END
 
 
         theme: |
