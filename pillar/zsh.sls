@@ -57,6 +57,10 @@ zsh:
       spack: |
           export SPACK_ROOT={{salt['spack.defaults']('directory')}}
           source $SPACK_ROOT/share/spack/setup-env.sh
+      virtualenv activation: |
+          if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
+            source "${VIRTUAL_ENV}/bin/activate"
+          fi
   completions:
     - funwith: |
         _arguments "1: :($(/usr/bin/basename -s .lua {{fundir}}/*.lua))"
