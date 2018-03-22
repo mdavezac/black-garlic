@@ -30,7 +30,7 @@ SpaceVim/SpaceVim.git:
 
 python2 neovim packages:
   pip.installed:
-    - bin_env: /usr/local/bin/pip2
+    - bin_env: /usr/local/opt/python@2/bin/pip2
     - upgrade: True
     - use_wheel: True
     - pkgs: &pip_packages
