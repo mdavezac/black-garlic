@@ -22,6 +22,7 @@ spacevim:
         - debug
         - lsp
         - autocomplete
+        - git
 
     plugins:
         - JuliaEditorSupport/julia-vim
@@ -73,7 +74,7 @@ spacevim:
 
         python_plugins: |
             unlet g:loaded_python3_provider
-            let g:python_host_prog = "/usr/local/bin/python2"
+            let g:python_host_prog = "/usr/local/opt/python2/bin/python2"
             let g:python3_host_prog = "/usr/local/bin/python3"
             let g:deoplete#auto_complete_delay = 150
             let g:spacevim_buffer_index_type = 1
@@ -213,7 +214,7 @@ spacevim:
             let g:clamp_libclang_file="/usr/local/Cellar/llvm/5.0.1/lib" 
 
         sls: |
-            let g:investigate_dash_for_sls="SaltStack"
+            let g:investigate_dash_for_sls="salt"
 
         dockerfile: |
             let g:investigate_dash_for_dockerfile="docker"
