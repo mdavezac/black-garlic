@@ -2,7 +2,7 @@
 {% set compiler = salt["spack.compiler"]() %}
 {% set python = salt['spack.python']() %}
 {% set python_exec = salt['spack.python_exec']() %}
-{% set project = "pylada-light" %}
+{% set project = sls.split('.')[-1] %}
 {% set workspace = salt['funwith.workspace'](project) %}
 
 {{project}} spack packages:
@@ -22,5 +22,39 @@
     - footer:
         setenv('FC', 'gfortran')
 
+{{workspace}}/{{python}}:
+  virtualenv.managed:
+    - python: {{python_exec}}
+    - system_site_packages: False
 
-{{tmuxinator(project, root="%s/src" % workspace)}}
+python_packages:
+  pip.installed:
+    - bin_env: {{workspace}}/{{python}}/bin/pip
+    - upgrade: True
+    - use_wheel: True
+    - pkgs: 
+      - pip
+      - numpy
+      - scipy
+      - pytest
+      - pandas
+      - matplotlib
+      - jupyter
+      - ipython
+      - ipdb
+    - env_vars:
+        VIRTUAL_ENV: {{workspace}}/{{python}}
+
+
+mdavezac/CloudProject:
+  github.latest:
+    - target: {{workspace}}/src/{{project}}
+    - email: m.davezac@imperial.ac.uk
+
+Azure/batch-shipyard:
+  github.latest:
+    - target: {{workspace}}/src/shipyard
+    - email: m.davezac@imperial.ac.uk
+
+
+{{tmuxinator(project, root="%s/src/%s" % (workspace, project))}}
