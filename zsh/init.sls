@@ -24,8 +24,3 @@ add shell to acceptable shells:
         sudo chmod o+w /etc/shells
         echo "{{pillar['shell']}}" >> /etc/shells
         sudo chmod o-w /etc/shells
-
-change my shell:
-  cmd.run:
-    - unless: test $SHELL -ef {{pillar['shell']}} && test -e {{pillar['shell']}}
-    - name: chsh -s {{pillar['shell']}} {{grains['user']}}

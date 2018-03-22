@@ -1,4 +1,3 @@
-{% if grains['os'] == "MacOS" %}
 iterm:
   schemes:
     - Solarized Darcula
@@ -11,7 +10,4 @@ iterm:
     - Hybrid
     - Gruvbox Dark
     - Slate
-shell: /usr/local/bin/zsh
-{% else %}
-shell: /usr/bin/zsh
-{% endif %}
+shell: /bin/bash

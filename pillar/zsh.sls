@@ -14,7 +14,8 @@ zsh:
       EVENT_NOKQUEUE: 1 # problem with tmux
       LC_ALL: en_GB.UTF-8
       LANG: en_GB.UTF-8
-      PATH: "/usr/local/miniconda3/bin:$PATH"
+      PATH: "/usr/local/miniconda3/bin:$HOME/.local/bin:$PATH"
+      SPACK_ROOT: {{salt['spack.defaults']('directory')}}
   alias:
       vi: nvim
       vim: nvim
@@ -36,8 +37,9 @@ zsh:
               {{salt['cmd.shell']('brew --prefix hub')}}/zsh/site-functions/
               $fpath
           )
-          autoload -U compinit
-          compinit -U
+          autoload -U compinit && compinit -U
+          autoload -U bashcompinit && bashcompinit
+          source /usr/local/etc/bash_completion.d/az
       setup_funwith: |
           source $(spack location -i lmod)/lmod/lmod/init/zsh
           module use $HOME/.funwith
@@ -54,9 +56,7 @@ zsh:
       prompt: prompt funwith
       latex: "eval `/usr/libexec/path_helper -s`"
       travis: "[ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh"
-      spack: |
-          export SPACK_ROOT={{salt['spack.defaults']('directory')}}
-          source $SPACK_ROOT/share/spack/setup-env.sh
+      spack: "source $SPACK_ROOT/share/spack/setup-env.sh"
       virtualenv activation: |
           if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
             source "${VIRTUAL_ENV}/bin/activate"
