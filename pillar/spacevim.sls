@@ -74,8 +74,8 @@ spacevim:
 
         python_plugins: |
             unlet g:loaded_python3_provider
-            let g:python_host_prog = "/usr/local/opt/python2/bin/python2"
-            let g:python3_host_prog = "/usr/local/bin/python3"
+            let g:python_host_prog = "{{salt['cmd.shell']('brew --prefix python2')}}/bin/python"
+            let g:python3_host_prog = "{{salt['cmd.shell']('brew --prefix python3')}}/bin/python"
             let g:deoplete#auto_complete_delay = 150
             let g:spacevim_buffer_index_type = 1
             let g:neomake_python_enabled_makers = ["flake8", "pylint"]
@@ -204,14 +204,14 @@ spacevim:
               \ }
             if !empty(findfile("compile_commands.json", $CURRENT_FUN_WITH_DIR . "/build"))
               let g:neomake_cpp_clangtidy_maker = { 
-                \ "exe": "/usr/local/Cellar/llvm/5.0.0/bin/clang-tidy",
+                \ "exe": "{{salt['cmd.shell']('brew --prefix llvm')}}/bin/clang-tidy",
                 \ "args": ["-p", $CURRENT_FUN_WITH_DIR . "/build"]
                 \ }
                 let g:neomake_cpp_enabled_makers+=["clangtidy"]
             end
 
-            let g:chromatica#libclang_path="/usr/local/Cellar/llvm/5.0.1/lib"
-            let g:clamp_libclang_file="/usr/local/Cellar/llvm/5.0.1/lib" 
+            let g:chromatica#libclang_path="{{salt['cmd.shell']('brew --prefix llvm')}}/lib"
+            let g:clamp_libclang_file= g:chromatica#libclang_path . "/libclang.dylib" 
 
         sls: |
             let g:investigate_dash_for_sls="salt"

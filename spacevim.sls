@@ -30,7 +30,7 @@ SpaceVim/SpaceVim.git:
 
 python2 neovim packages:
   pip.installed:
-    - bin_env: /usr/local/opt/python@2/bin/pip2
+    - bin_env: {{salt['cmd.shell']('brew --prefix python2')}}/bin/pip
     - upgrade: True
     - use_wheel: True
     - pkgs: &pip_packages
@@ -50,7 +50,7 @@ python2 neovim packages:
 
 python3 neovim packages:
   pip.installed:
-    - bin_env: /usr/local/bin/pip3
+    - bin_env: {{salt['cmd.shell']('brew --prefix python3')}}/bin/pip
     - use_wheel: True
     - upgrade: True
     - pkgs: *pip_packages
