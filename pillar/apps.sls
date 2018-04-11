@@ -5,7 +5,6 @@ cask_apps:
   - iterm2
   - google-chrome
   - dropbox
-  - shiftit
   - julia
   - dash
   - caffeine

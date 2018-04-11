@@ -1,13 +1,8 @@
-{% set home = grains['userhome'] %}
+crisidev/chunkwm/chunkwm:
+  pkg.installed
 
-# kitty:
-#   cask.installed
-# 
-# crisisdev/chunkwm/chunkwm:
-#   cask.installed
-# 
-# koekeishiy/formulae/skhd:
-#   pkg.installed
+koekeishiya/formulae/skhd:
+  pkg.installed
 
 {{grains['userhome']}}/.chunkwmrc:
   file.managed:
@@ -16,8 +11,3 @@
 {{grains['userhome']}}/.skhdrc:
   file.managed:
     - source: salt://files/chunkwm/skhdrc
-
-{{grains['userhome']}}/Library/Preferences/kitty/kitty.conf:
-  file.managed:
-    - source: salt://files/chunkwm/kitty.con
-    - makedirs: True
