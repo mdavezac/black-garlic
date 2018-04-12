@@ -68,4 +68,8 @@ python3 neovim packages:
 #       - target: {{spacevimdir}}
 
 neovim:
-  gem.installed
+   gem.installed
+
+/usr/local/lib/python3.6/site-packages/llvm.pth:
+  file.managed:
+    - contents: {{salt['cmd.shell']('brew --prefix llvm')}}/lib/python2.7/site-packages
