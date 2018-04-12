@@ -11,3 +11,7 @@ git_global:
   advice.statusHints: false
   format.pretty: format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset
   credential.helper: osxkeychain
+  lfs.clean: git-lfs clean -- %f
+  lfs.smudge: git-lfs smudge -- %f
+  lfs.process: git-lfs filter-process
+  lfs.required: true

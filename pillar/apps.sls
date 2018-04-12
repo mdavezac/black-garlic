@@ -24,7 +24,7 @@ cask_apps:
 brew_apps:
   - gcc
   - gcc@4.9
-  - python
+  - python2
   - python3
   - luajit
   - ruby
@@ -105,4 +105,5 @@ mint_apps:
   - bridge-utils
   - cmake
   - libtool
+  - git-lfs
 {% endif %}
