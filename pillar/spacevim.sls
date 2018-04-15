@@ -32,6 +32,7 @@ spacevim:
         - keith/investigate.vim
         - wellle/targets.vim
         - sjl/gundo.vim
+        - tikhomirov/vim-glsl
 
     settings:
         global: |
@@ -73,8 +74,7 @@ spacevim:
             let g:gissues_show_errors=1
 
         python_plugins: |
-            unlet g:loaded_python3_provider
-            let g:python_host_prog = "{{salt['cmd.shell']('brew --prefix python2')}}/bin/python"
+            let g:python_host_prog = "{{salt['cmd.shell']('brew --prefix python2')}}/bin/python2"
             let g:python3_host_prog = "{{salt['cmd.shell']('brew --prefix python3')}}/bin/python"
             let g:deoplete#auto_complete_delay = 150
             let g:spacevim_buffer_index_type = 1
@@ -164,7 +164,6 @@ spacevim:
             let g:investigate_dash_for_java="java,android"
 
         cpp: |
-            let g:chromatica#enable_at_startup=0
             if !empty(findfile(".clang-format", $CURRENT_FUN_WITH_DIR))
               let g:neoformat_cpp_clangformat = {
                 \ "exe": "clang-format",
@@ -210,8 +209,8 @@ spacevim:
                 let g:neomake_cpp_enabled_makers+=["clangtidy"]
             end
 
-            let g:chromatica#libclang_path="{{salt['cmd.shell']('brew --prefix llvm')}}/lib"
-            let g:clamp_libclang_file= g:chromatica#libclang_path . "/libclang.dylib" 
+            let g:chromatica#libclang_path="{{salt['cmd.shell']('brew --prefix llvm')}}/lib/libclang.dylib"
+            let g:clamp_libclang_file= g:chromatica#libclang_path
 
         sls: |
             let g:investigate_dash_for_sls="salt"
