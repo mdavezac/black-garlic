@@ -14,7 +14,7 @@ zsh:
       EVENT_NOKQUEUE: 1 # problem with tmux
       LC_ALL: en_GB.UTF-8
       LANG: en_GB.UTF-8
-      PATH: "/usr/local/miniconda3/bin:$HOME/.local/bin:$PATH"
+      PATH: "$HOME/.local/bin:$PATH"
       SPACK_ROOT: {{salt['spack.defaults']('directory')}}
   alias:
       vi: nvim
