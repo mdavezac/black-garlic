@@ -16,7 +16,6 @@ mdavezac/spack:
   virtualenv.managed:
     - python: {{python_exec}}
     - pip_upgrade: True
-    - use_wheel: True
     - pip_pkgs: [pip, numpy, scipy, pytest, pandas, jupyter]
 
 
@@ -28,7 +27,8 @@ mdavezac/spack:
     - cwd: {{workspace}}/{{project}}
     - footer: |
         setenv("SPACK_ROOT", "{{workspace}}/{{project}}")
-        set_alias("ispack", "spack python -c \"from IPython import embed; embed()\"")
+        set_alias("spack", "{{workspace}}/{{project}}/bin/spack")
+        set_alias("ispack", "{{workspace}}/{{project}}/bin/spack python -c \"from IPython import embed; embed()\"")
 
 {{project}} vimrc:
   funwith.add_vimrc:
