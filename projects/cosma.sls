@@ -13,6 +13,15 @@
       - fftw %{{compiler}} +mpi ^mpich
       - openblas %{{compiler}}
 
+goodle-cloud-sdk:
+  cask.installed
+
+{% set salted = salt['pillar.get']('zsh:salted', grains['userhome'] + "/.salted") %}
+{{salted}}/completions/_gcloud:
+  file.symlink:
+    - target: /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+
+
 {{project}} modulefile:
   funwith.modulefile:
     - name: {{project}}
