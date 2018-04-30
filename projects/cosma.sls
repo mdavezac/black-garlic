@@ -17,9 +17,14 @@ goodle-cloud-sdk:
   cask.installed
 
 {% set salted = salt['pillar.get']('zsh:salted', grains['userhome'] + "/.salted") %}
-{{salted}}/completions/_gcloud:
-  file.symlink:
-    - target: /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+append gcloud completion:
+  file.append:
+    - name: {{salted}}/settings.zsh
+    - text: |
+          # add gcloud completion
+          caskroom_dir="/usr/local/Caskroom"
+          gcloud_dir="$caskroom_dir/google-cloud-sdk/latest/google-cloud-sdk"
+          source $gcloud_dir/completion.zsh.inc
 
 
 {{project}} modulefile:
