@@ -16,7 +16,7 @@
       salted: {{salted}}
 {% endfor %}
 
-{{grains['userhome']}}/.ctags:
+{{grains['userhome']}}/.ctags.d/all.ctags:
   file.managed:
     - source: salt://files/ctags
     - makedirs: True
