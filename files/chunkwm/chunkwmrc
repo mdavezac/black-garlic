@@ -57,7 +57,7 @@ chunkc set window_region_locked          1
 chunkc set mouse_modifier                fn
 
 chunkc set preselect_border_color        0xffd75f5f
-chunkc set preselect_border_width        5
+chunkc set preselect_border_width        0
 chunkc set preselect_border_radius       0
 
 #
@@ -76,7 +76,7 @@ chunkc set window_use_cgs_move           0
 #
 
 chunkc set focused_border_color          0xff0f6288
-chunkc set focused_border_width          5
+chunkc set focused_border_width          0
 chunkc set focused_border_radius         0
 chunkc set focused_border_skip_floating  0
 
@@ -94,5 +94,6 @@ chunkc core::load ffm.so
 #       to pass value containing a whitespace.
 #
 
-chunkc tiling::rule --owner Finder --name Copy --state float
-chunkc tiling::rule --owner \"App Store\" --state float
+chunkc tiling::rule --owner Finder --name Copy --state float&
+chunkc tiling::rule --owner \"App Store\" --state float&
+chunkc tiling::rule --owner Dash --state float&
