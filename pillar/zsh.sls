@@ -39,9 +39,11 @@ zsh:
           )
           autoload -U compinit && compinit -U
           autoload -U bashcompinit && bashcompinit
-          source /usr/local/etc/bash_completion.d/az
+          az_completion=/usr/local/etc/bash_completion.d/az
+          [ -e $az_completion ] && source $az_completion
       setup_funwith: |
-          source $(spack location -i lmod)/lmod/lmod/init/zsh
+          SPACK_ROOT={{salt['spack.defaults']('directory')}}
+          source $($SPACK_ROOT/bin/spack location -i lmod)/lmod/lmod/init/zsh
           module use $HOME/.funwith
           if [[ -n "$CURRENT_FUN_WITH" ]] ; then
             module unload $CURRENT_FUN_WITH

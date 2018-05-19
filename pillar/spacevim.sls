@@ -9,22 +9,28 @@ spacevim:
         configdir: {{configdir}}
         virtualenvs_dir: {{virtdirs}}
     layers:
+        - VersionControl
+        - colorscheme
         - tmux
         - incsearch
         - tags
         - lang#c
-        - lang#java
-        - lang#javascript
+        - lang#csharp
+        - lang#tmux
         - lang#vim
         - lang#python
+        - lang#julia
+        - lang#toml
         - lang#xml
         - tools#screensaver
         - debug
         - lsp
         - autocomplete
+        - denite
         - git
 
     plugins:
+        
         - JuliaEditorSupport/julia-vim
         - ["udalov/kotlin-vim", {"on_ft": "kotlin"}]
         - ["saltstack/salt-vim", {"on_ft": "sls"}]
@@ -32,7 +38,7 @@ spacevim:
         - keith/investigate.vim
         - wellle/targets.vim
         - sjl/gundo.vim
-        - tikhomirov/vim-glsl
+        - vim-scripts/ShaderHighLight
 
     settings:
         global: |
@@ -61,6 +67,8 @@ spacevim:
             noremap gq gq
             noremap F4 TagBarToggle
 
+        shader: autocmd BufNewFile,BufRead *.cginc set filetype=cg
+
         persistent undo: |
             if has("persistent_undo")
                 if !isdirectory("{{backupdir}}")
@@ -75,7 +83,7 @@ spacevim:
 
         python_plugins: |
             let g:python_host_prog = "{{salt['cmd.shell']('brew --prefix python2')}}/bin/python2"
-            let g:python3_host_prog = "{{salt['cmd.shell']('brew --prefix python3')}}/bin/python"
+            let g:python3_host_prog = "{{salt['cmd.shell']('brew --prefix python3')}}/bin/python3"
             let g:deoplete#auto_complete_delay = 150
             let g:spacevim_buffer_index_type = 1
             let g:neomake_python_enabled_makers = ["flake8", "pylint"]
@@ -100,7 +108,7 @@ spacevim:
             let g:spacevim_colorscheme = "molokai"
             let g:spacevim_enable_os_fileformat_icon = 1
             let g:spacevim_statusline_separator = "curve"
-            let g:spacevim_statusline_left_sections = ["winr", "syntax-checking", "version control info"]
+            let g:spacevim_statusline_left_sections = ["winr", "major mode", "syntax checking"]
             let g:spacevim_enable_tabline_filetype_icon = 1
             let g:spacevim_enable_cursorcolumn = 0
 
@@ -220,3 +228,10 @@ spacevim:
 
         calendar: |
             let g:calendar_google_calendar=1
+
+        cquery: |
+            let g:LanguageClient_serverCommands = {
+            \ 'cpp': ['{{salt['cmd.shell']('brew --prefix cquery')}}/bin/cquery', '--log-file=/tmp/cq.log']                                                                                                                                                                              
+            \ }
+            let g:LanguageClient_loadSettings = 1
+            let g:LanguageClient_settingsPath = '{{spacevimdir}}/cquery.json'

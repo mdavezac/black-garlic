@@ -9,6 +9,13 @@ SpaceVim/SpaceVim.git:
     - target: {{spacevimdir}}
     - email: mdavezac@gmail.com
 
+cquery:
+  pkg.install:
+    - options: [--HEAD]
+
+{{configdir}}/cquery.json:
+    file.managed:
+        - content: { "initializationOptions": { "cacheDirectory": "/tmp/cquery" } }
 
 {{configdir}}/init.vim:
     file.managed:
@@ -30,7 +37,7 @@ SpaceVim/SpaceVim.git:
 
 python2 neovim packages:
   pip.installed:
-    - bin_env: {{salt['cmd.shell']('brew --prefix python2')}}/bin/pip
+    - bin_env: {{salt['cmd.shell']('brew --prefix python2')}}/bin/pip2
     - upgrade: True
     - use_wheel: True
     - pkgs: &pip_packages
@@ -47,10 +54,11 @@ python2 neovim packages:
       - frosted
       - yapf
       - jedi
+      - black
 
 python3 neovim packages:
   pip.installed:
-    - bin_env: {{salt['cmd.shell']('brew --prefix python3')}}/bin/pip
+    - bin_env: {{salt['cmd.shell']('brew --prefix python3')}}/bin/pip3
     - use_wheel: True
     - upgrade: True
     - pkgs: *pip_packages

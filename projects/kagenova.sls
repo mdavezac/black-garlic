@@ -8,6 +8,9 @@
 unity:
   cask.installed
 
+dotnet-sdk:
+  cask.installed
+
 {{project}} spack packages:
   spack.installed:
     - pkgs: &spack_packages

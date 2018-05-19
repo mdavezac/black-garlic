@@ -9,7 +9,7 @@
   archive.extracted:
     - name: {{pillar['condiment_build_dir']}}/iterm_themes
     - source: https://github.com/mbadolato/iTerm2-Color-Schemes/tarball/master
-    - source_hash: md5=ef7a75345e31ef6a9b1cef9148c9e3b0
+    - source_hash: md5=49ecb540aa63bcfa4457b523c00a070c
     - archive_format: tar
     - enforce_toplevel: False
     - options: --strip-components=1
