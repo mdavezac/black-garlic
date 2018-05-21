@@ -30,8 +30,6 @@ spacevim:
         - git
 
     plugins:
-        
-        - JuliaEditorSupport/julia-vim
         - ["udalov/kotlin-vim", {"on_ft": "kotlin"}]
         - ["saltstack/salt-vim", {"on_ft": "sls"}]
         - ["stephpy/vim-yaml", {"on_ft": ["yaml", "sls"]}]
@@ -65,7 +63,6 @@ spacevim:
 
             noremap gw gw
             noremap gq gq
-            noremap F4 TagBarToggle
 
         shader: autocmd BufNewFile,BufRead *.cginc set filetype=cg
 
@@ -105,7 +102,7 @@ spacevim:
 
         theme: |
             let g:spacevim_colorscheme_bg = "dark"
-            let g:spacevim_colorscheme = "molokai"
+            let g:spacevim_colorscheme = "onedark"
             let g:spacevim_enable_os_fileformat_icon = 1
             let g:spacevim_statusline_separator = "curve"
             let g:spacevim_statusline_left_sections = ["winr", "major mode", "syntax checking"]
@@ -219,6 +216,7 @@ spacevim:
 
             let g:chromatica#libclang_path="{{salt['cmd.shell']('brew --prefix llvm')}}/lib/libclang.dylib"
             let g:clamp_libclang_file= g:chromatica#libclang_path
+            let g:clamp_autostart = 0
 
         sls: |
             let g:investigate_dash_for_sls="salt"

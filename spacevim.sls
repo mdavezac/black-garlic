@@ -10,7 +10,7 @@ SpaceVim/SpaceVim.git:
     - email: mdavezac@gmail.com
 
 cquery:
-  pkg.install:
+  pkg.installed:
     - options: [--HEAD]
 
 {{configdir}}/cquery.json:
