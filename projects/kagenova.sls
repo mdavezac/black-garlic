@@ -11,6 +11,9 @@ unity:
 dotnet-sdk:
   cask.installed
 
+mono:
+  pkg.installed
+
 {{project}} spack packages:
   spack.installed:
     - pkgs: &spack_packages
@@ -46,6 +49,12 @@ julia metadir:
 kagenova/kage-core:
   gitlab.latest:
     - target: {{workspace}}/src/kage-core
+    - email: mdavezac@gmail.com
+    - update_head: False
+
+kagenova/kage-move:
+  gitlab.latest:
+    - target: {{workspace}}/src/kage-move
     - email: mdavezac@gmail.com
     - update_head: False
 
