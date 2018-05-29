@@ -13,7 +13,7 @@
       - fftw %{{compiler}} +mpi ^mpich
       - openblas %{{compiler}}
 
-goodle-cloud-sdk:
+google-cloud-sdk:
   cask.installed
 
 {% set salted = salt['pillar.get']('zsh:salted', grains['userhome'] + "/.salted") %}
@@ -35,6 +35,7 @@ append gcloud completion:
     - virtualenv: {{workspace}}/{{python}}
     - footer:
         setenv('FC', 'gfortran')
+        setenv("JULIA_PKGDIR", "{{workspace}}/julia")
 
 {{workspace}}/{{python}}:
   virtualenv.managed:
@@ -45,7 +46,6 @@ python_packages:
   pip.installed:
     - bin_env: {{workspace}}/{{python}}/bin/pip
     - upgrade: True
-    - use_wheel: True
     - pkgs: 
       - pip
       - numpy
@@ -54,7 +54,7 @@ python_packages:
       - pandas
       - matplotlib
       - jupyter
-      - ipython
+      - ipython[all]
       - ipdb
     - env_vars:
         VIRTUAL_ENV: {{workspace}}/{{python}}
@@ -70,5 +70,36 @@ Azure/batch-shipyard:
     - target: {{workspace}}/src/shipyard
     - email: m.davezac@imperial.ac.uk
 
+{{workspace}}/julia/v0.6/REQUIRE:
+  file.managed:
+    - contents: |
+        FillArrays
+        OhMyREPL
+        Revise
+        DataFrame
+        Plots
+        StatPlots
+        Glob
+        Query
+        RDatasets
+        PyPlot
+        PlotlyJS
+        GR
+        UnicodePlots
+    - makedirs: True
+
+julia metadir:
+    github.latest:
+      - name: JuliaLang/METADATA.jl
+      - email: m.davezac@imperial.ac.uk
+      - target: {{workspace}}/julia/v0.6/METADATA
+      - force_fetch: True
+
+update julia packages:
+  cmd.run:
+    - name: julia -e "Pkg.resolve()"
+    - env:
+      - JULIA_PKGDIR: {{workspace}}/julia
+      - JUPYTER: {{workspace}}/bin/jupyter
 
 {{tmuxinator(project, root="%s/src/%s" % (workspace, project))}}
