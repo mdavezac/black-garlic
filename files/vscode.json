@@ -1,0 +1,38 @@
+{
+    "terminal.integrated.fontFamily": "FuraCode Nerd Font",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/*.o": true,
+        "**/.idea": true
+    },
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true
+    },
+    "vim.easymotion": true,
+    "editor.lineNumbers": "relative",
+    "workbench.colorTheme": "Atom One Dark",
+    "workbench.iconTheme": "vscode-icons",
+    //"clangd.path": "/usr/local/Cellar/llvm/5.0.0/bin/clangd",
+    "editor.formatOnType": false,
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "[cpp]": {
+        "editor.autoIndent": true
+    },
+    "editor.renderWhitespace": "none",
+    "vim.textwidth": 100,
+    "window.zoomLevel": 1,
+    "editor.wordWrap": "on",
+    "julia.executablePath": "/Applications/Julia-0.6.app/Contents/Resources/julia/bin/julia",
+    "editor.fontFamily": "FuraCode Nerd Font",
+    "editor.fontLigatures": true,
+    "terminal.external.osxExec": "iTerm.app",
+    "terminal.integrated.shell.osx": "/usr/local/bin/zsh",
+    "cmake-tools-helper.cmake_download_path": "/Users/mdavezac/.vscode/extensions/maddouri.cmake-tools-helper-0.2.1/cmake_download",
+    "editor.multiCursorModifier": "ctrlCmd",
+}
