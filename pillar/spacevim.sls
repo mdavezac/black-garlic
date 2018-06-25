@@ -8,6 +8,7 @@ spacevim:
         spacevimdir: {{spacevimdir}}
         configdir: {{configdir}}
         virtualenvs_dir: {{virtdirs}}
+
     layers:
         - VersionControl
         - colorscheme
@@ -33,6 +34,7 @@ spacevim:
         - ["udalov/kotlin-vim", {"on_ft": "kotlin"}]
         - ["saltstack/salt-vim", {"on_ft": "sls"}]
         - ["stephpy/vim-yaml", {"on_ft": ["yaml", "sls"]}]
+        - ["autozimu/LanguageClient-neovim", {"on_ft": ["cpp"], "branch": "next", "do": "bash install.sh"}]
         - keith/investigate.vim
         - wellle/targets.vim
         - sjl/gundo.vim
@@ -43,7 +45,6 @@ spacevim:
             let $LANG="en_GB.UTF-8"
             let g:spacevim_default_indent = 4
             let g:spacevim_max_column = 100
-            let mapleader=","
             let g:spacevim_enable_vimfiler_welcome = 1
             let g:spacevim_enable_debug = 1
 
@@ -57,9 +58,6 @@ spacevim:
             set ignorecase
 
             let g:spacevim_plugin_bundle_dir = "{{configdir}}/cache"
-
-            let g:spacevim_unite_leader = 'T'
-            let g:spacevim_windows_leader = 'Y'
 
             noremap gw gw
             noremap gq gq

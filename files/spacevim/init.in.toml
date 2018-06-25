@@ -1,0 +1,31 @@
+[options]
+    colorscheme = "gruvbox"
+    background = "dark"
+    guicolors = true
+    statusline_separator = "curve"
+    statusline_inactive_separator = "arrow"
+    buffer_index_type = 4
+    enable_tabline_filetype_icon = true
+    statusline_display_mode = false
+    enable_cursor_column = 0
+    default_index = 4
+    max_column = 100
+    plugin_bundle_dir = "{{configdir}}/cache"
+
+{% for layer in layers %}
+[[layer]]
+{%-  if layer is iterable and layer is not string %}
+{%-    for name, options in layer.items() %}
+  name = '{{name}}'
+{%-       for key, value in options.items() %}
+{%-  if value is string %}
+  {{key}} = '{{value}}'
+{%-  else %}
+  {{key}} = {{value}}
+{%   endif %}
+{%-      endfor %}
+{%-    endfor %}
+{%-  else %}
+  name = '{{layer}}'
+{%   endif %}
+{% endfor %}
