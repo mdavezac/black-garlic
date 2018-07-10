@@ -102,6 +102,7 @@ spacevim:
 
         theme: |
             let g:spacevim_colorscheme_bg = "dark"
+            let g:spacevim_colorscheme = "onedark"
             let g:spacevim_enable_os_fileformat_icon = 1
             let g:spacevim_statusline_separator = "curve"
             let g:spacevim_statusline_left_sections = ["winr", "major mode", "syntax checking"]
@@ -213,6 +214,7 @@ spacevim:
                 let g:neomake_cpp_enabled_makers+=["clangtidy"]
             end
 
+            let g:chromatica#enable_at_startup = 0
             let g:chromatica#libclang_path="{{salt['cmd.shell']('brew --prefix llvm')}}/lib/libclang.dylib"
             let g:clamp_libclang_file= g:chromatica#libclang_path
             let g:clamp_autostart = 0
