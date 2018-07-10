@@ -43,7 +43,7 @@ spacevim:
             let $LANG="en_GB.UTF-8"
             let g:spacevim_default_indent = 4
             let g:spacevim_max_column = 100
-            let mapleader=","
+            "" let mapleader=","
             let g:spacevim_enable_vimfiler_welcome = 1
             let g:spacevim_enable_debug = 1
 
@@ -58,8 +58,8 @@ spacevim:
 
             let g:spacevim_plugin_bundle_dir = "{{configdir}}/cache"
 
-            let g:spacevim_unite_leader = 'T'
-            let g:spacevim_windows_leader = 'Y'
+            "" let g:spacevim_unite_leader = 'T'
+            "" let g:spacevim_windows_leader = 'Y'
 
             noremap gw gw
             noremap gq gq
@@ -102,7 +102,6 @@ spacevim:
 
         theme: |
             let g:spacevim_colorscheme_bg = "dark"
-            let g:spacevim_colorscheme = "onedark"
             let g:spacevim_enable_os_fileformat_icon = 1
             let g:spacevim_statusline_separator = "curve"
             let g:spacevim_statusline_left_sections = ["winr", "major mode", "syntax checking"]
@@ -217,6 +216,16 @@ spacevim:
             let g:chromatica#libclang_path="{{salt['cmd.shell']('brew --prefix llvm')}}/lib/libclang.dylib"
             let g:clamp_libclang_file= g:chromatica#libclang_path
             let g:clamp_autostart = 0
+
+        fortran: |
+            let g:neomake_fortran_enabled_makers=[]
+            let g:neoformat_fortran_fprettify = {
+               \ 'exe': 'fprettify',
+               \ 'args': ['--silent', '--indent', &shiftwidth],
+               \ 'stdin': 1
+               \ }
+            let g:neoformat_enabled_fortran = ['fprettify']
+            let g:investigate_dash_for_fortran="fortran"
 
         sls: |
             let g:investigate_dash_for_sls="salt"

@@ -55,6 +55,7 @@ python2 neovim packages:
       - yapf
       - jedi
       - black
+      - fprettify
 
 python3 neovim packages:
   pip.installed:
