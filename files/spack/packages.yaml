@@ -38,4 +38,11 @@ packages:
     curl:
       paths:
         curl@system: /usr/
+    opengl:
+      paths:
+        opengl@4.1: /usr/X11R6
+      buildable: False
+    perl:
+      paths:
+        perl@5.26.2: /usr/local/opt/perl
       buildable: False
