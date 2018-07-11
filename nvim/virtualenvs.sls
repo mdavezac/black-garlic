@@ -8,7 +8,6 @@
 {{virtdirs}}/python2:
   virtualenv.managed:
     - python: /usr/bin/python2.7
-    - use_wheel: True
     - pip_upgrade: True
     - pip_pkgs: &pip_packages
       - pip
@@ -26,7 +25,6 @@
 {{virtdirs}}/python3:
   virtualenv.managed:
     - venv_bin: python3 -m venv
-    - use_wheel: True
     - pip_upgrade: True
     - pip_pkgs: *pip_packages
 
