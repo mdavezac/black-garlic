@@ -41,7 +41,6 @@ mpi4py:
   pip.installed:
     - bin_env: {{workspace}}/{{python}}
     - pip_upgrade: True
-    - use_wheel: False
     - env_vars:
         CC: {{salt['spack.package_prefix']('openmpi %gcc')}}/bin/mpicc
 
