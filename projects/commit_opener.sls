@@ -17,4 +17,3 @@ commit_opener:
       - ipython[all]
     - bin_env: {{prefix}}
     - upgrade: True
-    - use_wheel: True

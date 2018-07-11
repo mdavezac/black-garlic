@@ -26,7 +26,6 @@ java and android:
   virtualenv.managed:
     - python: {{python_exec}}
     - pip_upgrade: True
-    - use_wheel: True
     - pip_pkgs: [pip, numpy, scipy, pytest, pandas, matplotlib, jupyter]
 
 cryptalabs/Eagle:

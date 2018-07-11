@@ -7,7 +7,6 @@
 ImperialCollegeLondon/StarMuse:
   github.latest:
     - target: {{workspace}}/src/{{project}}
-    - email: m.davezac@imperial.ac.uk
     - update_head: False
 
 {{project}} modulefile:
@@ -32,7 +31,6 @@ python_packages:
   pip.installed:
     - bin_env: {{workspace}}/{{python}}/bin/pip
     - upgrade: True
-    - use_wheel: True
     - pkgs: 
       - pip
       - numpy
@@ -55,6 +53,7 @@ shebang_issue:
         sed -i '' 's#CondimentStation/build/salt-env#workspaces/{{project}}/{{python}}#' \
             $(ag -l Condiment) 
     - unless: test ${\#$(ag -l Condiment)} -eq 0
+    - shell: /bin/bash
 
 {{project}} vimrc:
   funwith.add_vimrc:

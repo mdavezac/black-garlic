@@ -8,18 +8,15 @@
 {{project}} spack packages:
   spack.installed:
     - pkgs: &spack_packages
-      - GreatCMakeCookoff
-      - eigen %{{compiler}} -fftw -scotch -metis -suitesparse -mpfr
       - openmpi %gcc
       - openblas %gcc
       - netlib-scalapack %gcc ^openmpi ^openblas
-      - espresso %gcc +mpi -elpa +scalapack ^netlib-scalapack ^openmpi ^openblas
+      - quantum-espresso %gcc +mpi -elpa +scalapack ^netlib-scalapack ^openmpi ^openblas
 
 {{workspace}}/{{python}}:
   virtualenv.managed:
     - python: {{python_exec}}
     - pip_upgrade: True
-    - use_wheel: True
     - pip_pkgs:
       - pip
       - numpy
@@ -51,7 +48,6 @@ mpi4py:
 pylada/{{project}}:
   github.latest:
     - target: {{workspace}}/src/{{project}}
-    - email: mdavezac@gmail.com
     - unless: test -d {{workspace}}/src/{{project}}/.git
 
 {{project}} modulefile:
@@ -91,22 +87,22 @@ pylada/{{project}}:
 {{salt['funwith.workspace']("data")}}:
   file.directory
 
-{{salt['funwith.workspace']("data")}}/espresso:
-  archive.extracted:
-    - archive_format: tar
-    - source_hash: md5=aefb62ca035b57eb4680ab851219b20b
-    - source: http://www.quantum-espresso.org/wp-content/uploads/upf_files/upf_files.tar
-
-
-{{salt['funwith.workspace']("data")}}/espresso/INPUT_PW.html:
-  file.managed:
-    - source: http://www.quantum-espresso.org/wp-content/uploads/Doc/INPUT_PW.html
-    - source_hash: md5=6afe69467c39dcc76156cfc5c6667039
-    - makedirs: True
-
-{{salt['funwith.workspace']("data")}}/espresso/INPUT_PH.html:
-  file.managed:
-    - source: http://www.quantum-espresso.org/wp-content/uploads/Doc/INPUT_PH.html
-    - source_hash: md5=a3d484716851b7478138a2c164915f0c
+# {{salt['funwith.workspace']("data")}}/espresso:
+#   archive.extracted:
+#     - archive_format: tar
+#     - source_hash: md5=aefb62ca035b57eb4680ab851219b20b
+#     - source: http://www.quantum-espresso.org/wp-content/uploads/upf_files/upf_files.tar
+# 
+# 
+# {{salt['funwith.workspace']("data")}}/espresso/INPUT_PW.html:
+#   file.managed:
+#     - source: http://www.quantum-espresso.org/wp-content/uploads/Doc/INPUT_PW.html
+#     - source_hash: md5=6afe69467c39dcc76156cfc5c6667039
+#     - makedirs: True
+# 
+# {{salt['funwith.workspace']("data")}}/espresso/INPUT_PH.html:
+#   file.managed:
+#     - source: http://www.quantum-espresso.org/wp-content/uploads/Doc/INPUT_PH.html
+#     - source_hash: md5=a3d484716851b7478138a2c164915f0c
 
 {{tmuxinator(project, root="%s/src/%s" % (workspace, project), file="crystal/__init__.py")}}

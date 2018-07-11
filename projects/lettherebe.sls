@@ -18,7 +18,6 @@ LetThereBe/lettherebe-web:
   virtualenv.managed:
     - python: {{python_exec}}
     - pip_upgrade: True
-    - use_wheel: True
     - pip_pkgs: [pip, numpy, scipy, pytest, matplotlib, jupyter, flask, flask-dance]
 
 

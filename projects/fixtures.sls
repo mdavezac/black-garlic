@@ -13,7 +13,6 @@
                   - nvim {{file}}
                 - build:
                   - funwith {{project}}
-                  - fc -R
 {%- endmacro %}
 
 {% macro jedi(bin_env) -%}

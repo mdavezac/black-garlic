@@ -16,7 +16,6 @@ julia metadir:
     github.latest:
       - name: JuliaLang/METADATA.jl
       - target: {{workspace}}/julia/v0.5/METADATA
-      - email: mdavezac@gmail.com
       - force_fetch: True
 
 
@@ -31,7 +30,6 @@ update julia packages:
 mdavezac/SIMeasurements.jl:
   github.latest:
     - target: {{workspace}}/julia/v0.5/SIMeasurements
-    - email: mdavezac@gmail.com
     - update_head: False
 
 {{project}} modulefile:

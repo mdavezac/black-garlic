@@ -37,7 +37,6 @@
 julia metadir:
     github.latest:
       - name: JuliaLang/METADATA.jl
-      - email: mdavezac@gmail.com
       - target: {{workspace}}/julia/v0.6/METADATA
       - force_fetch: True
 
@@ -46,24 +45,20 @@ julia metadir:
 mdavezac/Crystals.jl:
   github.latest:
     - target: {{workspace}}/julia/v0.6/Crystals
-    - email: mdavezac@gmail.com
     - update_head: False
 
 mdavezac/UnitfulHartree.jl:
   github.latest:
     - target: {{workspace}}/julia/v0.6/UnitfulHartree
-    - email: mdavezac@gmail.com
     - update_head: False
 
 mdavezac/LibXC.jl:
   github.latest:
       - target: {{workspace}}/julia/v0.6/LibXC
-      - email: mdavezac@gmail.com
 
 mdavezac/AtomicDFT.jl:
   github.latest:
     - target: {{workspace}}/julia/v0.6/AtomicDFT
-    - email: mdavezac@gmail.com
 
 update julia packages:
   cmd.run:
@@ -77,7 +72,6 @@ update julia packages:
   virtualenv.managed:
     - python: {{python_exec}}
     - pip_upgrade: True
-    - use_wheel: True
     - pip_pkgs: [pip, numpy, scipy, pytest, pandas, cython, matplotlib, jupyter, ase, neovim]
 
 
@@ -101,7 +95,6 @@ update julia packages:
 {{project}} gpaw:
   gitlab.latest:
     - name: gpaw/gpaw
-    - email: mdavezac@gmail.com
     - target: {{workspace}}/src/gpaw
     - force_fetch: True
 

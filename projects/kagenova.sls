@@ -38,7 +38,6 @@ mono:
 julia metadir:
     github.latest:
       - name: JuliaLang/METADATA.jl
-      - email: mdavezac@gmail.com
       - target: {{workspace}}/julia/v0.6/METADATA
       - force_fetch: True
 
@@ -49,19 +48,16 @@ julia metadir:
 kagenova/kage-core:
   gitlab.latest:
     - target: {{workspace}}/src/kage-core
-    - email: mdavezac@gmail.com
     - update_head: False
 
 kagenova/kage-move:
   gitlab.latest:
     - target: {{workspace}}/src/kage-move
-    - email: mdavezac@gmail.com
     - update_head: False
 
 # kagenova/kage-render:
 #   github.latest:
 #     - target: {{workspace}}/src/kage-render
-#     - email: mdavezac@gmail.com
 #     - update_head: False
 
 

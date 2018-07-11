@@ -5,7 +5,6 @@
 mdavezac/{{project}}:
   gitlab.latest:
     - target: {{workspace}}
-    - email: mdavezac@gmail.com
     - update_head: False
 
 {{project}} modulefile:

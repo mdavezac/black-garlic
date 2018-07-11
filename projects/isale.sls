@@ -5,6 +5,7 @@
 {% set workspace = salt["funwith.workspace"](project) %}
 {% set compiler = salt["spack.compiler"]() %}
 {% set mpilib = salt["pillar.get"]("mpi", "openmpi")  %}
+{% set brewprefix = "/usr/local/opt/" %}
 
 bear:
   pkg.installed
@@ -19,7 +20,6 @@ spack packages:
 ImperialCollegeLondon/isale-dev:
   github.latest:
     - target: {{workspace}}/src/{{project}}
-    - email: m.davezac@imperial.ac.uk
     - update_head: False
 
 {{project}} modulefile:
@@ -39,7 +39,6 @@ python_packages:
   pip.installed:
     - bin_env: {{workspace}}/{{python}}/bin/pip
     - upgrade: True
-    - use_wheel: True
     - pkgs: 
       - pip
       - numpy
@@ -53,14 +52,6 @@ python_packages:
       - ipdb
     - env_vars:
         VIRTUAL_ENV: {{workspace}}/{{python}}
-
-shebang_issue:
-  cmd.run:
-    - cwd: {{workspace}}/{{python}}/bin
-    - name: |
-        sed -i '' 's#CondimentStation/build/salt-env#workspaces/{{project}}/{{python}}#' \
-            $(ag -l Condiment) 
-    - unless: test ${\#$(ag -l Condiment)} -eq 0
 
 {{project}} vimrc:
   funwith.add_vimrc:
@@ -81,6 +72,6 @@ shebang_issue:
         -std=c++11
         -Wall
         -I{{workspace}}/src/{{project}}/build
-        -I{{salt['cmd.shell']('brew --prefix vtk')}}/include/vtk-8.1
+        -I{{brewprefix}}/vtk/include/vtk-8.1
 
 {{tmuxinator(project, root="%s/src/%s" % (workspace, project), layout="main-horizontal")}}

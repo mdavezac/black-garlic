@@ -5,7 +5,6 @@
 mdavezac/hunter:
   github.latest:
     - target: {{workspace}}/src/hunter
-    - email: mdavezac@gmail.com
     - update_head: False
 
 {{project}} vimrc:
