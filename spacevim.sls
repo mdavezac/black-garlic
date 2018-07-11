@@ -3,11 +3,11 @@
 {% set spacevimdir = config.get('spacevimdir', grains['userhome'] + '/.SpaceVim') %}
 {% set configdir =  spacevimdir + ".d" %}
 {% set virtdirs = config.get('virtualenvs_dir', configdir + "/virtualenvs") %}
+{% set brewprefix = "/usr/local/opt/" %}
 
 SpaceVim/SpaceVim.git:
   github.latest:
     - target: {{spacevimdir}}
-    - email: mdavezac@gmail.com
 
 cquery:
   pkg.installed:
@@ -37,9 +37,8 @@ cquery:
 
 python2 neovim packages:
   pip.installed:
-    - bin_env: {{salt['cmd.shell']('brew --prefix python2')}}/bin/pip2
+    - bin_env: {{breprefix}}/python@2/bin/pip2
     - upgrade: True
-    - use_wheel: True
     - pkgs: &pip_packages
       - pip
       - numpy
@@ -59,8 +58,7 @@ python2 neovim packages:
 
 python3 neovim packages:
   pip.installed:
-    - bin_env: {{salt['cmd.shell']('brew --prefix python3')}}/bin/pip3
-    - use_wheel: True
+    - bin_env: {{brewprefix}}/python/bin/pip3
     - upgrade: True
     - pkgs: *pip_packages
 
@@ -81,4 +79,4 @@ neovim:
 
 /usr/local/lib/python3.6/site-packages/llvm.pth:
   file.managed:
-    - contents: {{salt['cmd.shell']('brew --prefix llvm')}}/lib/python2.7/site-packages
+    - contents: {{brewprefix}}/llvm/lib/python2.7/site-packages

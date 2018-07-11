@@ -10,5 +10,6 @@ base:
     - apps
     - python
     - nvim
-    - spacevim
+    - fish
     - zsh
+    - spacevim
