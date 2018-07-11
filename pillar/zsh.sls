@@ -1,4 +1,5 @@
 {% set fundir = salt['funwith.defaults']('modulefiles') %}
+{% set brewprefix = "/usr/local/opt/" %}
 zsh:
   envvar:
       DEFAULT_USER: $(whoami)
@@ -34,7 +35,7 @@ zsh:
       completions: |
           fpath=(
               {{salt['pillar.get']('zsh:salted', grains['userhome'] + "/.salted")}}/completions
-              {{salt['cmd.shell']('brew --prefix hub')}}/zsh/site-functions/
+              {{brewprefix}}/zsh/site-functions/
               $fpath
           )
           autoload -U compinit && compinit -U

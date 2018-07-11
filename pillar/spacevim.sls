@@ -2,6 +2,7 @@
 {% set configdir = spacevimdir + ".d" %}
 {% set backupdir = configdir + "/backup" %}
 {% set virtdirs = configdir + "/virtualenvs" %}
+{% set brewprefix = "/usr/local/opt/" %}
 
 spacevim:
     config:
@@ -37,6 +38,7 @@ spacevim:
         - wellle/targets.vim
         - sjl/gundo.vim
         - vim-scripts/ShaderHighLight
+        - dag/vim-fish
 
     settings:
         global: |
@@ -79,8 +81,8 @@ spacevim:
             let g:gissues_show_errors=1
 
         python_plugins: |
-            let g:python_host_prog = "{{salt['cmd.shell']('brew --prefix python2')}}/bin/python2"
-            let g:python3_host_prog = "{{salt['cmd.shell']('brew --prefix python3')}}/bin/python3"
+            let g:python_host_prog = "{{brewprefix}}/python@2/bin/python2"
+            let g:python3_host_prog = "{{brewprefix}}/python/bin/python3"
             let g:deoplete#auto_complete_delay = 150
             let g:spacevim_buffer_index_type = 1
             let g:neomake_python_enabled_makers = ["flake8", "pylint"]
@@ -208,14 +210,14 @@ spacevim:
               \ }
             if !empty(findfile("compile_commands.json", $CURRENT_FUN_WITH_DIR . "/build"))
               let g:neomake_cpp_clangtidy_maker = { 
-                \ "exe": "{{salt['cmd.shell']('brew --prefix llvm')}}/bin/clang-tidy",
+                \ "exe": "{{brewprefix}}/llvm/bin/clang-tidy",
                 \ "args": ["-p", $CURRENT_FUN_WITH_DIR . "/build"]
                 \ }
                 let g:neomake_cpp_enabled_makers+=["clangtidy"]
             end
 
             let g:chromatica#enable_at_startup = 0
-            let g:chromatica#libclang_path="{{salt['cmd.shell']('brew --prefix llvm')}}/lib/libclang.dylib"
+            let g:chromatica#libclang_path="{{brewprefix}}/llvm/lib/libclang.dylib"
             let g:clamp_libclang_file= g:chromatica#libclang_path
             let g:clamp_autostart = 0
 
@@ -240,7 +242,7 @@ spacevim:
 
         cquery: |
             let g:LanguageClient_serverCommands = {
-            \ 'cpp': ['{{salt['cmd.shell']('brew --prefix cquery')}}/bin/cquery', '--log-file=/tmp/cq.log']                                                                                                                                                                              
+            \ 'cpp': ['{{brewprefix}}/cquery/bin/cquery', '--log-file=/tmp/cq.log']                                                                                                                                                                              
             \ }
             let g:LanguageClient_loadSettings = 1
             let g:LanguageClient_settingsPath = '{{spacevimdir}}/cquery.json'
