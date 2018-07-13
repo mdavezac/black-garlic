@@ -32,7 +32,7 @@
     "editor.fontFamily": "FuraCode Nerd Font",
     "editor.fontLigatures": true,
     "terminal.external.osxExec": "iTerm.app",
-    "terminal.integrated.shell.osx": "/usr/local/bin/zsh",
+    "terminal.integrated.shell.osx": "/usr/local/bin/fish",
     "cmake-tools-helper.cmake_download_path": "/Users/mdavezac/.vscode/extensions/maddouri.cmake-tools-helper-0.2.1/cmake_download",
     "editor.multiCursorModifier": "ctrlCmd",
     "python.autoComplete.addBrackets": false,
