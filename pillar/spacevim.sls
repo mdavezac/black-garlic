@@ -246,3 +246,5 @@ spacevim:
             \ }
             let g:LanguageClient_loadSettings = 1
             let g:LanguageClient_settingsPath = '{{spacevimdir}}/cquery.json'
+
+        use_bash_term: set shell=/bin/bash
