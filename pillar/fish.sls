@@ -8,7 +8,7 @@ fish:
       EDITOR: nvim
       VISUAL: nvim
       CLICOLOR: 1
-      TERM: xterm-256color
+      TERM: screen-256color
       EVENT_NOKQUEUE: 1 # problem with tmux
       LC_ALL: en_GB.UTF-8
       LANG: en_GB.UTF-8
@@ -34,11 +34,13 @@ fish:
           if test -e $filename
               set -x GITHUB_API_TOKEN (cat $filename)
           end
+      bobtheglyph: |
+          set -g pypy_glyp 'p'
   completions:
       funwith: -fa "(ls {{fundir}}/*.lua | xargs basename -s .lua)"
   plugins: |
-      rafaelrinaldi/pure
       edc/bass
+  function_files: ['funwith', 'nomorefun', 'cdproject', 'fish_prompt']
   functions:
       spack: |
           function spack --description "HPC package manager"

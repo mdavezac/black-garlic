@@ -29,7 +29,7 @@ fish:
         end
 {%- endfor %}
 
-{% for name in ['funwith', 'nomorefun', 'cdproject'] %}
+{% for name in salt['pillar.get']('fish:function_files', []) %}
 {{home}}/.config/fish/functions/{{name}}.fish:
   file.managed:
     - makedirs: True
