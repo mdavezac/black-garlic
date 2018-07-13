@@ -37,7 +37,7 @@ cquery:
 
 python2 neovim packages:
   pip.installed:
-    - bin_env: {{breprefix}}/python@2/bin/pip2
+    - bin_env: {{brewprefix}}/python@2/bin/pip2
     - upgrade: True
     - pkgs: &pip_packages
       - pip
