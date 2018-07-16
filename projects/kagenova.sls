@@ -14,6 +14,9 @@ dotnet-sdk:
 mono:
   pkg.installed
 
+docker-credential-helper:
+  pkg.installed
+
 {{project}} spack packages:
   spack.installed:
     - pkgs: &spack_packages
@@ -65,7 +68,6 @@ kagenova/kage-move:
   virtualenv.managed:
     - python: {{python_exec}}
     - pip_upgrade: True
-    - use_wheel: True
     - pip_pkgs: [pip, numpy, scipy, pytest, pandas, matplotlib, jupyter]
 
 update julia packages:
@@ -99,7 +101,7 @@ update julia packages:
   funwith.add_vimrc:
     - name: {{workspace}}
     - makeprg: "cmake\\ --build\\ $CURRENT_FUN_WITH_DIR/build/"
-    - width: 100
+    - width: 80
     - tabs: 2
 
 {{tmuxinator(project, root="%s/src/kage-core" % workspace, layout="main-horizontal")}}
