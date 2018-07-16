@@ -6,6 +6,7 @@ mdavezac/{{project}}:
   gitlab.latest:
     - target: {{workspace}}
     - update_head: False
+    - email: mdavezac@gmail.com
 
 {{project}} modulefile:
   funwith.modulefile:
