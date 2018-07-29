@@ -242,9 +242,15 @@ spacevim:
 
         cquery: |
             let g:LanguageClient_serverCommands = {
-            \ 'cpp': ['{{brewprefix}}/cquery/bin/cquery', '--log-file=/tmp/cq.log']                                                                                                                                                                              
+            \ 'cpp': ['{{brewprefix}}/cquery/bin/cquery', '--log-file=/tmp/cq.log',
+            \         '--init={"cacheDirectory":"/var/cquery/"}']                                                                                                                                                                              
             \ }
             let g:LanguageClient_loadSettings = 1
             let g:LanguageClient_settingsPath = '{{spacevimdir}}/cquery.json'
 
-        use_bash_term: set shell=/bin/bash
+        fish: |
+            # autocmd BufRead,BufNewFile *.fish set filetype=fish
+            #  autocmd FileType fish compiler fish
+            if &shell =~# 'fish$'
+                set shell=bash
+            endif
