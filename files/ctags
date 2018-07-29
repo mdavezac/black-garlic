@@ -9,6 +9,7 @@
 --exclude=chromium*
 --exclude=build
 --exclude=.externalNativeBuild
+--exclude=.vscode
 
 --langdef=julia
 --langmap=julia:.jl
