@@ -9,13 +9,27 @@ spacevim:
         spacevimdir: {{spacevimdir}}
         configdir: {{configdir}}
         virtualenvs_dir: {{virtdirs}}
+    inits:
+        langc: |
+            [[layers]]
+            name="lang#c"
+            clang_executable = "{{brewprefix}}/llvm/bin/clang"
+            libclang_path = "{{brewprefix}}/llvm/lib/libclang.dylib"
+            [layers.clang_std]
+            c= "c11"
+            cpp= "c++17"
+        autocomplete: |
+            [[layers]]
+            name="autocomplete"
+            auto-completion-return-key-behavior = "complete"
+            auto-completion-tab-key-behavior = "cycle"
+
     layers:
         - VersionControl
         - colorscheme
         - tmux
         - incsearch
         - tags
-        - lang#c
         - lang#csharp
         - lang#tmux
         - lang#vim
@@ -26,29 +40,52 @@ spacevim:
         - tools#screensaver
         - debug
         - lsp
-        - autocomplete
         - denite
         - git
+        - colorscheme
 
     plugins:
-        - ["udalov/kotlin-vim", {"on_ft": "kotlin"}]
-        - ["saltstack/salt-vim", {"on_ft": "sls"}]
-        - ["stephpy/vim-yaml", {"on_ft": ["yaml", "sls"]}]
+        - "udalov/kotlin-vim":
+            on_ft: "kotlin"
+        - "saltstack/salt-vim": 
+            on_ft: "sls"
+        - "stephpy/vim-yaml": 
+            on_ft: ["yaml", "sls"]
         - keith/investigate.vim
         - wellle/targets.vim
         - sjl/gundo.vim
         - vim-scripts/ShaderHighLight
         - dag/vim-fish
 
-    settings:
-        global: |
-            let $LANG="en_GB.UTF-8"
-            let g:spacevim_default_indent = 4
-            let g:spacevim_max_column = 100
-            "" let mapleader=","
-            let g:spacevim_enable_vimfiler_welcome = 1
-            let g:spacevim_enable_debug = 1
+    options:
+        colorscheme: "onedark"
+        background: "dark"
+        colorscheme_bg: "dark"
+        guicolors: true
+        statusline_separator: "curve"
+        statusline_inactive_separator: "arrow"
+        buffer_index_type: 4
+        enable_tabline_filetype_icon: true
+        statusline_display_mode: false
+        enable_cursor_column: 0
+        default_index: 4
+        max_column: 100
+        statusline_left_sections: ["winr", "major mode", "syntax checking"]
 
+    before:
+        global: let $LANG="en_GB.UTF-8"
+
+        python: |
+            let g:python_host_prog = "{{brewprefix}}/python@2/bin/python2"
+            let g:python3_host_prog = "{{brewprefix}}/python/bin/python3"
+
+        fish: |
+            if &shell =~# 'fish$'
+                set shell=bash
+            endif
+
+    after:
+        global: |
             let g:EditorConfig_exclude_patterns = ["fugitive://.*", "scp://.*"]
 
             set noswapfile
@@ -57,11 +94,6 @@ spacevim:
 
             set smartcase
             set ignorecase
-
-            let g:spacevim_plugin_bundle_dir = "{{configdir}}/cache"
-
-            "" let g:spacevim_unite_leader = 'T'
-            "" let g:spacevim_windows_leader = 'Y'
 
             noremap gw gw
             noremap gq gq
@@ -76,13 +108,12 @@ spacevim:
                 set undodir={{backupdir}}
                 set undofile
             endif
+
         gissues: |
             let g:github_access_token=$GITHUB_API_TOKEN
             let g:gissues_show_errors=1
 
         python_plugins: |
-            let g:python_host_prog = "{{brewprefix}}/python@2/bin/python2"
-            let g:python3_host_prog = "{{brewprefix}}/python/bin/python3"
             let g:deoplete#auto_complete_delay = 150
             let g:spacevim_buffer_index_type = 1
             let g:neomake_python_enabled_makers = ["flake8", "pylint"]
@@ -101,15 +132,6 @@ spacevim:
             let g:clang2_placeholder_next = ""
             let g:clang2_placeholder_prev = ""
 
-
-        theme: |
-            let g:spacevim_colorscheme_bg = "dark"
-            let g:spacevim_colorscheme = "onedark"
-            let g:spacevim_enable_os_fileformat_icon = 1
-            let g:spacevim_statusline_separator = "curve"
-            let g:spacevim_statusline_left_sections = ["winr", "major mode", "syntax checking"]
-            let g:spacevim_enable_tabline_filetype_icon = 1
-            let g:spacevim_enable_cursorcolumn = 0
 
         funwith: |
             if $CURRENT_FUN_WITH_HOMEDIR != ""
@@ -247,10 +269,3 @@ spacevim:
             \ }
             let g:LanguageClient_loadSettings = 1
             let g:LanguageClient_settingsPath = '{{spacevimdir}}/cquery.json'
-
-        fish: |
-            # autocmd BufRead,BufNewFile *.fish set filetype=fish
-            #  autocmd FileType fish compiler fish
-            if &shell =~# 'fish$'
-                set shell=bash
-            endif

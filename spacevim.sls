@@ -17,21 +17,6 @@ cquery:
     file.managed:
         - content: { "initializationOptions": { "cacheDirectory": "/tmp/cquery" } }
 
-{{configdir}}/init.vim:
-    file.managed:
-        - source: salt://files/spacevim/init.in.vim
-        - context:
-            configdir: {{configdir}}
-            layers: {{salt['pillar.get']('spacevim:layers', [])}}
-            settings:
-{%-     for key, value in settings.items() %}
-                {{key}}: |
-                    {{value | indent(20)}}
-{%-     endfor %}
-            plugins: {{salt['pillar.get']('spacevim:plugins', [])}}
-        - makedirs: True
-        - template: jinja
-
 {{virtdirs}}:
   file.directory
 
@@ -80,3 +65,42 @@ neovim:
 /usr/local/lib/python3.6/site-packages/llvm.pth:
   file.managed:
     - contents: {{brewprefix}}/llvm/lib/python2.7/site-packages
+
+{{configdir}}/init.toml:
+    file.managed:
+        - source: salt://files/spacevim/init.in.toml
+        - context:
+            configdir: {{configdir}}
+            layers: {{salt['pillar.get']('spacevim:layers', [])}}
+            options: {{salt['pillar.get']('spacevim:options', {})}}
+            settings:
+{%-     for key, value in settings.items() %}
+                {{key}}: |
+                    {{value | indent(20)}}
+{%-     endfor %}
+            plugins: {{salt['pillar.get']('spacevim:plugins', [])}}
+          inits:
+{%-     for key, value in salt['pillar.get']('spacevim:inits', {}).items() %}
+                {{key}}: |
+                    {{value | indent(20)}}
+{%-     endfor %}
+        - makedirs: True
+        - template: jinja
+
+{{configdir}}/autoload/localcustomconfig.vim:
+    file.managed:
+        - makedirs: True
+        - contents: |
+            func! localcustomconfig#before() abort
+{%-    for key, value in salt['pillar.get']('spacevim:before', {}).items() %}
+                "" {{key}}
+                {{value | indent(16)}}
+{%-    endfor %}
+            endf
+
+            func! localcustomconfig#after() abort
+{%-    for key, value in salt['pillar.get']('spacevim:after', {}).items() %}
+                "" {{key}}
+                {{value | indent(16)}}
+{%-    endfor %}
+            endf
