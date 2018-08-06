@@ -281,7 +281,7 @@ spacevim:
             let g:LanguageClient_settingsPath = '{{spacevimdir}}/cquery.json'
 
         slime: |
-            if $TMUS != ""
+            if $TMUX != ""
               let g:slime_target = "tmux"
               let g:slime_paste_file = tempname()
               let g:slime_default_config = {
@@ -291,4 +291,4 @@ spacevim:
             endif
 
         vim-test:
-            let test#strategy = "neomake"
+            let g:test#strategy = "neomake"

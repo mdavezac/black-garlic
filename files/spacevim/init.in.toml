@@ -35,12 +35,19 @@ name = "{{name}}"
 
 {% for plugin in plugins %}
 [[custom_plugins]]
-{%-  if plugin is iterable and plugin is not string %}
+{%-  if plugin is string %}
+  name = "{{plugin}}"
+{%   else %}
 {%-    for name, options in plugin.items() %}
   name = "{{name}}"
+{%-       for key, value in options.items() %}
+{%-         if value is string %}
+  {{key}} = "{{value}}"
+{%-         else %}
+  {{key}} = {{value}}
+{%-         endif %}
+{%-      endfor %}
 {%-    endfor %}
-{%   else %}
-  name = "{{plugin}}"
 {%   endif %}
 {%- endfor %}
 
