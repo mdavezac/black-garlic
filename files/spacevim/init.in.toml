@@ -1,0 +1,46 @@
+[options]
+{%- for key, value in options.items() %}
+{%-   if value is string %}
+    {{key}} = "{{value}}"
+{%-   else %}
+    {{key}} = {{value | lower}}
+{%-   endif %}
+{%- endfor %}
+    plugin_bundle_dir = "{{configdir}}/cache"
+    bootstrap_before = "localcustomconfig#before"
+    bootstrap_after = "localcustomconfig#after"
+
+{% for layer in layers %}
+[[layers]]
+{%-  if layer is iterable and layer is not string %}
+{%-    for name, options in layer.items() %}
+name = "{{name}}"
+{%-      for key, value in options.items() %}
+{%-        if value is string %}
+  {{key}} = "{{value}}"
+{%-        else %}
+  {{key}} = {{value}}
+{%         endif %}
+{%-      endfor %}
+{%-    endfor %}
+{%-  else %}
+  name = "{{layer}}"
+{%   endif %}
+{%- endfor -%}
+
+{%- for key, value in inits.items() %}
+# {{key}}
+{{value}}
+{%- endfor %}
+
+{% for plugin in plugins %}
+[[custom_plugins]]
+{%-  if plugin is iterable and plugin is not string %}
+{%-    for name, options in plugin.items() %}
+  name = "{{name}}"
+{%-    endfor %}
+{%   else %}
+  name = "{{plugin}}"
+{%   endif %}
+{%- endfor %}
+

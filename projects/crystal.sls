@@ -11,15 +11,15 @@
   spack.installed:
     - pkgs: &spack_packages
       - hdf5 -fortran -cxx -mpi %{{compiler}}
-      - {{mpilib}} %{{compiler}}
+      # - {{mpilib}} %{{compiler}}
       # - libxc
-{% if compiler == "intel" %}
-      - openblas {{openmp}} %intel
-      - netlib-scalapack %intel  ^{{mpilib}} ^openblas {{openmp}}
-{% else %}
-      - openblas %{{compiler}} threads=none
-      - netlib-scalapack %{{compiler}}  ^{{mpilib}} ^openblas threads=none
-{% endif %}
+      # {% if compiler == "intel" %}
+      #       - openblas {{openmp}} %intel
+      #       - netlib-scalapack %intel  ^{{mpilib}} ^openblas {{openmp}}
+      # {% else %}
+      #       - openblas %{{compiler}} threads=none
+      #       - netlib-scalapack %{{compiler}}  ^{{mpilib}} ^openblas threads=none
+      # {% endif %}
 
 {{workspace}}/julia/v0.6/REQUIRE:
   file.managed:

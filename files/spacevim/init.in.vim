@@ -1,11 +1,6 @@
 let g:spacevim_enable_debug = 1
 let g:spacevim_realtime_leader_guide = 1
 
-" layers
-{%- for layer in layers %}
-    call SpaceVim#layers#load('{{layer}}')
-{%- endfor %}
-
 " extra plugins
 let g:spacevim_custom_plugins = [
 {%- for plugin in plugins %}
@@ -22,4 +17,3 @@ let g:spacevim_custom_plugins = [
 " {{key}}
 {{text}}
 {% endfor %}
-

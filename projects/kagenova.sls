@@ -1,4 +1,5 @@
 {% from "projects/fixtures.sls" import tmuxinator %}
+{% set brewprefix = "/usr/local/opt/" %}
 {% set compiler = salt["spack.compiler"]() %}
 {% set python = salt["spack.python"]() %}
 {% set python_exec = salt["spack.python_exec"]() %}
@@ -92,7 +93,7 @@ update julia packages:
 {{workspace}}/.cppconfig:
   file.managed:
     - contents: |
-        -std=c++14
+        -std=c++17
         -I{{workspace}}/src/kage-core
         -isystem{{workspace}}/src/kage-core/build/external/include
         -I{{workspace}}/src/kage-core/build/include
@@ -103,5 +104,10 @@ update julia packages:
     - makeprg: "cmake\\ --build\\ $CURRENT_FUN_WITH_DIR/build/"
     - width: 80
     - tabs: 2
+    - footer: |
+            let g:LanguageClient_serverCommands = {
+            \ 'cpp': ['{{brewprefix}}/cquery/bin/cquery', '--log-file=/tmp/cq.log',
+            \         '--init={"cacheDirectory":"{{workspace}}/var/cquery//src/{{project}}/.vscode/cquery_cached_index"}']                                                                                                                                                                              
+            \ }
 
 {{tmuxinator(project, root="%s/src/kage-core" % workspace, layout="main-horizontal")}}
