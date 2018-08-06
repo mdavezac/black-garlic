@@ -58,6 +58,7 @@ shebang_issue:
 {{project}} vimrc:
   funwith.add_vimrc:
     - name: {{workspace}}
+    - width: 81
     - footer: |
        let g:neomake_python_enabled_makers = ["flake8"]
        let g:github_upstream_issues = 1
