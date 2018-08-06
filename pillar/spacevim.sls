@@ -39,6 +39,9 @@ spacevim:
         - sjl/gundo.vim
         - vim-scripts/ShaderHighLight
         - dag/vim-fish
+        - ["jpalardy/vim-slime", {"on_ft": ["python", "julia"]}]
+        - ["tpope/vim-dispatch", {"on_ft": ["python"]}]
+        - ["janko-m/vim-test", {"on_ft": ["python"]}]
 
     settings:
         global: |
@@ -66,6 +69,9 @@ spacevim:
             noremap gw gw
             noremap gq gq
 
+            set expandtab
+            let g:neoformat_run_all_formatters = 1
+
         shader: autocmd BufNewFile,BufRead *.cginc set filetype=cg
 
         persistent undo: |
@@ -86,6 +92,7 @@ spacevim:
             let g:deoplete#auto_complete_delay = 150
             let g:spacevim_buffer_index_type = 1
             let g:neomake_python_enabled_makers = ["flake8", "pylint"]
+            let g:neoformat_enabled_python = ["yapf", "isort", "docformatter"]
             if has("python3")
                 let g:ctrlp_map = ""
                 nnoremap <silent> <C-p> :Denite file_rec<CR>
@@ -248,3 +255,16 @@ spacevim:
             let g:LanguageClient_settingsPath = '{{spacevimdir}}/cquery.json'
 
         use_bash_term: set shell=/bin/bash
+
+        slime: |
+            if $TMUS != ""
+              let g:slime_target = "tmux"
+              let g:slime_paste_file = tempname()
+              let g:slime_default_config = {
+              \ "socket_name": split($TMUX, ",")[0],
+              \ "target_pane": ":.1"}
+              let g:slime_python_ipython = 1
+            endif
+
+        vim-test:
+            let test#strategy = "neomake"
