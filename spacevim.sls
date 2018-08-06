@@ -55,6 +55,8 @@ python2 neovim packages:
       - jedi
       - black
       - fprettify
+      - isort
+      - docformatter
 
 python3 neovim packages:
   pip.installed:
