@@ -17,6 +17,11 @@ cquery:
     file.managed:
         - content: { "initializationOptions": { "cacheDirectory": "/tmp/cquery" } }
 
+/var/cquery:
+  file.directory:
+    - user: mdavezac
+
+
 {{virtdirs}}:
   file.directory
 

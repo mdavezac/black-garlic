@@ -249,9 +249,10 @@ spacevim:
             end
 
             let g:chromatica#enable_at_startup = 0
+            let g:clamp_autostart = 0
             let g:chromatica#libclang_path="{{brewprefix}}/llvm/lib/libclang.dylib"
             let g:clamp_libclang_file= g:chromatica#libclang_path
-            let g:clamp_autostart = 0
+            let g:clamp_libclang_path= g:chromatica#libclang_path
 
         fortran: |
             let g:neomake_fortran_enabled_makers=[]
