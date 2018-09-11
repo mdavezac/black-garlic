@@ -7,7 +7,7 @@
 --exclude=*/compiled
 --exclude=google-chrome*
 --exclude=chromium*
---exclude=build
+--exclude=*build*/
 --exclude=.externalNativeBuild
 --exclude=.vscode
 
