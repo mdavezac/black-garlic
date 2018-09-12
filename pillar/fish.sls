@@ -22,6 +22,7 @@ fish:
       cmake: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
       issues: hub browse -- issues
       pulls: hub browse -- pulls
+      cat: bat
   settings:
       setup_funwith: |
           source (eval $SPACK_ROOT/bin/spack location -i lmod)/lmod/lmod/init/fish
