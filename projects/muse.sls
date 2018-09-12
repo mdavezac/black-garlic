@@ -43,6 +43,10 @@ python_packages:
       - ipython
       - ipdb
       - click
+      - yapf
+      - xarray
+      - isort
+      - docformatter
     - env_vars:
         VIRTUAL_ENV: {{workspace}}/{{python}}
 
@@ -58,7 +62,8 @@ shebang_issue:
 {{project}} vimrc:
   funwith.add_vimrc:
     - name: {{workspace}}
-    - width: 81
+    - width: 80
+    - tabs: 4
     - footer: |
        let g:neomake_python_enabled_makers = ["flake8"]
        let g:github_upstream_issues = 1
