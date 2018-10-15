@@ -174,7 +174,7 @@ spacevim:
 
         julia: |
             let g:latex_to_unicode_auto = 1
-            let g:latex_to_unicode_file_types = ["julia", "markdown", "kotlin", "cpp"]
+            let g:latex_to_unicode_file_types = ["julia", "markdown", "kotlin", "cpp", "python"]
             let g:latex_to_unicode_tab = 1
             let g:julia_syntax_highlight_deprecated=1
             let g:latex_to_unicode_suggestions=0
