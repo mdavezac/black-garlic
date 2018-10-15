@@ -236,7 +236,7 @@ spacevim:
               \ "args": compiler_flags
               \ }
             let g:neomake_cpp_gcc_maker= {
-              \ "exe": "/usr/local/bin/g++-7",
+              \ "exe": "/usr/local/bin/g++-8",
               \ "cwd": $CURRENT_FUN_WITH_DIR . "/build",
               \ "args": compiler_flags
               \ }
