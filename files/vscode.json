@@ -34,11 +34,78 @@
     "cmake-tools-helper.cmake_download_path": "/Users/mdavezac/.vscode/extensions/maddouri.cmake-tools-helper-0.2.1/cmake_download",
     "editor.multiCursorModifier": "ctrlCmd",
     "python.autoComplete.addBrackets": false,
+    "latex-workshop.view.pdf.viewer": "tab",
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "lualatex",
+            "tools": [
+                "lualatex"
+            ]
+        },
+        {
+            "name": "latexmk",
+            "tools": [
+                "latexmk"
+            ]
+        },
+        {
+            "name": "pdflatex -> bibtex -> pdflatex*2",
+            "tools": [
+                "pdflatex",
+                "bibtex",
+                "pdflatex",
+                "pdflatex"
+            ]
+        }
+    ],
+    "latex-workshop.latex.tools": [
+        {
+            "name": "lualatex",
+            "command": "latexmk",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-pdf",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "latexmk",
+            "command": "latexmk",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-pdf",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "pdflatex",
+            "command": "pdflatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "bibtex",
+            "command": "bibtex",
+            "args": [
+                "%DOCFILE%"
+            ]
+        }
+    ],
+    "latex-workshop.latexindent.path": "/usr/local//texlive/2018/texmf-dist/scripts/latexindent/latexindent.pl",
+    "vsicons.dontShowNewVersionMessage": true,
     "breadcrumbs.enabled": true,
     "python.jediEnabled": true,
     "python.unitTest.autoTestDiscoverOnSaveEnabled": true,
     "python.unitTest.pyTestEnabled": true,
     "julia.enableTelemetry": false,
     "python.formatting.provider": "black",
-    julia.executablePath": "/usr/local/bin/julia",
+    "julia.executablePath": "/usr/local/bin/julia",
 }
