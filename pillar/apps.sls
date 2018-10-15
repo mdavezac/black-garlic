@@ -20,7 +20,6 @@ cask_apps:
   - virtualbox
   - virtualbox-extension-pack
   - miniconda
-  - bat
 
 brew_apps:
   - gcc
@@ -58,6 +57,8 @@ brew_apps:
   - docker
   - gdb
   - cgdb
+  - bat
+  - ripgrep
 
 {% else %}
 repos:
