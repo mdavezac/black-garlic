@@ -108,4 +108,6 @@
     "julia.enableTelemetry": false,
     "python.formatting.provider": "black",
     "julia.executablePath": "/usr/local/bin/julia",
+    "debug.toolBarLocation": "docked",
+    "debug.inlineValues": true,
 }

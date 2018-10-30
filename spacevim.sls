@@ -47,6 +47,7 @@ python2 neovim packages:
       - fprettify
       - isort
       - docformatter
+      - mypy
 
 python3 neovim packages:
   pip.installed:

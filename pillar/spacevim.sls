@@ -43,6 +43,7 @@ spacevim:
         - denite
         - git
         - colorscheme
+        - github
 
     plugins:
         - keith/investigate.vim
@@ -120,12 +121,13 @@ spacevim:
 
         gissues: |
             let g:github_access_token=$GITHUB_API_TOKEN
+            let g:github_complete_api_token=$GITHUB_API_TOKEN
             let g:gissues_show_errors=1
 
         python_plugins: |
             let g:deoplete#auto_complete_delay = 150
             let g:spacevim_buffer_index_type = 1
-            let g:neomake_python_enabled_makers = ["flake8", "pylint"]
+            let g:neomake_python_enabled_makers = ["flake8", "pylint", "mypy"]
             let g:neoformat_enabled_python = ["yapf", "isort", "docformatter"]
             if has("python3")
                 let g:ctrlp_map = ""
@@ -293,3 +295,6 @@ spacevim:
 
         vim-test:
             let g:test#strategy = "neomake"
+
+        ignore-stuff:
+          let g:spacevim_wildignore='/tmp/*,*.so,*.swp,*.zip,*.class,tags,*.jpg,.ttf,*.TTF,*.png,*/target/*,.git,.svn,.hg,.DS_Store,*.svg,.tox/*,.vscode/*,.mypy_cache/*'
