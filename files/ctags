@@ -10,6 +10,8 @@
 --exclude=*build*/
 --exclude=.externalNativeBuild
 --exclude=.vscode
+--exclude=.tox
+--exclude=.mypy_cache
 
 --langdef=julia
 --langmap=julia:.jl
