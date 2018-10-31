@@ -39,6 +39,7 @@ fish:
           set -g pypy_glyp 'p'
   completions:
       funwith: -fa "(ls {{fundir}}/*.lua | xargs basename -s .lua)"
+      dotnet: --arguments '(dotnet complete (commandline -cp))'
   plugins: |
       edc/bass
   function_files: ['funwith', 'nomorefun', 'cdproject', 'fish_prompt']

@@ -65,7 +65,7 @@ spacevim:
             on_ft: ["python"]
 
     options:
-        colorscheme: "onedark"
+        colorscheme: "molokai"
         background: "dark"
         colorscheme_bg: "dark"
         guicolors: true
@@ -293,8 +293,18 @@ spacevim:
               let g:slime_python_ipython = 1
             endif
 
-        vim-test:
+        vim-test: |
             let g:test#strategy = "neomake"
 
         ignore-stuff:
           let g:spacevim_wildignore='/tmp/*,*.so,*.swp,*.zip,*.class,tags,*.jpg,.ttf,*.TTF,*.png,*/target/*,.git,.svn,.hg,.DS_Store,*.svg,.tox/*,.vscode/*,.mypy_cache/*'
+        cake: |
+            au BufRead,BufNewFile *.cake		setfiletype cs
+        csharp: |
+            let g:investigate_dash_for_cs=".NET"
+            let g:neoformat_enabled_cs = ["uncrustify"]
+            let g:neoformat_cs_uncrustify = {
+            \   "exe": "uncrustify",
+            \   "args": ["-c", ".uncrustify.cfg", "--replace", "--no-backup"],
+            \   "stdin": 1
+            \ }

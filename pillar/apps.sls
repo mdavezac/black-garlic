@@ -20,6 +20,9 @@ cask_apps:
   - virtualbox
   - virtualbox-extension-pack
   - miniconda
+  - bat
+  - dotnet
+  - dotnet-sdk
 
 brew_apps:
   - gcc
