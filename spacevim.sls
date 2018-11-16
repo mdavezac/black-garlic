@@ -48,6 +48,7 @@ python2 neovim packages:
       - isort
       - docformatter
       - mypy
+      - future
 
 python3 neovim packages:
   pip.installed:

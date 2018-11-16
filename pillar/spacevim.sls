@@ -58,7 +58,7 @@ spacevim:
         - stephpy/vim-yaml: 
             on_ft: ["yaml", "sls"]
         - jpalardy/vim-slime:
-            on_ft: ["python", "julia"]
+            on_ft: ["python", "julia", "markdown", "fish"]
         - tpope/vim-dispatch:
             on_ft: ["python"]
         - janko-m/vim-test:
@@ -190,6 +190,8 @@ spacevim:
             \ }
 
             let g:investigate_dash_for_julia="Julia"
+            au BufRead,BufNewFile *.jmd setfiletype markdown
+            au BufRead,BufNewFile *.mdw setfiletype markdown
 
         java: |
             if !empty(findfile(".clang-format", $CURRENT_FUN_WITH_DIR))
@@ -308,3 +310,4 @@ spacevim:
             \   "args": ["-c", ".uncrustify.cfg", "--replace", "--no-backup"],
             \   "stdin": 1
             \ }
+        color: highligh Normal guibg=black

@@ -12,7 +12,7 @@ fish:
       EVENT_NOKQUEUE: 1 # problem with tmux
       LC_ALL: en_GB.UTF-8
       LANG: en_GB.UTF-8
-      PATH: $PATH $HOME/.local/bin
+      PATH: $PATH $HOME/.local/bin /usr/local/miniconda3/bin
       SPACK_ROOT: {{spackdir}}
       MODULEPATH: "\"{{fundir}}:{{spackdir}}/share/spack/modules/darwin-highsierra-x86_64\""
   alias:
@@ -42,6 +42,7 @@ fish:
       dotnet: --arguments '(dotnet complete (commandline -cp))'
   plugins: |
       edc/bass
+      pipenv
   function_files: ['funwith', 'nomorefun', 'cdproject', 'fish_prompt']
   functions:
       spack: |

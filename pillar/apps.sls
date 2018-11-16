@@ -1,4 +1,3 @@
-{% if grains['os'] == "MacOS" %}
 cask_apps:
   - zotero
   - slack
@@ -20,7 +19,6 @@ cask_apps:
   - virtualbox
   - virtualbox-extension-pack
   - miniconda
-  - bat
   - dotnet
   - dotnet-sdk
 
@@ -62,53 +60,5 @@ brew_apps:
   - cgdb
   - bat
   - ripgrep
-
-{% else %}
-repos:
-  neovim:
-    - ppa: neovim-ppa/stable
-
-mint_apps:
-  - git
-  - build-essential
-  - python-dev
-  - python-virtualenv
-  - zsh
-  - zsh-lovers
-  - chromium-browser
-  - julia
-  - inkscape
-  - python
-  - python3
-  - linuxbrew-wrapper 
-  - lua
-  - lua-filesystem
-  - lua-posix
-  - lmod
-  - clang
-  - clang-format
-  - clang-tidy
-  - gfortran
-  - lldb
-  - neovim
-  - silversearcher-ag
-  - exuberant-ctags
-  - tmux
-  - tmuxinator
-  - virtualenv
-  - python3-virtualenv
-  - python-pip
-  - python3-pip
-  - xsel
-  - default-jdk
-  - default-jre
-  - android-sdk
-  - gradle
-  - qemu-kvm
-  - libvirt-bin
-  - ubuntu-vm-builder
-  - bridge-utils
-  - cmake
-  - libtool
-  - git-lfs
-{% endif %}
+  - pipenv
+  - bat
