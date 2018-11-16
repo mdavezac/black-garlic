@@ -64,3 +64,13 @@ fish:
   file.managed:
     - makedirs: True
     - contents_pillar: fish:plugins
+
+{{grains['userhome']}}/.ctags.d/all.ctags:
+  file.managed:
+    - source: salt://files/ctags
+    - makedirs: True
+
+{{grains['userhome']}}/.julia/config/startup.jl:
+  file.managed:
+    - source: salt://files/juliarc.jl
+    - makedirs: True

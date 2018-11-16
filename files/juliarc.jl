@@ -1,23 +1,26 @@
-let
-    condition = "CURRENT_FUN_WITH_HOMEDIR" ∈ keys(ENV) &&
-                "JULIA_PKGDIR" ∉ keys(ENV) &&
-                isdir(joinpath(ENV["CURRENT_FUN_WITH_HOMEDIR"],
-                                "julia", "v$(VERSION.major).$(VERSION.minor)"))
-
-    if condition
-        ENV["JULIA_PKGDIR"] = joinpath(ENV["CURRENT_FUN_WITH_HOMEDIR"],
-                                       "julia", "v$(VERSION.major).$(VERSION.minor)")
-    end
-    
-{%- for package in packages %}
-    Pkg.installed("{{package}}") !== nothing || Pkg.add("{{package}}")
-{%- endfor %}
-    Pkg.installed("OhMyREPL") !== nothing && using OhMyREPL
-end
-Pkg.installed("Revise") !== nothing && @schedule begin
+atreplinit() do REPL
+  schedule(@task begin
     sleep(0.1)
-    @eval begin 
-        using Revise
-        colorscheme!("Monokai24bit")
+    try
+      @eval using Revise
+    catch
+      @warn "Could not load Revise."
     end
+
+#    try
+#      @eval using Rebugger
+#      # Activate Rebugger's key bindings
+#      Rebugger.keybindings[:stepin] = "\e[17~"      # Add the keybinding F6 to step into a function.
+#      Rebugger.keybindings[:stacktrace] = "\e[18~"  # Add the keybinding F7 to capture a stacktrace.
+#      Rebugger.repl_init(REPL)
+#    catch
+#      @warn "Could not turn on Rebugger key bindings."
+#    end
+
+    try
+      @eval using OhMyREPL
+    catch
+      @warn "Could not load OhMyREPL."
+    end
+  end)
 end
