@@ -39,7 +39,6 @@ spacevim:
         - lang#xml
         - tools#screensaver
         - debug
-        - lsp
         - denite
         - git
         - colorscheme
@@ -129,11 +128,16 @@ spacevim:
             let g:spacevim_buffer_index_type = 1
             let g:neomake_python_enabled_makers = ["flake8", "pylint", "mypy"]
             let g:neoformat_enabled_python = ["yapf", "isort", "docformatter"]
+            let g:neoformat_python_docformatter = {
+                \ 'args': ['--wrap-descriptions', &textwidth - 8, '- '],
+                \ 'stdin': 1,
+                \ 'exe': 'docformatter'
+                \ }
             if has("python3")
                 let g:ctrlp_map = ""
                 nnoremap <silent> <C-p> :Denite file_rec<CR>
             endif
-            let g:investigate_dash_for_python="Python3,Pandas,SciPy,NumPy,Matplotlib"
+            let g:investigate_dash_for_python="Python3,Pandas,SciPy,NumPy,Matplotlib,pytest"
 
         investigate: |
             let g:investigate_dash_for_cmake="cmake"
@@ -276,14 +280,6 @@ spacevim:
 
         calendar: |
             let g:calendar_google_calendar=1
-
-        cquery: |
-            let g:LanguageClient_serverCommands = {
-            \ 'cpp': ['{{brewprefix}}/cquery/bin/cquery', '--log-file=/tmp/cq.log',
-            \         '--init={"cacheDirectory":"/var/cquery/"}']                                                                                                                                                                              
-            \ }
-            let g:LanguageClient_loadSettings = 1
-            let g:LanguageClient_settingsPath = '{{spacevimdir}}/cquery.json'
 
         slime: |
             if $TMUX != ""
