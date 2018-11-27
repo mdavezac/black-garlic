@@ -110,4 +110,7 @@
     "julia.executablePath": "/usr/local/bin/julia",
     "debug.toolBarLocation": "docked",
     "debug.inlineValues": true,
+    "window.nativeFullScreen": false,
+    "explorer.autoReveal": false,
+    "workbench.activityBar.visible": true,
 }
