@@ -13,7 +13,7 @@ bear:
 spack packages:
   spack.installed:
     - pkgs: &spack_packages
-      - vtk %{{compiler}} build_type="Debug" ^ hdf5~mpi ^netcdf ~mpi 
+      - vtk %{{compiler}} ~mpi ~haru ~opengl2 ^ hdf5~mpi ^netcdf ~mpi 
       - {{mpilib}} %{{compiler}}
 
 
