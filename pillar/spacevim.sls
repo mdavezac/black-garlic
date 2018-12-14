@@ -39,7 +39,8 @@ spacevim:
         - lang#xml
         - tools#screensaver
         - debug
-        - lsp
+        - lsp:
+            filetypes: ["cpp"]
         - denite
         - git
         - colorscheme
@@ -78,6 +79,7 @@ spacevim:
         default_index: 4
         max_column: 100
         statusline_left_sections: ["winr", "major mode", "syntax checking"]
+        disabled_plugins: ["Clamp"]
 
     before:
         global: let $LANG="en_GB.UTF-8"
@@ -253,10 +255,7 @@ spacevim:
             end
 
             let g:chromatica#enable_at_startup = 0
-            let g:clamp_autostart = 0
             let g:chromatica#libclang_path="{{brewprefix}}/llvm/lib/libclang.dylib"
-            let g:clamp_libclang_file= g:chromatica#libclang_path
-            let g:clamp_libclang_path= g:chromatica#libclang_path
 
         fortran: |
             let g:neomake_fortran_enabled_makers=[]
@@ -276,14 +275,6 @@ spacevim:
 
         calendar: |
             let g:calendar_google_calendar=1
-
-        cquery: |
-            let g:LanguageClient_serverCommands = {
-            \ 'cpp': ['{{brewprefix}}/cquery/bin/cquery', '--log-file=/tmp/cq.log',
-            \         '--init={"cacheDirectory":"/var/cquery/"}']                                                                                                                                                                              
-            \ }
-            let g:LanguageClient_loadSettings = 1
-            let g:LanguageClient_settingsPath = '{{spacevimdir}}/cquery.json'
 
         slime: |
             if $TMUX != ""
