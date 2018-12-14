@@ -14,7 +14,7 @@ fish:
       LANG: en_GB.UTF-8
       PATH: $PATH $HOME/.local/bin /usr/local/miniconda3/bin
       SPACK_ROOT: {{spackdir}}
-      MODULEPATH: "\"{{fundir}}:{{spackdir}}/share/spack/modules/darwin-highsierra-x86_64\""
+      MODULEPATH: "\"{{fundir}}:{{spackdir}}/share/spack/modules/darwin-{{grains['mac_version']}}-x86_64\""
   alias:
       vi: nvim
       vim: nvim
