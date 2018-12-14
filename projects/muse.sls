@@ -43,7 +43,7 @@ python_packages:
       - ipython
       - ipdb
       - click
-      - yapf
+      - black
       - xarray
       - isort
       - docformatter
@@ -66,6 +66,7 @@ shebang_issue:
     - tabs: 4
     - footer: |
        let g:neomake_python_enabled_makers = ["flake8"]
+       let g:neoformat_enabled_python = ["black", "isort", "docformatter"]
        let g:github_upstream_issues = 1
        let g:gutentags_ctags_exclude = [
           \ ".tox", "build", "packaging", "ReferenceMaterial\&Data"]
