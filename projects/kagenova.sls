@@ -6,45 +6,18 @@
 {% set project = sls.split(".")[-1] %}
 {% set workspace = salt["funwith.workspace"](project) %}
 
-unity:
-  cask.installed
-
-dotnet-sdk:
-  cask.installed
-
-mono:
-  pkg.installed
-
-docker-credential-helper:
-  pkg.installed
+{{project}} packages:
+  pkg.installed:
+    - pkgs:
+      - caskroom/cask/unity-hub
+      - caskroom/cask/dotnet-sdk
+      - mono
+      - docker-credential-helper
 
 {{project}} spack packages:
   spack.installed:
     - pkgs: &spack_packages
       - fftw %{{compiler}} -mpi
-
-{{workspace}}/julia/v0.6/REQUIRE:
-  file.managed:
-    - contents: |
-        DataFrames
-        Unitful
-        Documenter
-        DocStringExtensions
-        AxisArrays
-        Revise
-        OhMyREPL
-        ArgCheck
-        Lint
-        PkgDev
-        IterTools
-    - makedirs: True
-
-julia metadir:
-    github.latest:
-      - name: JuliaLang/METADATA.jl
-      - target: {{workspace}}/julia/v0.6/METADATA
-      - force_fetch: True
-
 
 {{workspace}}/src/:
   file.directory
@@ -54,10 +27,10 @@ kagenova/kage-core:
     - target: {{workspace}}/src/kage-core
     - update_head: False
 
-kagenova/kage-move:
-  gitlab.latest:
-    - target: {{workspace}}/src/kage-move
-    - update_head: False
+# kagenova/kage-move:
+#   gitlab.latest:
+#     - target: {{workspace}}/src/kage-move
+#     - update_head: False
 
 # kagenova/kage-render:
 #   github.latest:
@@ -65,18 +38,11 @@ kagenova/kage-move:
 #     - update_head: False
 
 
-{{workspace}}/{{python}}:
-  virtualenv.managed:
-    - python: {{python_exec}}
-    - pip_upgrade: True
-    - pip_pkgs: [pip, numpy, scipy, pytest, pandas, matplotlib, jupyter]
-
-update julia packages:
-  cmd.run:
-    - name: julia --startup-file=no -e "Pkg.resolve()"
-    - env:
-      - JULIA_PKGDIR: {{workspace}}/julia
-      - JUPYTER: {{workspace}}/{{python}}/bin/jupyter
+# {{workspace}}/{{python}}:
+#   virtualenv.managed:
+#     - python: {{python_exec}}
+#     - pip_upgrade: True
+#     - pip_pkgs: [pip, numpy, scipy, pytest, pandas, matplotlib, jupyter]
 
 
 {{project}} modulefile:
@@ -86,8 +52,6 @@ update julia packages:
     - workspace: {{workspace}}
     - virtualenv: {{workspace}}/{{python}}
     - cwd: {{workspace}}/src/kage-core
-    - footer: |
-        setenv("JULIA_PKGDIR", "{{workspace}}/julia")
 
 
 {{workspace}}/.cppconfig:
