@@ -49,7 +49,5 @@ ImperialCollegeLondon/BandedMatrices.jl:
     - name: {{project}}
     - workspace: {{workspace}}
     - cwd: {{workspace}}/src/{{project}}
-    - footer: |
-        setenv("JULIA_PROJTECT", "{{workspace}}/src/BlockBandedMatrices")
 
 {{tmuxinator(project, root="%s/src/%s" % (workspace, project), layout="main-horizontal")}}
