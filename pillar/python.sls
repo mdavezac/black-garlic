@@ -1,7 +1,38 @@
-python_pkgs:
-  - virtualenv
-  - flake8
-  - autopep8
-  - jedi
-  - neovim
-  - libclang-py3
+python:
+    three:
+      - pip
+      - numpy
+      - scipy
+      - pandas
+      - pytest
+      - cython
+      - jupyter
+      - neovim
+      - autopep8
+      - pylint
+      - frosted
+      - yapf
+      - jedi
+      - black
+      - fprettify
+      - isort
+      - docformatter
+      - mypy
+      - poetry
+    two:
+      - pip
+      - numpy
+      - scipy
+      - pandas
+      - pytest
+      - cython
+      - jupyter
+      - neovim
+      - autopep8
+      - pylint
+      - frosted
+      - yapf
+      - jedi
+      - isort
+      - docformatter
+      - future

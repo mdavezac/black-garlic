@@ -1,13 +1,14 @@
-{% if salt['pillar.get']('python_pkgs', None) is not none %}
+{% set brewprefix = "/usr/local/opt" %}
+{% if salt['pillar.get']('python:two', None) is not none %}
 python2 pkgs:
   pip.installed:
-    - bin_env: /usr/local/bin/pip2
-    - upgrade: True
-    - pkgs: {{salt['pillar.get']('python_pkgs', [])}}
+    - bin_env: {{brewprefix}}/python@2/bin/pip2
+    - pkgs: {{salt['pillar.get']('python:two', [])}}
+{% endif %}
 
+{% if salt['pillar.get']('python:three', None) is not none %}
 python3 pkgs:
   pip.installed:
-    - bin_env: /usr/local/bin/pip3
-    - upgrade: True
-    - pkgs: {{salt['pillar.get']('python_pkgs', [])}}
+    - bin_env: {{brewprefix}}/python@3/bin/pip3
+    - pkgs: {{salt['pillar.get']('python:three', [])}}
 {% endif %}

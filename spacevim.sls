@@ -25,37 +25,6 @@ cquery:
 {{virtdirs}}:
   file.directory
 
-python2 neovim packages:
-  pip.installed:
-    - bin_env: {{brewprefix}}/python@2/bin/pip2
-    - upgrade: True
-    - pkgs: &pip_packages
-      - pip
-      - numpy
-      - scipy
-      - pandas
-      - pytest
-      - cython
-      - jupyter
-      - neovim
-      - autopep8
-      - pylint
-      - frosted
-      - yapf
-      - jedi
-      - black
-      - fprettify
-      - isort
-      - docformatter
-      - mypy
-      - future
-
-python3 neovim packages:
-  pip.installed:
-    - bin_env: {{brewprefix}}/python/bin/pip3
-    - upgrade: True
-    - pkgs: *pip_packages
-
 # {{grains['userhome']}}/.Spacevim:
 #   file.symlink:
 #       - target: {{spacevimdir}}
