@@ -12,7 +12,7 @@ fish:
       EVENT_NOKQUEUE: 1 # problem with tmux
       LC_ALL: en_GB.UTF-8
       LANG: en_GB.UTF-8
-      PATH: $PATH $HOME/.local/bin /usr/local/miniconda3/bin
+      PATH: $PATH $HOME/.local/bin /usr/local/bin /usr/local/miniconda3/bin
       SPACK_ROOT: {{spackdir}}
       MODULEPATH: "\"{{fundir}}:{{spackdir}}/share/spack/modules/darwin-{{grains['mac_version']}}-x86_64\""
   alias:
