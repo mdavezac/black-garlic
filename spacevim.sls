@@ -9,33 +9,8 @@ SpaceVim/SpaceVim.git:
   github.latest:
     - target: {{spacevimdir}}
 
-cquery:
-  pkg.installed:
-    - options: [--HEAD]
-
-{{configdir}}/cquery.json:
-    file.managed:
-        - content: { "initializationOptions": { "cacheDirectory": "/tmp/cquery" } }
-
-/var/cquery:
-  file.directory:
-    - user: mdavezac
-
-
 {{virtdirs}}:
   file.directory
-
-# {{grains['userhome']}}/.Spacevim:
-#   file.symlink:
-#       - target: {{spacevimdir}}
-# 
-# {{grains['userhome']}}/.Spacevim.d:
-#   file.symlink:
-#       - target: {{configdir}}
-# 
-# {{grains['userhome']}}/.config/nvim:
-#     file.symlink:
-#       - target: {{spacevimdir}}
 
 neovim:
    gem.installed
@@ -44,38 +19,12 @@ neovim:
   file.managed:
     - contents: {{brewprefix}}/llvm/lib/python2.7/site-packages
 
+
 {{configdir}}/init.toml:
-    file.managed:
-        - source: salt://files/spacevim/init.in.toml
-        - context:
-            configdir: {{configdir}}
-            layers: {{salt['pillar.get']('spacevim:layers', [])}}
-            options: {{salt['pillar.get']('spacevim:options', {})}}
-            settings:
-{%-     for key, value in settings.items() %}
-                {{key}}: |
-                    {{value | indent(20)}}
-{%-     endfor %}
-            plugins: 
-{%-     for plugin in salt['pillar.get']('spacevim:plugins', []) %}
-{%        if plugin is string %}
-                - {{plugin}}
-{%        else %}
-{%-         for key, options in plugin.items() %}
-                - {{key}}:
-{%-           for name, value in options.items() %}
-                    {{name}}: {{value}}
-{%-           endfor %}
-{%-         endfor %}
-{%        endif %}
-{%-     endfor %}
-          inits:
-{%-     for key, value in salt['pillar.get']('spacevim:inits', {}).items() %}
-                {{key}}: |
-                    {{value | indent(20)}}
-{%-     endfor %}
-        - makedirs: True
-        - template: jinja
+  file.serialize:
+    - formatter: toml
+    - dataset_pillar: spacevim:init
+
 
 {{configdir}}/autoload/localcustomconfig.vim:
     file.managed:

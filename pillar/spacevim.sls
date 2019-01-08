@@ -5,6 +5,74 @@
 {% set brewprefix = "/usr/local/opt/" %}
 
 spacevim:
+    init:
+        options:
+            colorscheme: "molokai"
+            background: "dark"
+            colorscheme_bg: "dark"
+            guicolors: true
+            statusline_separator: "curve"
+            statusline_inactive_separator: "arrow"
+            buffer_index_type: 4
+            enable_tabline_filetype_icon: true
+            statusline_display_mode: false
+            enable_cursor_column: 0
+            default_indent: 4
+            max_column: 100
+            statusline_left_sections: ["winr", "major mode", "syntax checking"]
+            disabled_plugins: ["Clamp", "clamp"]
+        layers:
+            - name: VersionControl
+            - name: colorscheme
+            - name: tmux
+            - name: incsearch
+            - name: tags
+            - name: lang#csharp
+            - name: lang#tmux
+            - name: lang#vim
+            - name: lang#python
+            - name: lang#julia
+            - name: lang#toml
+            - name: lang#xml
+            - name: tools#screensaver
+            - name: debug
+            - name: lsp
+              filetypes: [c, cpp]
+              override_cmd:
+                cpp: ["{{brewprefix}}/llvm/bin/clangd"] 
+                c: ["{{brewprefix}}/llvm/bin/clangd"] 
+            - name: denite
+            - name: git
+            - name: colorscheme
+            - name: github
+            - name: lang#c
+              clang_executable: {{brewprefix}}/llvm/bin/clang
+              libclang_path: {{brewprefix}}/llvm/lib/libclang.dylib
+              clang_std:
+                c: c11
+                cpp: c++17
+            - name: autocomplete
+              auto-completion-return-key-behavior: complete
+              auto-completion-tab-key-behavior: cycle
+        plugins:
+            - name: keith/investigate.vim
+            - name: wellle/targets.vim
+            - name: sjl/gundo.vim
+            - name: vim-scripts/ShaderHighLight
+            - name: dag/vim-fish
+            - name: udalov/kotlin-vim
+              on_ft: kotlin
+            - name: saltstack/salt-vim
+              on_ft: sls
+            - name: stephpy/vim-yaml
+              on_ft: [yaml, sls]
+            - name: jpalardy/vim-slime
+              on_ft: ["python", "julia", "markdown", "fish"]
+            - name: tpope/vim-dispatch
+              on_ft: ["python"]
+            - name: janko-m/vim-test
+              on_ft: ["python"]
+
     config:
         spacevimdir: {{spacevimdir}}
         configdir: {{configdir}}
@@ -23,63 +91,6 @@ spacevim:
             name="autocomplete"
             auto-completion-return-key-behavior = "complete"
             auto-completion-tab-key-behavior = "cycle"
-
-    layers:
-        - VersionControl
-        - colorscheme
-        - tmux
-        - incsearch
-        - tags
-        - lang#csharp
-        - lang#tmux
-        - lang#vim
-        - lang#python
-        - lang#julia
-        - lang#toml
-        - lang#xml
-        - tools#screensaver
-        - debug
-        - lsp:
-            filetypes: ["cpp"]
-        - denite
-        - git
-        - colorscheme
-        - github
-
-    plugins:
-        - keith/investigate.vim
-        - wellle/targets.vim
-        - sjl/gundo.vim
-        - vim-scripts/ShaderHighLight
-        - dag/vim-fish
-        - udalov/kotlin-vim:
-            on_ft: "kotlin"
-        - saltstack/salt-vim: 
-            on_ft: "sls"
-        - stephpy/vim-yaml: 
-            on_ft: ["yaml", "sls"]
-        - jpalardy/vim-slime:
-            on_ft: ["python", "julia", "markdown", "fish"]
-        - tpope/vim-dispatch:
-            on_ft: ["python"]
-        - janko-m/vim-test:
-            on_ft: ["python"]
-
-    options:
-        colorscheme: "molokai"
-        background: "dark"
-        colorscheme_bg: "dark"
-        guicolors: true
-        statusline_separator: "curve"
-        statusline_inactive_separator: "arrow"
-        buffer_index_type: 4
-        enable_tabline_filetype_icon: true
-        statusline_display_mode: false
-        enable_cursor_column: 0
-        default_index: 4
-        max_column: 100
-        statusline_left_sections: ["winr", "major mode", "syntax checking"]
-        disabled_plugins: ["Clamp"]
 
     before:
         global: let $LANG="en_GB.UTF-8"
@@ -130,7 +141,7 @@ spacevim:
             let g:deoplete#auto_complete_delay = 150
             let g:spacevim_buffer_index_type = 1
             let g:neomake_python_enabled_makers = ["flake8", "pylint", "mypy"]
-            let g:neoformat_enabled_python = ["yapf", "isort", "docformatter"]
+            let g:neoformat_enabled_python = ["black", "isort", "docformatter"]
             let g:neoformat_python_docformatter = {
                 \ 'args': ['--wrap-descriptions', &textwidth - 8, '- '],
                 \ 'stdin': 1,
