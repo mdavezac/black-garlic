@@ -19,6 +19,7 @@ python:
       - docformatter
       - mypy
       - poetry
+      - conan
     two:
       - pip
       - numpy
